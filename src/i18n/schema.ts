@@ -1,20 +1,17 @@
+import { PREVIEW_TAB_IDS, type PreviewTabId } from "@/shared/tabs";
+
+export { PREVIEW_TAB_IDS };
+export type PreviewFeatureId = PreviewTabId;
+
 export const locales = ["en", "ko"] as const;
 
 export type Locale = (typeof locales)[number];
 
 export type NavItem = {
-  key: "company" | "solution" | "technology" | "contact";
+  key: string;
   label: string;
   href: string;
 };
-
-export type PreviewFeatureId =
-  | "projects"
-  | "agents"
-  | "chats"
-  | "usage"
-  | "spending"
-  | "billing";
 
 export type SiteDictionary = {
   meta: {
@@ -30,6 +27,8 @@ export type SiteDictionary = {
     talkToSales: string;
     home: string;
     bookDemo: string;
+    menuOpen: string;
+    menuClose: string;
   };
   theme: {
     light: string;
@@ -48,6 +47,7 @@ export type SiteDictionary = {
     secondaryCta: string;
     metrics: Array<{ value: string; label: string }>;
     previewFeatures: Array<{
+      // First entry becomes the default tab — order is load-bearing.
       id: PreviewFeatureId;
       label: string;
       summary: string;
@@ -100,13 +100,10 @@ export type SiteDictionary = {
     eyebrow: string;
     title: string;
     description: string;
-    cards: Array<{
-      index: string;
-      title?: string;
-      body?: string;
-      principles?: Array<{ title: string; body: string }>;
-      wide?: boolean;
-    }>;
+    cards: Array<
+      | { index: string; title: string; body: string; wide?: boolean }
+      | { index: string; principles: Array<{ title: string; body: string }>; wide?: boolean }
+    >;
   };
   contact: {
     eyebrow: string;
@@ -114,9 +111,6 @@ export type SiteDictionary = {
     body: string;
     primaryCta: string;
     secondaryCta: string;
-  };
-  footer: {
-    copyright: string;
   };
   productPage: {
     eyebrow: string;
@@ -133,5 +127,25 @@ export type SiteDictionary = {
     nextBody: string;
     primaryCta: string;
     secondaryCta: string;
+    gallery: {
+      workspaceLabel: string;
+      workspaceTitle: string;
+      workspaceBody: string;
+      workspaceAlt: string;
+      pricingLabel: string;
+      pricingTitle: string;
+      pricingBody: string;
+      pricingAlt: string;
+    };
+  };
+  mockupsPage: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    lede: string;
+    note: string;
+    primaryCta: string;
+    secondaryCta: string;
+    scenes: Array<{ eyebrow: string; title: string; body: string }>;
   };
 };

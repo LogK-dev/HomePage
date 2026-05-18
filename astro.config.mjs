@@ -11,7 +11,7 @@ const normalizeBase = (value) => {
 
 export default defineConfig({
   output: "static",
-  site: process.env.SITE_URL ?? 'https://www.logk.co.kr',
+  site: process.env.SITE_URL || 'https://www.logk.co.kr',
   base: normalizeBase(process.env.BASE_PATH),
   trailingSlash: "always",
   i18n: {
