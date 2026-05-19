@@ -139,6 +139,24 @@ export type SiteDictionary = {
       pricingAlt: string;
     };
   };
+  features: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    rows: Array<{
+      eyebrow: string;
+      title: string;
+      body: string;
+      bullets?: string[];
+    }>;
+    adminSection: {
+      eyebrow: string;
+      title: string;
+      description: string;
+      corp: { title: string; body: string; alt: string };
+      user: { title: string; body: string; alt: string };
+    };
+  };
   mockupsPage: {
     eyebrow: string;
     title: string;

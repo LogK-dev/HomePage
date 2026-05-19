@@ -1,6 +1,5 @@
 ---
 import LanguageSwitcher from "@/components/LanguageSwitcher.astro";
-import ThemeToggle from "@/components/ThemeToggle.astro";
 import type { Locale, SiteDictionary } from "@/i18n/schema";
 import { localizedPath } from "@/utils/i18n";
 
@@ -51,6 +50,7 @@ const isActive = (href: string): boolean => {
   >
     <span></span>
     <span></span>
+    <span></span>
   </button>
 
   <nav class="site-nav" data-nav>
@@ -72,10 +72,5 @@ const isActive = (href: string): boolean => {
 
   <div class="header-controls">
     <LanguageSwitcher label={dictionary.localeSwitcher.label} options={languageOptions} />
-    <ThemeToggle
-      label={dictionary.theme.toggleLabel}
-      lightLabel={dictionary.theme.light}
-      darkLabel={dictionary.theme.dark}
-    />
   </div>
 </header>

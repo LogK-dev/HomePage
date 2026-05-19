@@ -26,7 +26,7 @@ const ogLocaleAlt = locale === "ko" ? "en_US" : "ko_KR";
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="color-scheme" content="light dark" />
+    <meta name="color-scheme" content="light" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -57,17 +57,6 @@ const ogLocaleAlt = locale === "ko" ? "en_US" : "ko_KR";
     <meta name="twitter:description"      content={description} />
     <meta name="twitter:image"            content={ogImage} />
     <slot name="head" />
-    <script is:inline>
-      const storageKey = "logk-theme";
-      const storedTheme = localStorage.getItem(storageKey);
-      const resolvedTheme =
-        storedTheme === "light" || storedTheme === "dark"
-          ? storedTheme
-          : window.matchMedia("(prefers-color-scheme: dark)").matches
-            ? "dark"
-            : "light";
-      document.documentElement.dataset.theme = resolvedTheme;
-    </script>
   </head>
   <body>
     <div class="page-glow page-glow-left" aria-hidden="true"></div>

@@ -1,28 +1,7 @@
 <script>
-  const STORAGE_KEY = "logk-theme";
   let showcaseInterval: number | undefined;
   let revealObserver: IntersectionObserver | undefined;
   let counterObserver: IntersectionObserver | undefined;
-
-  const getPreferredTheme = (): "light" | "dark" => {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored === "light" || stored === "dark") {
-      return stored;
-    }
-
-    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-  };
-
-  const applyTheme = (theme: "light" | "dark", persist = true) => {
-    document.documentElement.dataset.theme = theme;
-    if (persist) {
-      localStorage.setItem(STORAGE_KEY, theme);
-    }
-
-    document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
-      button.setAttribute("aria-pressed", String(theme === "dark"));
-    });
-  };
 
   const syncHeaderState = () => {
     const header = document.querySelector<HTMLElement>("[data-header]");
@@ -239,7 +218,6 @@
 
   const initPage = () => {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    applyTheme(getPreferredTheme(), false);
     initMobileMenu();
     initShowcase(reducedMotion);
     initPricingToggle();
@@ -251,17 +229,6 @@
     });
   };
 
-  document.addEventListener("click", (event) => {
-    const target = event.target instanceof Element ? event.target : null;
-    const toggle = target?.closest("[data-theme-toggle]");
-    if (!toggle) {
-      return;
-    }
-
-    const nextTheme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
-    applyTheme(nextTheme);
-  });
-
   window.addEventListener(
     "scroll",
     () => {
@@ -269,15 +236,6 @@
     },
     { passive: true }
   );
-
-  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (event) => {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored === "light" || stored === "dark") {
-      return;
-    }
-
-    applyTheme(event.matches ? "dark" : "light", false);
-  });
 
   document.addEventListener("astro:page-load", initPage);
   initPage();

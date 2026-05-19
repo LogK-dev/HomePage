@@ -35,11 +35,11 @@ export const ko: SiteDictionary = {
     label: "언어"
   },
   hero: {
-    eyebrow: "멀티모델 AI 작업 공간",
-    title: "여러 AI 모델을",
-    titleAccent: "한 번에 쓰세요.",
+    eyebrow: "기업용 멀티 AI 플랫폼",
+    title: "여러 AI를, 조직에 맞게",
+    titleAccent: "안전하게 쓰세요.",
     lede:
-      "ChatGPT, Claude, Gemini를 오가며 복사하지 않아도 됩니다. 모델을 고르고, 예상 크레딧을 확인하고, 답변을 한 화면에서 비교하세요.",
+      "멀티 LLM 동시 위임, 개인정보 자동 비식별화, 조직 관리, 결재 워크플로까지 — AI 활용의 복잡함을 LogK 하나로 해결합니다.",
     primaryCta: "서비스 소개",
     secondaryCta: "요금제 보기",
     metrics: [
@@ -85,10 +85,12 @@ export const ko: SiteDictionary = {
     }
   },
   trust: [
-    "주요 AI 모델 지원",
+    "25+ AI 모델 지원",
     "실행 전 비용 확인",
-    "답변 비교와 집계",
-    "개인정보 비식별화"
+    "멀티 LLM 동시 위임",
+    "개인정보 자동 비식별화",
+    "결재 워크플로",
+    "기업 조직 관리"
   ],
   solution: {
     eyebrow: "솔루션",
@@ -290,6 +292,58 @@ export const ko: SiteDictionary = {
       pricingTitle: "사용량과 비용이 보이는 운영 화면",
       pricingBody: "가격을 별도의 표로 분리하지 않고 실제 운영 화면처럼 보여주어 크레딧 기반 결제를 더 쉽게 이해하게 합니다.",
       pricingAlt: "LogK pricing dashboard screenshot"
+    }
+  },
+  features: {
+    eyebrow: "핵심 기능",
+    title: "기업 AI 활용에 필요한 모든 것",
+    description: "모델 위임부터 개인정보 보호, 조직 관리, 결재 워크플로까지 — LogK 하나로 해결합니다.",
+    rows: [
+      {
+        eyebrow: "개인정보 보호",
+        title: "프롬프트 전송 전, 민감정보를 자동으로 가립니다",
+        body: "이름·전화번호·이메일·주민등록번호·계좌번호 등 9가지 개인정보 유형을 외부 AI 서버로 전송하기 전에 자동 탐지·비식별화합니다. OCR을 통해 이미지·PDF 내 민감정보도 처리하며, 원본은 저장하지 않습니다.",
+        bullets: [
+          "NER + 정규식 + sLLM 조합으로 정확하게 탐지",
+          "이미지·PDF OCR 포함 9가지 유형 지원",
+          "원본 미저장 — 비식별화 결과만 보관"
+        ]
+      },
+      {
+        eyebrow: "결재 워크플로",
+        title: "AI 사용 요청을 조직이 직접 승인합니다",
+        body: "관리자가 설정한 정책에 따라 민감한 AI 요청을 결재 라인에 올릴 수 있습니다. 승인·거부 이력이 남아 AI 사용 감사(audit)가 가능하며, 조직의 AI 거버넌스를 체계적으로 운영할 수 있습니다.",
+        bullets: [
+          "대기·승인·거부 상태 실시간 확인",
+          "결재 이력 전체 보관",
+          "감사(audit) 로그 지원"
+        ]
+      },
+      {
+        eyebrow: "이미지 생성 비교",
+        title: "여러 AI의 이미지 결과를 나란히 확인합니다",
+        body: "동일한 프롬프트로 생성된 이미지를 ChatGPT, Gemini, Grok 등 여러 AI 서비스에서 나란히 비교합니다. 가장 원하는 결과를 빠르게 선택하고, 프롬프트를 수정해 반복 비교할 수 있습니다.",
+        bullets: [
+          "여러 AI 이미지 생성 결과를 동시에 비교",
+          "프롬프트 수정 후 즉시 재비교",
+          "원하는 결과를 한 번에 선택"
+        ]
+      }
+    ],
+    adminSection: {
+      eyebrow: "조직 관리",
+      title: "LLM 정책과 멤버를 조직 단위로 관리합니다",
+      description: "관리자는 허용 LLM 모델을 직접 선택하고, 멤버별 활성화 여부와 권한을 한 화면에서 설정합니다. 팀 규모가 커져도 관리 부담이 늘지 않습니다.",
+      corp: {
+        title: "기업 관리",
+        body: "허용 LLM 모델 및 기업 정책 설정",
+        alt: "selecAI 기업 관리 화면 — LLM 모델 정책 설정"
+      },
+      user: {
+        title: "유저 관리",
+        body: "멤버 활성화·역할 권한 제어",
+        alt: "selecAI 유저 관리 화면 — 멤버 활성화 및 권한 설정"
+      }
     }
   },
   mockupsPage: {

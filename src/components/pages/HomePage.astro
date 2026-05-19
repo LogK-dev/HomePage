@@ -13,15 +13,26 @@ const { locale, dictionary } = Astro.props;
 const servicePath = `${localizedPath(locale)}#service`;
 const pricingPath = localizedPath(locale, "pricing");
 const languageOptions = getLanguageOptions(locale);
-const productPreviewBase = `${import.meta.env.BASE_URL}product-preview/`;
+const base = import.meta.env.BASE_URL;
+const mockupBase = `${base}assets/selecAI_mockup/`;
+const productPreviewBase = `${base}product-preview/`;
 const previewFeatures = dictionary.hero.previewFeatures;
 const previewJsSrc = `${productPreviewBase}product-preview.js${import.meta.env.PROD ? `?v=${Date.now()}` : ""}`;
-const gallery = dictionary.productPage.gallery;
+const f = dictionary.features;
+
+/* asset paths paired with feature rows */
+const rowAssets = [
+  { src: `${mockupBase}selecAI_private_masking.png`, type: "image" as const, reverse: false },
+  { src: `${mockupBase}selecAI_prompt_pay.png`,      type: "image" as const, reverse: true  },
+  { src: `${mockupBase}selecAI_image_gen.mov`,       type: "video" as const, reverse: false },
+];
 ---
 
 <Header locale={locale} dictionary={dictionary} languageOptions={languageOptions} />
 
 <main id="top">
+
+  <!-- ── Hero ──────────────────────────────────────────────────────────── -->
   <section class="hero section">
     <div class="hero-copy" data-reveal>
       <p class="eyebrow">{dictionary.hero.eyebrow}</p>
@@ -46,7 +57,20 @@ const gallery = dictionary.productPage.gallery;
       </ul>
     </div>
 
-    <div class="hero-preview" data-preview-area data-reveal>
+    <!-- Hero visual: multi-delegate screen recording -->
+    <div class="hero-visual" data-reveal>
+      <video
+        src={`${mockupBase}selecAI_multi_delegate.mov`}
+        autoplay
+        muted
+        loop
+        playsinline
+        aria-label="여러 AI 채팅 이력을 한 화면에서 확인하는 데모"
+      ></video>
+    </div>
+
+    <!-- Product preview — code preserved, visually disabled -->
+    <div class="hero-preview" aria-hidden="true" style="display:none" data-preview-area>
       <div class="preview-switcher" data-preview-switcher aria-label="Product feature tabs">
         {previewFeatures.map((feature, index) => (
           <button
@@ -59,7 +83,6 @@ const gallery = dictionary.productPage.gallery;
           </button>
         ))}
       </div>
-
       <div class="preview-feature-copy" data-preview-feature-copy>
         {previewFeatures.map((feature, index) => (
           <article class:list={["preview-feature-panel", { "is-active": index === 0 }]} data-preview-feature-panel={feature.id}>
@@ -69,7 +92,6 @@ const gallery = dictionary.productPage.gallery;
           </article>
         ))}
       </div>
-
       <div class="product-preview-mount">
         <div data-product-preview data-locale={locale} data-feature={previewFeatures[0].id} data-product-url={servicePath}>
           <div class="product-preview-fallback">
@@ -79,48 +101,10 @@ const gallery = dictionary.productPage.gallery;
         </div>
       </div>
       <script is:inline type="module" src={previewJsSrc}></script>
-      <script is:inline>
-        const initPreviewSwitchers = () => {
-          document.querySelectorAll("[data-preview-switcher]").forEach((switcher) => {
-            if (switcher.dataset.previewSwitcherBound === "true") {
-              return;
-            }
-
-            switcher.dataset.previewSwitcherBound = "true";
-            const previewArea = switcher.closest("[data-preview-area]") ?? document;
-            const buttons = Array.from(switcher.querySelectorAll("[data-preview-feature]"));
-            const panels = Array.from(previewArea.querySelectorAll("[data-preview-feature-panel]"));
-
-            buttons.forEach((button) => {
-              button.addEventListener("click", () => {
-                const feature = button.dataset.previewFeature;
-
-                buttons.forEach((item) => {
-                  const isActive = item === button;
-                  item.classList.toggle("is-active", isActive);
-                  item.setAttribute("aria-selected", String(isActive));
-                });
-
-                panels.forEach((panel) => {
-                  panel.classList.toggle("is-active", panel.dataset.previewFeaturePanel === feature);
-                });
-
-                window.dispatchEvent(
-                  new CustomEvent("logk-preview:set-feature", {
-                    detail: { feature }
-                  })
-                );
-              });
-            });
-          });
-        };
-
-        initPreviewSwitchers();
-        document.addEventListener("astro:page-load", initPreviewSwitchers);
-      </script>
     </div>
   </section>
 
+  <!-- ── Trust strip ───────────────────────────────────────────────────── -->
   <section class="trust-strip section">
     <div class="trust-row">
       {dictionary.trust.map((item) => (
@@ -129,85 +113,85 @@ const gallery = dictionary.productPage.gallery;
     </div>
   </section>
 
-  <section id="service" class="product-hero section home-service-section">
+  <!-- ── Service overview ──────────────────────────────────────────────── -->
+  <section id="service" class="section home-service-section">
     <div class="section-head narrow" data-reveal>
       <p class="eyebrow">{dictionary.productPage.eyebrow}</p>
       <h2>{dictionary.productPage.title}</h2>
       <p>{dictionary.productPage.description}</p>
     </div>
 
-    <div class="product-stage" data-reveal>
-      <img class="stage-art" src={`${import.meta.env.BASE_URL}assets/tech-lattice.svg`} alt="" aria-hidden="true" />
-      <div class="stage-shell">
-        {dictionary.productPage.stages.map((stage) => (
-          <div class="stage-column">
-            <span class="stage-label">{stage.label}</span>
-            <strong>{stage.title}</strong>
-            <p>{stage.body}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="section product-gallery">
-    <article class="product-screenshot-card" data-reveal>
-      <div class="product-screenshot-copy">
-        <span class="card-index">{gallery.workspaceLabel}</span>
-        <h2>{gallery.workspaceTitle}</h2>
-        <p>{gallery.workspaceBody}</p>
-      </div>
-      <img
-        class="product-screenshot-image"
-        src={`${import.meta.env.BASE_URL}assets/workspace_screenshot.png`}
-        alt={gallery.workspaceAlt}
-      />
-    </article>
-
-    <article class="product-screenshot-card" data-reveal>
-      <div class="product-screenshot-copy">
-        <span class="card-index">{gallery.pricingLabel}</span>
-        <h2>{gallery.pricingTitle}</h2>
-        <p>{gallery.pricingBody}</p>
-      </div>
-      <img
-        class="product-screenshot-image"
-        src={`${import.meta.env.BASE_URL}assets/pricing_screenshot.png`}
-        alt={gallery.pricingAlt}
-      />
-    </article>
-  </section>
-
-  <section class="section product-grid">
-    {dictionary.productPage.surfaces.map((surface) => (
-      <article class:list={["product-card", { "product-card-wide": surface.wide }]} data-reveal>
-        <span class="card-index">{surface.index}</span>
-        <h2>{surface.title}</h2>
-        <p>{surface.body}</p>
-      </article>
-    ))}
-  </section>
-
-  <section class="section timeline-section">
-    <div class="section-head narrow" data-reveal>
-      <p class="eyebrow">{dictionary.productPage.flowEyebrow}</p>
-      <h2>{dictionary.productPage.flowTitle}</h2>
-      <p>{dictionary.productPage.flowDescription}</p>
-    </div>
-
-    <div class="timeline-card" data-reveal>
-      {dictionary.productPage.steps.map((step) => (
-        <div class="timeline-step">
-          <span>{step.number}</span>
-          <div>
-            <strong>{step.title}</strong>
-            <p>{step.body}</p>
-          </div>
+    <div class="stage-shell" data-reveal>
+      {dictionary.productPage.stages.map((stage) => (
+        <div class="stage-column">
+          <span class="stage-label">{stage.label}</span>
+          <strong>{stage.title}</strong>
+          <p>{stage.body}</p>
         </div>
       ))}
     </div>
   </section>
 
+  <!-- ── Feature rows ──────────────────────────────────────────────────── -->
+  <section class="section features-section">
+    <div class="section-head narrow" data-reveal>
+      <p class="eyebrow">{f.eyebrow}</p>
+      <h2>{f.title}</h2>
+      <p>{f.description}</p>
+    </div>
+
+    {f.rows.map((row, i) => {
+      const asset = rowAssets[i];
+      return (
+        <div class:list={["feature-row", { "feature-row-flip": asset.reverse }]} data-reveal>
+          <div class="feature-row-copy">
+            <p class="eyebrow">{row.eyebrow}</p>
+            <h3>{row.title}</h3>
+            <p>{row.body}</p>
+            {row.bullets && (
+              <ul class="feature-bullets">
+                {row.bullets.map((b) => <li>{b}</li>)}
+              </ul>
+            )}
+          </div>
+          <div class="feature-row-visual">
+            {asset.type === "video" ? (
+              <video src={asset.src} autoplay muted loop playsinline></video>
+            ) : (
+              <img src={asset.src} alt={row.title} loading="lazy" />
+            )}
+          </div>
+        </div>
+      );
+    })}
+  </section>
+
+  <!-- ── Admin pair section ─────────────────────────────────────────────── -->
+  <section class="section admin-section" data-reveal>
+    <div class="admin-copy">
+      <p class="eyebrow">{f.adminSection.eyebrow}</p>
+      <h2>{f.adminSection.title}</h2>
+      <p>{f.adminSection.description}</p>
+    </div>
+    <div class="admin-pair">
+      <figure class="admin-card">
+        <img src={`${mockupBase}selecAI_corp_mgnt.png`} alt={f.adminSection.corp.alt} loading="lazy" />
+        <figcaption>
+          <strong>{f.adminSection.corp.title}</strong>
+          <span>{f.adminSection.corp.body}</span>
+        </figcaption>
+      </figure>
+      <figure class="admin-card">
+        <img src={`${mockupBase}selecAI_user_mgmt.png`} alt={f.adminSection.user.alt} loading="lazy" />
+        <figcaption>
+          <strong>{f.adminSection.user.title}</strong>
+          <span>{f.adminSection.user.body}</span>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ── CTA ───────────────────────────────────────────────────────────── -->
   <section class="section contact-section" data-reveal>
     <div class="contact-card">
       <div class="contact-copy">
@@ -215,13 +199,13 @@ const gallery = dictionary.productPage.gallery;
         <h2>{dictionary.productPage.nextTitle}</h2>
         <p>{dictionary.productPage.nextBody}</p>
       </div>
-
       <div class="contact-actions">
         <a class="button" href="mailto:contact@logk.co.kr">{dictionary.productPage.primaryCta}</a>
         <a class="button button-ghost" href={pricingPath}>{dictionary.pricingPage.eyebrow}</a>
       </div>
     </div>
   </section>
+
 </main>
 
 <Footer locale={locale} dictionary={dictionary} />

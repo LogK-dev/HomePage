@@ -242,11 +242,27 @@ textarea {
 
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  align-items: start;
-  gap: 2rem;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 3rem;
   min-height: auto;
   padding-top: 3.5rem;
+}
+
+.hero-visual {
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid var(--surface-border);
+  box-shadow: var(--shadow-lg);
+  background: var(--surface);
+}
+
+.hero-visual video {
+  width: 100%;
+  display: block;
+  max-height: 520px;
+  object-fit: cover;
+  object-position: top left;
 }
 
 .hero-copy {
@@ -1502,6 +1518,187 @@ html[data-theme="dark"] .contact-card .button-ghost {
   }
 }
 
+/* ── Feature rows ──────────────────────────────────────────────────────── */
+.features-section .section-head {
+  margin-bottom: 3.5rem;
+}
+
+.feature-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  padding-block: 3.5rem;
+  border-top: 1px solid var(--surface-border);
+}
+
+.feature-row.feature-row-flip .feature-row-visual {
+  order: -1;
+}
+
+.feature-row-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.feature-row-copy h3 {
+  font-size: clamp(1.35rem, 2.5vw, 1.9rem);
+  font-family: "Sora", sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+  color: var(--text);
+}
+
+.feature-row-copy p {
+  font-size: 1rem;
+  line-height: 1.75;
+  max-width: 46ch;
+}
+
+.feature-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0.4rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.feature-bullets li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.9rem;
+  color: var(--text-soft);
+  line-height: 1.55;
+}
+
+.feature-bullets li::before {
+  content: "✓";
+  flex-shrink: 0;
+  color: var(--accent);
+  font-weight: 700;
+  margin-top: 0.05rem;
+}
+
+.feature-row-visual {
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid var(--surface-border);
+  box-shadow: var(--shadow-lg);
+  background: var(--surface);
+}
+
+.feature-row-visual img,
+.feature-row-visual video {
+  width: 100%;
+  display: block;
+  vertical-align: top;
+}
+
+/* ── Admin pair section ────────────────────────────────────────────────── */
+.admin-section {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 4rem;
+  align-items: start;
+  padding-block: 5rem;
+  border-top: 1px solid var(--surface-border);
+}
+
+.admin-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  position: sticky;
+  top: calc(var(--header-height) + 2rem);
+}
+
+.admin-copy h2 {
+  font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+  line-height: 1.15;
+}
+
+.admin-copy p {
+  font-size: 1rem;
+  line-height: 1.75;
+  max-width: 38ch;
+}
+
+.admin-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.admin-card {
+  margin: 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--surface-border);
+  box-shadow: var(--shadow-md);
+  background: var(--surface);
+}
+
+.admin-card img {
+  width: 100%;
+  display: block;
+}
+
+.admin-card figcaption {
+  padding: 0.9rem 1rem;
+  border-top: 1px solid var(--surface-border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.admin-card figcaption strong {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.admin-card figcaption span {
+  font-size: 0.78rem;
+  color: var(--text-faint);
+  line-height: 1.4;
+}
+
+@media (max-width: 1024px) {
+  .feature-row,
+  .feature-row.feature-row-flip {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .feature-row.feature-row-flip .feature-row-visual {
+    order: 0;
+  }
+
+  .admin-section {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .admin-copy {
+    position: static;
+  }
+
+  .admin-copy p {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .admin-pair {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Mockups page ──────────────────────────────────────────────────────── */
 .mockups-hero {
   display: grid;
   gap: 1.5rem;
