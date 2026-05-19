@@ -1,0 +1,106 @@
+---
+import Footer from "@/components/Footer.astro";
+import Header from "@/components/Header.astro";
+import type { Locale, SiteDictionary } from "@/i18n/schema";
+import { localizedPath } from "@/utils/i18n";
+
+interface Props {
+  locale: Locale;
+  dictionary: SiteDictionary;
+}
+
+const { locale, dictionary } = Astro.props;
+const homePath = localizedPath(locale);
+const p = dictionary.pricingPage;
+const languageOptions = [
+  { label: "EN", href: localizedPath("en", "pricing"), active: locale === "en" },
+  { label: "KO", href: localizedPath("ko", "pricing"), active: locale === "ko" }
+];
+---
+
+<Header
+  locale={locale}
+  dictionary={dictionary}
+  languageOptions={languageOptions}
+  actions={[
+    { label: dictionary.nav.home, href: homePath, ghost: true },
+    { label: dictionary.nav.talkToSales, href: "mailto:hello@logk.ai" }
+  ]}
+/>
+
+<main>
+  <section class="pricing-hero section">
+    <div class="section-head narrow" data-reveal>
+      <p class="eyebrow">{p.eyebrow}</p>
+      <h1 class="pricing-title">{p.title}</h1>
+      <p class="pricing-description">{p.description}</p>
+    </div>
+
+    <div class="all-plans-strip" data-reveal>
+      <span class="all-plans-label">{p.allPlans.label}</span>
+      <ul class="all-plans-list">
+        {p.allPlans.features.map((f) => (
+          <li>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <circle cx="7" cy="7" r="7" fill="var(--accent-soft)" />
+              <path d="M4 7l2 2 4-4" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            {f}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section pricing-plans-section">
+    <div class="pricing-grid">
+      {p.plans.map((plan) => (
+        <article class:list={["pricing-card", { "pricing-card-highlight": plan.highlight }]} data-reveal>
+          {plan.badge && <span class="pricing-badge">{plan.badge}</span>}
+          <div class="pricing-card-head">
+            <h2 class="plan-name">{plan.name}</h2>
+            <div class="plan-price-row">
+              <span class="plan-price">{plan.price}</span>
+              {plan.period && <span class="plan-period">{plan.period}</span>}
+            </div>
+            <p class="plan-description">{plan.description}</p>
+          </div>
+
+          <a
+            class:list={["button", "plan-cta", { "plan-cta-ghost": !plan.highlight }]}
+            href={plan.ctaHref}
+          >
+            {plan.ctaLabel}
+          </a>
+
+          <ul class="plan-features">
+            {plan.features.map((feature) => (
+              <li>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <circle cx="8" cy="8" r="8" fill="var(--accent-soft)" />
+                  <path d="M5 8l2.5 2.5L11 5.5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                {feature}
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section contact-section" data-reveal>
+    <div class="contact-card">
+      <div class="contact-copy">
+        <h2>{p.nextTitle}</h2>
+        <p>{p.nextBody}</p>
+      </div>
+      <div class="contact-actions">
+        <a class="button" href={`mailto:${p.primaryCta}`}>{p.primaryCta}</a>
+        <a class="button button-ghost" href={localizedPath(locale, "product")}>{p.secondaryCta}</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<Footer locale={locale} dictionary={dictionary} />

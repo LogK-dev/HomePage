@@ -6,7 +6,7 @@ export type PreviewFeatureId = PreviewTabId;
 export type { Locale } from "@/i18n/locales";
 
 export type NavItem = {
-  key: "company" | "solution" | "technology" | "contact";
+  key: "company" | "solution" | "technology" | "contact" | "pricing";
   label: string;
   href: string;
 };
@@ -18,10 +18,13 @@ export type SiteDictionary = {
     homeDescription: string;
     productTitle: string;
     productDescription: string;
+    pricingTitle: string;
+    pricingDescription: string;
   };
   nav: {
     items: NavItem[];
     product: string;
+    pricing: string;
     talkToSales: string;
     home: string;
     bookDemo: string;
@@ -145,5 +148,30 @@ export type SiteDictionary = {
     primaryCta: string;
     secondaryCta: string;
     scenes: Array<{ eyebrow: string; title: string; body: string }>;
+  };
+  pricingPage: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    allPlans: {
+      label: string;
+      features: string[];
+    };
+    plans: Array<{
+      key: "starter" | "pro" | "business";
+      badge?: string;
+      name: string;
+      price: string;
+      period?: string;
+      description: string;
+      ctaLabel: string;
+      ctaHref: string;
+      highlight?: boolean;
+      features: string[];
+    }>;
+    nextTitle: string;
+    nextBody: string;
+    primaryCta: string;
+    secondaryCta: string;
   };
 };

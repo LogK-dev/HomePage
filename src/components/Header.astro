@@ -44,7 +44,9 @@ const homePath = localizedPath(locale);
 
   <nav class="site-nav" data-nav>
     {dictionary.nav.items.map((item) => (
-      <a href={`${homePath}${item.href}`}>{item.label}</a>
+      <a href={item.href.startsWith('#') ? `${homePath}${item.href}` : localizedPath(locale, item.href)}>
+        {item.label}
+      </a>
     ))}
   </nav>
 

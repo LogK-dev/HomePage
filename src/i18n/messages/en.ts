@@ -7,16 +7,20 @@ export const en: SiteDictionary = {
     homeDescription:
       "LogK lets users select multiple AI models, preview cost, delegate one question across them, aggregate answers, and apply privacy-aware routing.",
     productTitle: "LogK Product | Multi-model delegation for AI services",
-    productDescription: "Explore LogK's product for model selection, cost-aware delegation, answer aggregation, verification loops, and privacy blocking."
+    productDescription: "Explore LogK's product for model selection, cost-aware delegation, answer aggregation, verification loops, and privacy blocking.",
+    pricingTitle: "LogK Pricing | Simple, usage-based plans",
+    pricingDescription: "Choose the plan that fits your workflow. All plans include model routing, cost preview, and answer comparison."
   },
   nav: {
     items: [
       { key: "company", label: "Company", href: "#company" },
       { key: "solution", label: "Solution", href: "#solution" },
       { key: "technology", label: "Technology", href: "#technology" },
+      { key: "pricing", label: "Pricing", href: "pricing" },
       { key: "contact", label: "Contact", href: "#contact" }
     ],
     product: "Product",
+    pricing: "Pricing",
     talkToSales: "Talk to sales",
     home: "Home",
     bookDemo: "Book a demo",
@@ -343,5 +347,75 @@ export const en: SiteDictionary = {
         body: "Turn credit-based billing and run-level spend into a product-native view."
       }
     ]
+  },
+  pricingPage: {
+    eyebrow: "Pricing",
+    title: "Delegate across AI.\nPay only for what runs.",
+    description: "Simple, usage-based plans designed around the actual workflow: choose models, preview cost, delegate, verify.",
+    allPlans: {
+      label: "Every plan includes",
+      features: [
+        "Model router",
+        "Pre-dispatch cost estimate",
+        "Answer comparison view",
+        "Verification loop",
+        "Privacy-aware routing"
+      ]
+    },
+    plans: [
+      {
+        key: "starter",
+        name: "Starter",
+        price: "Free",
+        description: "For individuals exploring multi-model delegation. No credit card required.",
+        ctaLabel: "Start for free",
+        ctaHref: "mailto:hello@logk.ai",
+        features: [
+          "500 delegations / month",
+          "Up to 3 models per request",
+          "7-day request history",
+          "Community support"
+        ]
+      },
+      {
+        key: "pro",
+        badge: "Most popular",
+        name: "Pro",
+        price: "$29",
+        period: "/ month",
+        description: "For power users and small teams who want privacy controls, synthesis, and full audit history.",
+        ctaLabel: "Get started",
+        ctaHref: "mailto:hello@logk.ai",
+        highlight: true,
+        features: [
+          "10,000 delegations / month",
+          "All available models",
+          "Privacy gate — PII blocking before dispatch",
+          "Answer synthesis across models",
+          "30-day audit log",
+          "Email support"
+        ]
+      },
+      {
+        key: "business",
+        name: "Business",
+        price: "Custom",
+        description: "For teams with high volume, compliance needs, or custom model integrations.",
+        ctaLabel: "Talk to us",
+        ctaHref: "mailto:hello@logk.ai",
+        features: [
+          "Unlimited delegations",
+          "Custom privacy rules & redaction policies",
+          "90-day audit log + data export",
+          "SSO / SAML",
+          "Custom model integrations",
+          "Dedicated onboarding + SLA"
+        ]
+      }
+    ],
+    nextTitle: "Not sure which plan fits?",
+    nextBody: "Talk to us — we can walk through your workflow and suggest the right starting point.",
+    primaryCta: "hello@logk.ai",
+    secondaryCta: "See the product"
   }
 };
