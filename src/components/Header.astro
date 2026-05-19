@@ -4,12 +4,6 @@ import ThemeToggle from "@/components/ThemeToggle.astro";
 import type { Locale, SiteDictionary } from "@/i18n/schema";
 import { localizedPath } from "@/utils/i18n";
 
-type HeaderAction = {
-  label: string;
-  href: string;
-  ghost?: boolean;
-};
-
 type LanguageOption = {
   label: string;
   href: string;
@@ -19,12 +13,19 @@ type LanguageOption = {
 interface Props {
   locale: Locale;
   dictionary: SiteDictionary;
-  actions: HeaderAction[];
   languageOptions: LanguageOption[];
 }
 
-const { locale, dictionary, actions, languageOptions } = Astro.props;
+const { locale, dictionary, languageOptions } = Astro.props;
 const homePath = localizedPath(locale);
+const currentPath = Astro.url.pathname;
+
+/** Returns true when the nav item's target matches the current page. */
+const isActive = (href: string): boolean => {
+  if (href.startsWith("#")) return false;
+  const target = localizedPath(locale, href);
+  return currentPath === target || currentPath.startsWith(target + "/");
+};
 ---
 
 <header class="site-header" data-header>
@@ -48,19 +49,14 @@ const homePath = localizedPath(locale);
 
   <nav class="site-nav" data-nav>
     {dictionary.nav.items.map((item) => (
-      <a href={item.href.startsWith("#") ? `${homePath}${item.href}` : localizedPath(locale, item.href)}>
+      <a
+        class:list={[{ "nav-active": isActive(item.href) }]}
+        href={item.href.startsWith("#") ? `${homePath}${item.href}` : localizedPath(locale, item.href)}
+      >
         {item.label}
       </a>
     ))}
   </nav>
-
-  <div class="header-actions">
-    {actions.map((action) => (
-      <a class:list={["button", { "button-ghost": action.ghost }]} href={action.href}>
-        {action.label}
-      </a>
-    ))}
-  </div>
 
   <div class="header-controls">
     <LanguageSwitcher label={dictionary.localeSwitcher.label} options={languageOptions} />
@@ -69,5 +65,11 @@ const homePath = localizedPath(locale);
       lightLabel={dictionary.theme.light}
       darkLabel={dictionary.theme.dark}
     />
+  </div>
+
+  <div class="header-actions">
+    <a class="button header-cta" href="mailto:hello@logk.ai">
+      {dictionary.nav.bookDemo}
+    </a>
   </div>
 </header>

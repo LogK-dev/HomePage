@@ -153,6 +153,7 @@ export type SiteDictionary = {
     eyebrow: string;
     badge: string;
     title: string;
+    titleEmphasis?: string; // wrapped in <em> and coloured accent
     description: string;
     toggle: {
       monthly: string;

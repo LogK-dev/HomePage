@@ -20,15 +20,7 @@ const languageOptions = getLanguageOptions(locale, "mockups");
 const copy = dictionary.mockupsPage;
 ---
 
-<Header
-  locale={locale}
-  dictionary={dictionary}
-  languageOptions={languageOptions}
-  actions={[
-    { label: dictionary.nav.product, href: productPath, ghost: true },
-    { label: dictionary.nav.home, href: homePath }
-  ]}
-/>
+<Header locale={locale} dictionary={dictionary} languageOptions={languageOptions} />
 
 <main>
   <section class="mockups-hero section">

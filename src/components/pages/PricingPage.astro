@@ -14,26 +14,21 @@ const p = dictionary.pricingPage;
 const homePath = localizedPath(locale);
 ---
 
-<Header
-  locale={locale}
-  dictionary={dictionary}
-  languageOptions={getLanguageOptions(locale, "pricing")}
-  actions={[
-    { label: dictionary.nav.home, href: homePath, ghost: true },
-    { label: dictionary.nav.talkToSales, href: "mailto:hello@logk.ai" }
-  ]}
-/>
+<Header locale={locale} dictionary={dictionary} languageOptions={getLanguageOptions(locale, "pricing")} />
 
 <main>
 
   <!-- ── Hero ─────────────────────────────────────────────────────────────── -->
-  <section class="pricing-hero section">
+  <section class="pricing-hero">
     <div class="pricing-hero-inner">
       <div class="pricing-badge-pill">
         <span class="pricing-badge-dot"></span>
         {p.badge}
       </div>
-      <h1 class="pricing-h1">{p.title}</h1>
+      <h1 class="pricing-h1">
+        {p.title}
+        {p.titleEmphasis && <><br /><em class="pricing-h1-em">{p.titleEmphasis}</em></>}
+      </h1>
       <p class="pricing-lede">{p.description}</p>
 
       <div class="pricing-toggle-wrap" data-pricing-toggle>

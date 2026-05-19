@@ -18,15 +18,7 @@ const previewFeatures = dictionary.hero.previewFeatures;
 const previewJsSrc = `${productPreviewBase}product-preview.js${import.meta.env.PROD ? `?v=${Date.now()}` : ""}`;
 ---
 
-<Header
-  locale={locale}
-  dictionary={dictionary}
-  languageOptions={languageOptions}
-  actions={[
-    { label: dictionary.nav.product, href: productPath, ghost: true },
-    { label: dictionary.nav.talkToSales, href: `${homePath}#contact` }
-  ]}
-/>
+<Header locale={locale} dictionary={dictionary} languageOptions={languageOptions} />
 
 <main id="top">
   <section class="hero section">

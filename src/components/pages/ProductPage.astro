@@ -15,15 +15,7 @@ const languageOptions = getLanguageOptions(locale, "product");
 const gallery = dictionary.productPage.gallery;
 ---
 
-<Header
-  locale={locale}
-  dictionary={dictionary}
-  languageOptions={languageOptions}
-  actions={[
-    { label: dictionary.nav.home, href: homePath, ghost: true },
-    { label: dictionary.nav.bookDemo, href: "mailto:hello@logk.ai" }
-  ]}
-/>
+<Header locale={locale} dictionary={dictionary} languageOptions={languageOptions} />
 
 <main>
   <section class="product-hero section">

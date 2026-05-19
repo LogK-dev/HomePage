@@ -13,11 +13,10 @@ export const ko: SiteDictionary = {
   },
   nav: {
     items: [
-      { key: "company", label: "회사 소개", href: "#company" },
-      { key: "solution", label: "솔루션", href: "#solution" },
-      { key: "technology", label: "기술", href: "#technology" },
-      { key: "contact", label: "문의", href: "#contact" },
-      { key: "pricing", label: "요금제", href: "pricing" }
+      { key: "solution", label: "서비스 소개", href: "product" },
+      { key: "pricing",  label: "요금제",     href: "pricing" },
+      { key: "company",  label: "회사 소개",  href: "#company" },
+      { key: "contact",  label: "문의하기",   href: "#contact" }
     ],
     product: "제품",
     pricing: "요금제",
@@ -351,8 +350,9 @@ export const ko: SiteDictionary = {
   pricingPage: {
     eyebrow: "요금제",
     badge: "지금 바로 시작 가능 · 원화 결제 지원",
-    title: "업무에 맞는 플랜을 선택하고\nAI 활용을 시작하세요",
-    description: "모든 플랜에 멀티 LLM 비교 활용이 포함됩니다. 상위 플랜일수록 더 많은 크레딧과 기능을 제공합니다.",
+    title: "업무에 맞는 플랜을 선택하고",
+    titleEmphasis: "AI 활용을 시작하세요",
+    description: "모든 플랜에 멀티 LLM 비교 활용이 포함됩니다.\n상위 플랜일수록 더 많은 크레딧과 기능을 제공합니다.",
     toggle: {
       monthly: "월간 구독",
       yearly: "연간 구독",
