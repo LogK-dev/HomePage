@@ -58,6 +58,12 @@ const isActive = (href: string): boolean => {
     ))}
   </nav>
 
+  <div class="header-actions">
+    <a class="button header-cta" href="mailto:hello@logk.ai">
+      {dictionary.nav.bookDemo}
+    </a>
+  </div>
+
   <div class="header-controls">
     <LanguageSwitcher label={dictionary.localeSwitcher.label} options={languageOptions} />
     <ThemeToggle
@@ -65,11 +71,5 @@ const isActive = (href: string): boolean => {
       lightLabel={dictionary.theme.light}
       darkLabel={dictionary.theme.dark}
     />
-  </div>
-
-  <div class="header-actions">
-    <a class="button header-cta" href="mailto:hello@logk.ai">
-      {dictionary.nav.bookDemo}
-    </a>
   </div>
 </header>
