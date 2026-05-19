@@ -1,4 +1,5 @@
 <script>
+  // Must match the key in BaseLayout.astro's inline theme-restore script.
   const STORAGE_KEY = "logk-theme";
   let showcaseInterval: number | undefined;
 
@@ -172,10 +173,13 @@
 
     navToggle.dataset.menuInitialized = "true";
 
+    const labelOpen  = navToggle.dataset.menuOpenLabel  ?? "Open menu";
+    const labelClose = navToggle.dataset.menuCloseLabel ?? "Close menu";
+
     navToggle.addEventListener("click", () => {
       const expanded = navToggle.getAttribute("aria-expanded") === "true";
       navToggle.setAttribute("aria-expanded", String(!expanded));
-      navToggle.setAttribute("aria-label", expanded ? "Open menu" : "Close menu");
+      navToggle.setAttribute("aria-label", expanded ? labelOpen : labelClose);
       header.classList.toggle("menu-open", !expanded);
       document.body.classList.toggle("menu-open", !expanded);
     });
@@ -187,7 +191,7 @@
     ].forEach((link) => {
         link.addEventListener("click", () => {
           navToggle.setAttribute("aria-expanded", "false");
-          navToggle.setAttribute("aria-label", "Open menu");
+          navToggle.setAttribute("aria-label", labelOpen);
           header.classList.remove("menu-open");
           document.body.classList.remove("menu-open");
         });

@@ -33,6 +33,7 @@ const canonicalUrl = hasCanonicalSite ? new URL(Astro.url.pathname, site).toStri
     {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
     <ClientRouter />
     <script is:inline>
+      // Must match STORAGE_KEY in ClientInit.astro.
       const storageKey = "logk-theme";
       const storedTheme = localStorage.getItem(storageKey);
       const resolvedTheme =

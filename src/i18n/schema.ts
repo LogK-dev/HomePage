@@ -1,14 +1,12 @@
 import { PREVIEW_TAB_IDS, type PreviewTabId } from "@/shared/tabs";
+import { locales } from "@/i18n/locales";
 
-export { PREVIEW_TAB_IDS };
+export { PREVIEW_TAB_IDS, locales };
 export type PreviewFeatureId = PreviewTabId;
-
-export const locales = ["en", "ko"] as const;
-
-export type Locale = (typeof locales)[number];
+export type { Locale } from "@/i18n/locales";
 
 export type NavItem = {
-  key: string;
+  key: "company" | "solution" | "technology" | "contact";
   label: string;
   href: string;
 };

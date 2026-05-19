@@ -89,6 +89,8 @@ export type Copy = CopyShape;
 // Maps homepage preview-switcher feature IDs to the corresponding preview tab.
 // Homepage PreviewFeatureId values are defined in src/i18n/schema.ts and must
 // appear as keys here when added.
+// Keys are string (not PreviewFeatureId) because they arrive as raw DOM
+// data-attribute values; TabId values are compile-time validated.
 
 export const FEATURE_TAB_MAP: Record<string, TabId> = {
   projects: "projects",

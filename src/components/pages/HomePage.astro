@@ -128,7 +128,12 @@ const previewFallback = dictionary.hero.previewFallback;
         };
 
         initPreviewSwitchers();
-        document.addEventListener("astro:page-load", initPreviewSwitchers);
+        // Guard prevents a second listener accumulating each time SPA navigation
+        // re-executes this is:inline script.
+        if (!document.dataset.previewSwitcherListenerBound) {
+          document.dataset.previewSwitcherListenerBound = "true";
+          document.addEventListener("astro:page-load", initPreviewSwitchers);
+        }
       </script>
     </div>
   </section>

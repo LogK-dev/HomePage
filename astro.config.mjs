@@ -1,4 +1,5 @@
 import { defineConfig } from "astro/config";
+import { locales } from "./src/i18n/locales.ts";
 
 const normalizeBase = (value) => {
   if (!value || value === "/") {
@@ -15,8 +16,8 @@ export default defineConfig({
   base: normalizeBase(process.env.BASE_PATH),
   trailingSlash: "always",
   i18n: {
-    locales: ["en", "ko"],
-    defaultLocale: "en",
+    locales: [...locales],
+    defaultLocale: locales[0],
     routing: {
       prefixDefaultLocale: true
     }

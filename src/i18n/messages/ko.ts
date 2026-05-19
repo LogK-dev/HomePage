@@ -301,11 +301,11 @@ export const ko: SiteDictionary = {
     primaryCta: "제품 데모 요청",
     secondaryCta: "홈으로 돌아가기",
     gallery: {
-      workspaceLabel: "Workspace",
+      workspaceLabel: "워크스페이스",
       workspaceTitle: "실제 워크스페이스 흐름",
       workspaceBody: "모델 선택, 실행 제어, 개인정보 차단, 예상 비용이 하나의 제품 표면으로 읽히도록 구성합니다.",
       workspaceAlt: "LogK workspace dashboard screenshot",
-      pricingLabel: "Pricing",
+      pricingLabel: "요금",
       pricingTitle: "비용과 사용량을 시각적으로 보여주는 화면",
       pricingBody: "가격은 별도 표가 아니라 실제 운영 화면처럼 보이게 하여, 크레딧 기반 결제를 더 신뢰할 수 있게 만듭니다.",
       pricingAlt: "LogK pricing dashboard screenshot"
