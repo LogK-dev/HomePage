@@ -1,5 +1,4 @@
-import type { Locale } from "@/i18n/schema";
-import { locales } from "@/i18n/schema";
+import { locales, type Locale } from "@/i18n/locales";
 
 export const defaultLocale: Locale = "en";
 

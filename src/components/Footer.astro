@@ -18,10 +18,12 @@ const homePath = localizedPath(locale);
   </div>
   <div class="footer-links">
     {dictionary.nav.items.map((item) => (
-      <a href={`${homePath}${item.href}`}>{item.label}</a>
+      <a href={item.href.startsWith("#") ? `${homePath}${item.href}` : localizedPath(locale, item.href)}>
+        {item.label}
+      </a>
     ))}
   </div>
   <div class="footer-copy">
-    Copyright {new Date().getFullYear()} {dictionary.meta.siteName}. {dictionary.footer.copyright}
+    © {new Date().getFullYear()} {dictionary.meta.siteName}
   </div>
 </footer>

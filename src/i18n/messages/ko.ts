@@ -7,16 +7,20 @@ export const ko: SiteDictionary = {
     homeDescription:
       "LogK는 여러 AI 모델을 함께 선택하고, 예상 비용을 먼저 확인한 뒤, 질문을 위임하고, 결과를 비교하거나 집계할 수 있게 해주는 서비스입니다.",
     productTitle: "LogK Product | 멀티모델 AI 위임 서비스",
-    productDescription: "모델 선택, 비용 예측, 멀티모델 위임, 결과 집계, 검증 루프, 개인정보 차단까지 LogK 제품 구조를 살펴보세요."
+    productDescription: "모델 선택, 비용 예측, 멀티모델 위임, 결과 집계, 검증 루프, 개인정보 차단까지 LogK 제품 구조를 살펴보세요.",
+    pricingTitle: "LogK 요금제 | 실행한 만큼만 지불하는 플랜",
+    pricingDescription: "워크플로에 맞는 플랜을 선택하세요. 모든 플랜에 모델 라우터, 비용 예측, 답변 비교가 포함됩니다."
   },
   nav: {
     items: [
       { key: "company", label: "회사 소개", href: "#company" },
       { key: "solution", label: "솔루션", href: "#solution" },
       { key: "technology", label: "기술", href: "#technology" },
-      { key: "contact", label: "문의", href: "#contact" }
+      { key: "contact", label: "문의", href: "#contact" },
+      { key: "pricing", label: "요금제", href: "pricing" }
     ],
     product: "제품",
+    pricing: "요금제",
     talkToSales: "도입 문의",
     home: "홈",
     bookDemo: "데모 요청",
@@ -76,6 +80,10 @@ export const ko: SiteDictionary = {
         summary: "청구서, 결제수단, 계정 과금 설정을 관리합니다."
       }
     ],
+    previewFallback: {
+      title: "제품 미리보기 로딩 중…",
+      body: "인터랙티브 데모를 보려면 JavaScript를 활성화하세요."
+    }
   },
   trust: [
     "ChatGPT, Claude, Gemini 등 다양한 모델 대응",
@@ -226,9 +234,6 @@ export const ko: SiteDictionary = {
     primaryCta: "hello@logk.ai",
     secondaryCta: "제품 상세 보기"
   },
-  footer: {
-    copyright: "© LogK"
-  },
   productPage: {
     eyebrow: "제품",
     title: "AI 모델들 사이에서 선택하고 위임하고 검증하는 대시보드.",
@@ -300,11 +305,11 @@ export const ko: SiteDictionary = {
     primaryCta: "제품 데모 요청",
     secondaryCta: "홈으로 돌아가기",
     gallery: {
-      workspaceLabel: "Workspace",
+      workspaceLabel: "워크스페이스",
       workspaceTitle: "실제 워크스페이스 흐름",
       workspaceBody: "모델 선택, 실행 제어, 개인정보 차단, 예상 비용이 하나의 제품 표면으로 읽히도록 구성합니다.",
       workspaceAlt: "LogK workspace dashboard screenshot",
-      pricingLabel: "Pricing",
+      pricingLabel: "요금",
       pricingTitle: "비용과 사용량을 시각적으로 보여주는 화면",
       pricingBody: "가격은 별도 표가 아니라 실제 운영 화면처럼 보이게 하여, 크레딧 기반 결제를 더 신뢰할 수 있게 만듭니다.",
       pricingAlt: "LogK pricing dashboard screenshot"
@@ -342,5 +347,75 @@ export const ko: SiteDictionary = {
         body: "크레딧 기반 과금과 실행별 비용 가시성을 제품 화면으로 드러냅니다."
       }
     ]
+  },
+  pricingPage: {
+    eyebrow: "요금제",
+    title: "AI를 위임하세요.\n실행한 만큼만 지불하세요.",
+    description: "실제 워크플로우에 맞게 설계된 간단한 사용량 기반 플랜: 모델 선택, 비용 미리 보기, 위임, 검증.",
+    allPlans: {
+      label: "모든 플랜 포함 사항",
+      features: [
+        "모델 라우터",
+        "실행 전 비용 예측",
+        "답변 비교 화면",
+        "검증 루프",
+        "프라이버시 인식 라우팅"
+      ]
+    },
+    plans: [
+      {
+        key: "starter",
+        name: "스타터",
+        price: "무료",
+        description: "다중 모델 위임을 탐색하는 개인 사용자용. 신용카드 불필요.",
+        ctaLabel: "무료로 시작하기",
+        ctaHref: "mailto:hello@logk.ai",
+        features: [
+          "월 500회 위임",
+          "요청당 최대 3개 모델",
+          "7일 요청 기록",
+          "커뮤니티 지원"
+        ]
+      },
+      {
+        key: "pro",
+        badge: "가장 인기",
+        name: "프로",
+        price: "$29",
+        period: "/ 월",
+        description: "프라이버시 제어, 답변 합성, 전체 감사 기록이 필요한 파워 유저 및 소규모 팀용.",
+        ctaLabel: "시작하기",
+        ctaHref: "mailto:hello@logk.ai",
+        highlight: true,
+        features: [
+          "월 10,000회 위임",
+          "모든 모델 사용 가능",
+          "프라이버시 게이트 — 전송 전 개인정보 차단",
+          "모델 간 답변 합성",
+          "30일 감사 로그",
+          "이메일 지원"
+        ]
+      },
+      {
+        key: "business",
+        name: "비즈니스",
+        price: "맞춤 견적",
+        description: "대용량, 컴플라이언스 요구, 또는 커스텀 모델 통합이 필요한 팀용.",
+        ctaLabel: "문의하기",
+        ctaHref: "mailto:hello@logk.ai",
+        features: [
+          "무제한 위임",
+          "커스텀 프라이버시 규칙 및 정보 삭제 정책",
+          "90일 감사 로그 + 데이터 내보내기",
+          "SSO / SAML",
+          "커스텀 모델 통합",
+          "전담 온보딩 + SLA"
+        ]
+      }
+    ],
+    nextTitle: "어떤 플랜이 맞는지 모르겠나요?",
+    nextBody: "문의해 주세요 — 워크플로우를 함께 살펴보고 적합한 시작점을 제안해 드립니다.",
+    primaryCta: "hello@logk.ai",
+    secondaryCta: "제품 보기"
   }
 };

@@ -1,14 +1,12 @@
 import { PREVIEW_TAB_IDS, type PreviewTabId } from "@/shared/tabs";
+import { locales } from "@/i18n/locales";
 
-export { PREVIEW_TAB_IDS };
+export { PREVIEW_TAB_IDS, locales };
 export type PreviewFeatureId = PreviewTabId;
-
-export const locales = ["en", "ko"] as const;
-
-export type Locale = (typeof locales)[number];
+export type { Locale } from "@/i18n/locales";
 
 export type NavItem = {
-  key: string;
+  key: "company" | "solution" | "technology" | "contact" | "pricing";
   label: string;
   href: string;
 };
@@ -20,10 +18,13 @@ export type SiteDictionary = {
     homeDescription: string;
     productTitle: string;
     productDescription: string;
+    pricingTitle: string;
+    pricingDescription: string;
   };
   nav: {
     items: NavItem[];
     product: string;
+    pricing: string;
     talkToSales: string;
     home: string;
     bookDemo: string;
@@ -52,6 +53,10 @@ export type SiteDictionary = {
       label: string;
       summary: string;
     }>;
+    previewFallback: {
+      title: string;
+      body: string;
+    };
   };
   trust: string[];
   solution: {
@@ -96,13 +101,10 @@ export type SiteDictionary = {
     eyebrow: string;
     title: string;
     description: string;
-    cards: Array<{
-      index: string;
-      title?: string;
-      body?: string;
-      principles?: Array<{ title: string; body: string }>;
-      wide?: boolean;
-    }>;
+    cards: Array<
+      | { index: string; title: string; body: string; wide?: boolean }
+      | { index: string; principles: Array<{ title: string; body: string }>; wide?: boolean }
+    >;
   };
   contact: {
     eyebrow: string;
@@ -110,9 +112,6 @@ export type SiteDictionary = {
     body: string;
     primaryCta: string;
     secondaryCta: string;
-  };
-  footer: {
-    copyright: string;
   };
   productPage: {
     eyebrow: string;
@@ -149,5 +148,30 @@ export type SiteDictionary = {
     primaryCta: string;
     secondaryCta: string;
     scenes: Array<{ eyebrow: string; title: string; body: string }>;
+  };
+  pricingPage: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    allPlans: {
+      label: string;
+      features: string[];
+    };
+    plans: Array<{
+      key: "starter" | "pro" | "business";
+      badge?: string;
+      name: string;
+      price: string;
+      period?: string;
+      description: string;
+      ctaLabel: string;
+      ctaHref: string;
+      highlight?: boolean;
+      features: string[];
+    }>;
+    nextTitle: string;
+    nextBody: string;
+    primaryCta: string;
+    secondaryCta: string;
   };
 };
