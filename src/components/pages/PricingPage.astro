@@ -25,78 +25,191 @@ const homePath = localizedPath(locale);
 />
 
 <main>
-  <section class="pricing-hero section">
-    <div class="section-head narrow" data-reveal>
-      <p class="eyebrow">{p.eyebrow}</p>
-      <h1 class="pricing-title">{p.title}</h1>
-      <p class="pricing-description">{p.description}</p>
-    </div>
 
-    <div class="all-plans-strip" data-reveal>
-      <span class="all-plans-label">{p.allPlans.label}</span>
-      <ul class="all-plans-list">
-        {p.allPlans.features.map((f) => (
-          <li>
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-              <circle cx="7" cy="7" r="7" fill="var(--accent-soft)" />
-              <path d="M4 7l2 2 4-4" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-            {f}
-          </li>
-        ))}
-      </ul>
+  <!-- ── Hero ─────────────────────────────────────────────────────────────── -->
+  <section class="pricing-hero section">
+    <div class="pricing-hero-inner">
+      <div class="pricing-badge-pill">
+        <span class="pricing-badge-dot"></span>
+        {p.badge}
+      </div>
+      <h1 class="pricing-h1">{p.title}</h1>
+      <p class="pricing-lede">{p.description}</p>
+
+      <div class="pricing-toggle-wrap" data-pricing-toggle>
+        <button class="ptoggle-btn is-active" data-mode="monthly">{p.toggle.monthly}</button>
+        <button class="ptoggle-btn" data-mode="yearly">
+          {p.toggle.yearly}
+          <span class="ptoggle-discount">{p.toggle.discount}</span>
+        </button>
+      </div>
+      <p class="pricing-annual-hint">{p.toggle.annualNote}</p>
     </div>
   </section>
 
+  <!-- ── Plan cards ────────────────────────────────────────────────────────── -->
   <section class="section pricing-plans-section">
     <div class="pricing-grid">
       {p.plans.map((plan) => (
-        <article class:list={["pricing-card", { "pricing-card-highlight": plan.highlight }]} data-reveal>
-          {plan.badge && <span class="pricing-badge">{plan.badge}</span>}
-          <div class="pricing-card-head">
-            <h2 class="plan-name">{plan.name}</h2>
+        <article class:list={["plan-card", { "plan-card-popular": plan.highlight }]}>
+          {plan.badge && <span class="plan-popular-badge">{plan.badge}</span>}
+
+          <div class="plan-head">
+            <div class="plan-name">{plan.name}</div>
+            <div class="plan-tagline">{plan.tagline}</div>
             <div class="plan-price-row">
-              <span class="plan-price">{plan.price}</span>
-              {plan.period && <span class="plan-period">{plan.period}</span>}
+              <span class="plan-currency">{plan.currency}</span>
+              <span class="plan-amount" data-monthly={plan.monthlyPrice} data-yearly={plan.yearlyPrice}>
+                {plan.monthlyPrice}
+              </span>
+              <span class="plan-period">/월</span>
             </div>
-            <p class="plan-description">{plan.description}</p>
+            <div class="plan-annual-note" data-annual-price={`연 ${plan.currency}${
+              (parseInt(plan.yearlyPrice.replace(/,/g, "")) * 12).toLocaleString("ko-KR")
+            } 청구`}></div>
+          </div>
+
+          <div class="plan-credit-box">
+            <div class="plan-credit-label">{p.creditLabel}</div>
+            <div class="plan-credit-amount">
+              <span class="plan-credits">{plan.credits}</span>
+              <span class="plan-credits-unit"> 크레딧</span>
+            </div>
+            {plan.bonusCredits && (
+              <span class="plan-bonus">🎁 보너스 {plan.bonusCredits} 크레딧 포함</span>
+            )}
           </div>
 
           <a
-            class:list={["button", "plan-cta", { "plan-cta-ghost": !plan.highlight }]}
+            class:list={["button", "plan-cta", { "plan-cta-popular": plan.highlight, "plan-cta-default": !plan.highlight }]}
             href={plan.ctaHref}
           >
             {plan.ctaLabel}
           </a>
 
+          <hr class="plan-divider" />
+          <div class="plan-features-label">포함 기능</div>
           <ul class="plan-features">
-            {plan.features.map((feature) => (
-              <li>
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                  <circle cx="8" cy="8" r="8" fill="var(--accent-soft)" />
-                  <path d="M5 8l2.5 2.5L11 5.5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-                {feature}
+            {plan.features.map((f) => (
+              <li class="plan-feature-item">
+                <span class:list={["plan-feat-icon", f.icon === "shield" ? "icon-shield" : "icon-check"]}>
+                  {f.icon === "shield" ? "🛡" : "✓"}
+                </span>
+                <span>
+                  {f.text}
+                  {f.sub && <small class="plan-feat-sub">{f.sub}</small>}
+                </span>
               </li>
             ))}
           </ul>
         </article>
       ))}
     </div>
-  </section>
 
-  <section class="section contact-section" data-reveal>
-    <div class="contact-card">
-      <div class="contact-copy">
-        <h2>{p.nextTitle}</h2>
-        <p>{p.nextBody}</p>
+    <!-- Enterprise band -->
+    <div class="enterprise-band" data-reveal>
+      <div class="enterprise-left">
+        <h3>{p.enterprise.title}</h3>
+        <p>{p.enterprise.description}</p>
+        <div class="enterprise-tags">
+          {p.enterprise.tags.map((tag) => (
+            <span class="enterprise-tag">{tag}</span>
+          ))}
+        </div>
       </div>
-      <div class="contact-actions">
-        <a class="button" href={`mailto:${p.primaryCta}`}>{p.primaryCta}</a>
-        <a class="button button-ghost" href={localizedPath(locale, "product")}>{p.secondaryCta}</a>
+      <div class="enterprise-right">
+        <a class="button enterprise-cta" href={p.enterprise.ctaHref}>{p.enterprise.ctaLabel}</a>
+        <span class="enterprise-note">{p.enterprise.note}</span>
       </div>
     </div>
   </section>
+
+  <!-- ── Credit notes ──────────────────────────────────────────────────────── -->
+  <div class="pricing-container">
+    <div class="credit-notes" data-reveal>
+      {p.creditNotes.map((note) => (
+        <p>※ {note}</p>
+      ))}
+    </div>
+  </div>
+
+  <!-- ── FAQ ──────────────────────────────────────────────────────────────── -->
+  <section class="section faq-section">
+    <div class="pricing-container">
+      <div class="section-head narrow" data-reveal>
+        <h2>{p.faq.title}</h2>
+      </div>
+      <div class="faq-list">
+        {p.faq.items.map((item) => (
+          <div class="faq-item" data-faq>
+            <button class="faq-question" type="button">
+              {item.question}
+              <span class="faq-arrow" aria-hidden="true">▼</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">{item.answer}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Trial banner ──────────────────────────────────────────────────────── -->
+  <div class="pricing-container" style="padding-bottom: 5rem;">
+    <div class="trial-banner" data-reveal>
+      <h2>{p.trialBanner.title}</h2>
+      <p>{p.trialBanner.body}</p>
+      <a class="button trial-cta" href={p.trialBanner.ctaHref}>{p.trialBanner.ctaLabel}</a>
+    </div>
+  </div>
+
 </main>
 
 <Footer locale={locale} dictionary={dictionary} />
+
+<script>
+  /* ── Monthly / Yearly toggle ─────────────────────────────────────────────── */
+  const toggle = document.querySelector("[data-pricing-toggle]");
+  if (toggle) {
+    const buttons = [...toggle.querySelectorAll<HTMLButtonElement>(".ptoggle-btn")];
+
+    const setMode = (mode: string) => {
+      buttons.forEach(b => b.classList.toggle("is-active", b.dataset.mode === mode));
+      const isYearly = mode === "yearly";
+
+      document.querySelectorAll<HTMLElement>(".plan-amount").forEach(el => {
+        el.textContent = isYearly ? (el.dataset.yearly ?? "") : (el.dataset.monthly ?? "");
+      });
+
+      document.querySelectorAll<HTMLElement>(".plan-annual-note").forEach(el => {
+        el.textContent = isYearly ? (el.dataset.annualPrice ?? "") : "";
+      });
+    };
+
+    buttons.forEach(btn => {
+      btn.addEventListener("click", () => setMode(btn.dataset.mode ?? "monthly"));
+    });
+  }
+
+  /* ── FAQ accordion ───────────────────────────────────────────────────────── */
+  document.querySelectorAll<HTMLElement>("[data-faq]").forEach(item => {
+    const btn = item.querySelector<HTMLButtonElement>(".faq-question");
+    const answer = item.querySelector<HTMLElement>(".faq-answer");
+    if (!btn || !answer) return;
+
+    btn.addEventListener("click", () => {
+      const isOpen = item.classList.contains("is-open");
+      // Close all
+      document.querySelectorAll("[data-faq]").forEach(el => {
+        el.classList.remove("is-open");
+        el.querySelector(".faq-answer")?.classList.remove("is-open");
+      });
+      // Toggle clicked
+      if (!isOpen) {
+        item.classList.add("is-open");
+        answer.classList.add("is-open");
+      }
+    });
+  });
+</script>

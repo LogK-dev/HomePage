@@ -1,5 +1,6 @@
 ---
 import ClientInit from "@/components/ClientInit.astro";
+import { THEME } from "@/config/theme";
 import "@/styles/global.css";
 import { ClientRouter } from "astro:transitions";
 import type { Locale } from "@/i18n/schema";
@@ -20,7 +21,7 @@ const ogLocaleAlt = locale === "ko" ? "en_US" : "ko_KR";
 ---
 
 <!DOCTYPE html>
-<html lang={locale} data-theme="light">
+<html lang={locale} class={`theme-${THEME}`} data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -33,6 +34,12 @@ const ogLocaleAlt = locale === "ko" ? "en_US" : "ko_KR";
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap"
       rel="stylesheet"
     />
+    {THEME === "blue" && (
+      <link
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css"
+        rel="stylesheet"
+      />
+    )}
     {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
     <!-- OpenGraph -->
     <meta property="og:type"              content="website" />

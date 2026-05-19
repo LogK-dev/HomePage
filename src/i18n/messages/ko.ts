@@ -350,72 +350,143 @@ export const ko: SiteDictionary = {
   },
   pricingPage: {
     eyebrow: "요금제",
-    title: "AI를 위임하세요.\n실행한 만큼만 지불하세요.",
-    description: "실제 워크플로우에 맞게 설계된 간단한 사용량 기반 플랜: 모델 선택, 비용 미리 보기, 위임, 검증.",
-    allPlans: {
-      label: "모든 플랜 포함 사항",
-      features: [
-        "모델 라우터",
-        "실행 전 비용 예측",
-        "답변 비교 화면",
-        "검증 루프",
-        "프라이버시 인식 라우팅"
-      ]
+    badge: "지금 바로 시작 가능 · 원화 결제 지원",
+    title: "업무에 맞는 플랜을 선택하고\nAI 활용을 시작하세요",
+    description: "모든 플랜에 멀티 LLM 비교 활용이 포함됩니다. 상위 플랜일수록 더 많은 크레딧과 기능을 제공합니다.",
+    toggle: {
+      monthly: "월간 구독",
+      yearly: "연간 구독",
+      discount: "20% 절약",
+      annualNote: "연간 구독 시 요금 20% 할인"
     },
+    creditLabel: "월 제공 크레딧",
     plans: [
       {
-        key: "starter",
-        name: "스타터",
-        price: "무료",
-        description: "다중 모델 위임을 탐색하는 개인 사용자용. 신용카드 불필요.",
-        ctaLabel: "무료로 시작하기",
+        key: "lite",
+        name: "Lite",
+        tagline: "AI를 가볍게 시작하는 플랜",
+        currency: "₩",
+        monthlyPrice: "10,000",
+        yearlyPrice: "8,000",
+        credits: "10,000",
+        ctaLabel: "시작하기 →",
         ctaHref: "mailto:hello@logk.ai",
         features: [
-          "월 500회 위임",
-          "요청당 최대 3개 모델",
-          "7일 요청 기록",
-          "커뮤니티 지원"
+          { text: "멀티 LLM 동시 사용", sub: "ChatGPT · Claude · Gemini 포함" },
+          { text: "응답 비교 기능" },
+          { text: "대화 이력 보관" }
+        ]
+      },
+      {
+        key: "standard",
+        name: "Standard",
+        tagline: "실무 업무에 최적화된 플랜",
+        currency: "₩",
+        monthlyPrice: "30,000",
+        yearlyPrice: "24,000",
+        credits: "33,000",
+        bonusCredits: "+3,000",
+        ctaLabel: "시작하기 →",
+        ctaHref: "mailto:hello@logk.ai",
+        features: [
+          { text: "멀티 LLM 동시 사용", sub: "ChatGPT · Claude · Gemini 포함" },
+          { text: "응답 비교 기능" },
+          { text: "파일 첨부 분석 (PDF · 이미지)" },
+          { text: "대화 이력 보관" }
         ]
       },
       {
         key: "pro",
-        badge: "가장 인기",
-        name: "프로",
-        price: "$29",
-        period: "/ 월",
-        description: "프라이버시 제어, 답변 합성, 전체 감사 기록이 필요한 파워 유저 및 소규모 팀용.",
-        ctaLabel: "시작하기",
-        ctaHref: "mailto:hello@logk.ai",
+        name: "Pro",
+        tagline: "심화 활용 · 보안 기능 포함",
+        currency: "₩",
+        monthlyPrice: "50,000",
+        yearlyPrice: "40,000",
+        credits: "60,000",
+        bonusCredits: "+10,000",
+        badge: "🔥 가장 인기 있는 플랜",
         highlight: true,
+        ctaLabel: "지금 시작하기 →",
+        ctaHref: "mailto:hello@logk.ai",
         features: [
-          "월 10,000회 위임",
-          "모든 모델 사용 가능",
-          "프라이버시 게이트 — 전송 전 개인정보 차단",
-          "모델 간 답변 합성",
-          "30일 감사 로그",
-          "이메일 지원"
+          { text: "멀티 LLM 동시 사용", sub: "ChatGPT · Claude · Gemini 포함" },
+          { text: "응답 비교 · 최적화" },
+          { text: "파일 첨부 분석 (PDF · 이미지)" },
+          { text: "개인정보 비식별화 (기본)", icon: "shield" },
+          { text: "대화 이력 보관" },
+          { text: "우선 고객지원" }
         ]
       },
       {
         key: "business",
-        name: "비즈니스",
-        price: "맞춤 견적",
-        description: "대용량, 컴플라이언스 요구, 또는 커스텀 모델 통합이 필요한 팀용.",
-        ctaLabel: "문의하기",
+        name: "Business",
+        tagline: "조직 · 팀 전용 풀스펙 플랜",
+        currency: "₩",
+        monthlyPrice: "100,000",
+        yearlyPrice: "80,000",
+        credits: "140,000",
+        bonusCredits: "+40,000",
+        ctaLabel: "시작하기 →",
         ctaHref: "mailto:hello@logk.ai",
         features: [
-          "무제한 위임",
-          "커스텀 프라이버시 규칙 및 정보 삭제 정책",
-          "90일 감사 로그 + 데이터 내보내기",
-          "SSO / SAML",
-          "커스텀 모델 통합",
-          "전담 온보딩 + SLA"
+          { text: "멀티 LLM 동시 사용", sub: "ChatGPT · Claude · Gemini 포함" },
+          { text: "응답 비교 · 최적화" },
+          { text: "파일 첨부 + OCR 분석" },
+          { text: "개인정보 비식별화 (풀기능)", icon: "shield" },
+          { text: "기업 내부 문서 RAG", icon: "shield" },
+          { text: "조직 보안 정책 연동", icon: "shield" },
+          { text: "대화 이력 보관" },
+          { text: "전담 고객지원 담당자" }
         ]
       }
     ],
-    nextTitle: "어떤 플랜이 맞는지 모르겠나요?",
-    nextBody: "문의해 주세요 — 워크플로우를 함께 살펴보고 적합한 시작점을 제안해 드립니다.",
-    primaryCta: "hello@logk.ai",
-    secondaryCta: "제품 보기"
+    enterprise: {
+      title: "🏢 Enterprise — 온프레미스 맞춤형",
+      description: "공공기관, 금융, 의료, 대기업 등 고보안 환경에 최적화된 폐쇄망 구축형 서비스입니다. 원화 결제 및 조직 맞춤형 보안 설정을 지원합니다.",
+      tags: ["온프레미스 구축", "폐쇄망 지원", "원화 결제", "개인정보 완전 비식별화", "내부 문서 RAG", "SLA 보장"],
+      ctaLabel: "도입 문의하기 →",
+      ctaHref: "mailto:hello@logk.ai",
+      note: "영업일 기준 3일 내 회신 드립니다"
+    },
+    creditNotes: [
+      "크레딧 소비량은 사용 모델, 프롬프트 길이, 파일 크기에 따라 달라집니다.",
+      "멀티 LLM 동시 전송 시 선택한 모델 수만큼 크레딧이 소비됩니다.",
+      "월 크레딧은 매월 1일 갱신되며 미사용분은 이월되지 않습니다."
+    ],
+    faq: {
+      title: "자주 묻는 질문",
+      items: [
+        {
+          question: "크레딧(토큰)은 어떻게 소비되나요?",
+          answer: "크레딧은 LLM에 프롬프트를 전송하고 응답을 받을 때 소비됩니다. 소비량은 선택한 LLM 모델의 종류, 프롬프트 텍스트 길이, 첨부 파일 크기에 따라 달라집니다. 멀티 LLM 동시 전송 시에는 선택된 모델 수만큼 크레딧이 각각 소비됩니다. 예를 들어 5개 모델에 동시 전송하면 1회 프롬프트 기준으로 약 5배의 크레딧이 사용됩니다."
+        },
+        {
+          question: "미사용 크레딧은 다음 달로 이월되나요?",
+          answer: "기본적으로 월 크레딧은 매월 1일에 초기화되며 미사용분은 이월되지 않습니다. Business 플랜의 경우 최대 1개월분 크레딧 이월 기능을 제공할 예정입니다. 더 유연한 크레딧 활용이 필요하시면 Enterprise 플랜 도입 문의를 통해 맞춤 설정이 가능합니다."
+        },
+        {
+          question: "공공기관·교육기관도 사용할 수 있나요?",
+          answer: "네, 원화 결제 시스템을 제공하므로 외화 결제 제약이 있는 기관에서도 국내 카드 및 계좌이체로 간편하게 이용할 수 있습니다. 나라장터 등록 및 공공 조달 구매를 위해서는 Enterprise 플랜 도입 문의를 통해 별도 상담을 받으실 수 있습니다."
+        },
+        {
+          question: "개인정보 비식별화 기능은 어떻게 작동하나요?",
+          answer: "프롬프트를 외부 LLM 서버로 전송하기 전에 개인정보 및 민감정보를 자동으로 탐지하고 비식별화합니다. 이름·이메일·전화번호·주민등록번호·계좌번호 등을 NER + 정규식 + 자체 sLLM 조합 방식으로 탐지하며, '김철수' → '[이름_1]'과 같이 처리해 문서 구조를 그대로 유지합니다. Pro는 기본 탐지, Business는 OCR 포함 풀기능을 제공합니다."
+        },
+        {
+          question: "플랜을 중간에 업그레이드하거나 변경할 수 있나요?",
+          answer: "언제든지 플랜 업그레이드가 가능합니다. 업그레이드 시 잔여 크레딧은 그대로 유지되며, 변경 시점부터 새 플랜의 기능과 크레딧이 적용됩니다. 다운그레이드의 경우 현재 결제 주기가 끝난 후 다음 달부터 적용됩니다."
+        },
+        {
+          question: "어떤 LLM 모델을 사용할 수 있나요?",
+          answer: "현재 ChatGPT, Claude, Gemini, Grok, DeepSeek, Perplexity 등 25개 이상의 최신 모델을 지원합니다. 모델 목록은 AI 업계 업데이트에 맞추어 지속적으로 확장·변동됩니다."
+        }
+      ]
+    },
+    trialBanner: {
+      title: "지금 바로 LogK를 경험해 보세요",
+      body: "무료 데모를 통해 멀티 LLM 비교 활용과 보안 기능을 직접 확인해 보실 수 있습니다.",
+      ctaLabel: "무료 데모 신청하기",
+      ctaHref: "mailto:hello@logk.ai"
+    }
   }
 };

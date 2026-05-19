@@ -151,27 +151,53 @@ export type SiteDictionary = {
   };
   pricingPage: {
     eyebrow: string;
+    badge: string;
     title: string;
     description: string;
-    allPlans: {
-      label: string;
-      features: string[];
+    toggle: {
+      monthly: string;
+      yearly: string;
+      discount: string;
+      annualNote: string;
     };
+    creditLabel: string;
     plans: Array<{
-      key: "starter" | "pro" | "business";
-      badge?: string;
+      key: string;
       name: string;
-      price: string;
-      period?: string;
-      description: string;
+      tagline: string;
+      currency: string;
+      monthlyPrice: string;
+      yearlyPrice: string;
+      credits: string;
+      bonusCredits?: string;
+      badge?: string;
       ctaLabel: string;
       ctaHref: string;
       highlight?: boolean;
-      features: string[];
+      features: Array<{
+        text: string;
+        sub?: string;
+        icon?: "shield";
+      }>;
     }>;
-    nextTitle: string;
-    nextBody: string;
-    primaryCta: string;
-    secondaryCta: string;
+    enterprise: {
+      title: string;
+      description: string;
+      tags: string[];
+      ctaLabel: string;
+      ctaHref: string;
+      note: string;
+    };
+    creditNotes: string[];
+    faq: {
+      title: string;
+      items: Array<{ question: string; answer: string }>;
+    };
+    trialBanner: {
+      title: string;
+      body: string;
+      ctaLabel: string;
+      ctaHref: string;
+    };
   };
 };
