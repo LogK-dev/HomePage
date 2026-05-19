@@ -13,10 +13,12 @@ interface Props {
 const { label, options } = Astro.props;
 ---
 
-<div class="locale-switch" aria-label={label}>
-  {options.map((option) => (
-    <a class:list={["locale-chip", { "is-active": option.active }]} href={option.href} lang={option.label.toLowerCase()}>
-      {option.label}
-    </a>
-  ))}
-</div>
+{options.length > 1 && (
+  <div class="locale-switch" aria-label={label}>
+    {options.map((option) => (
+      <a class:list={["locale-chip", { "is-active": option.active }]} href={option.href} lang={option.label.toLowerCase()}>
+        {option.label}
+      </a>
+    ))}
+  </div>
+)}
