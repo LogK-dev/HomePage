@@ -1,6 +1,6 @@
 import { locales, type Locale } from "@/i18n/locales";
 
-export const defaultLocale: Locale = "en";
+export const defaultLocale: Locale = "ko";
 
 export const isLocale = (value: string): value is Locale => {
   return locales.includes(value as Locale);

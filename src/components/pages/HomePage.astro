@@ -10,12 +10,13 @@ interface Props {
 }
 
 const { locale, dictionary } = Astro.props;
-const productPath = localizedPath(locale, "product");
-const homePath = localizedPath(locale);
+const servicePath = `${localizedPath(locale)}#service`;
+const pricingPath = localizedPath(locale, "pricing");
 const languageOptions = getLanguageOptions(locale);
 const productPreviewBase = `${import.meta.env.BASE_URL}product-preview/`;
 const previewFeatures = dictionary.hero.previewFeatures;
 const previewJsSrc = `${productPreviewBase}product-preview.js${import.meta.env.PROD ? `?v=${Date.now()}` : ""}`;
+const gallery = dictionary.productPage.gallery;
 ---
 
 <Header locale={locale} dictionary={dictionary} languageOptions={languageOptions} />
@@ -31,8 +32,8 @@ const previewJsSrc = `${productPreviewBase}product-preview.js${import.meta.env.P
       <p class="hero-lede">{dictionary.hero.lede}</p>
 
       <div class="hero-actions">
-        <a class="button" href={productPath}>{dictionary.hero.primaryCta}</a>
-        <a class="button button-ghost" href="#solution">{dictionary.hero.secondaryCta}</a>
+        <a class="button" href="#service">{dictionary.hero.primaryCta}</a>
+        <a class="button button-ghost" href={pricingPath}>{dictionary.hero.secondaryCta}</a>
       </div>
 
       <ul class="hero-metrics" aria-label="Key outcomes">
@@ -70,7 +71,11 @@ const previewJsSrc = `${productPreviewBase}product-preview.js${import.meta.env.P
       </div>
 
       <div class="product-preview-mount">
-        <div data-product-preview data-locale={locale} data-feature={previewFeatures[0].id} data-product-url={productPath}>
+        <div data-product-preview data-locale={locale} data-feature={previewFeatures[0].id} data-product-url={servicePath}>
+          <div class="product-preview-fallback">
+            <strong>{dictionary.hero.previewFallback.title}</strong>
+            <p>{dictionary.hero.previewFallback.body}</p>
+          </div>
         </div>
       </div>
       <script is:inline type="module" src={previewJsSrc}></script>
@@ -124,161 +129,96 @@ const previewJsSrc = `${productPreviewBase}product-preview.js${import.meta.env.P
     </div>
   </section>
 
-  <section id="solution" class="section split-section">
-    <div class="section-head" data-reveal>
-      <p class="eyebrow">{dictionary.solution.eyebrow}</p>
-      <h2>{dictionary.solution.title}</h2>
-      <p>{dictionary.solution.description}</p>
-    </div>
-
-    <div class="feature-grid">
-      {dictionary.solution.cards.map((card) => (
-        <article class:list={["feature-card", { "feature-card-tall": card.tall }]} data-reveal>
-          <span class="card-index">{card.index}</span>
-          <h3>{card.title}</h3>
-          <p>{card.body}</p>
-          {card.bullets && (
-            <ul class="mini-list">
-              {card.bullets.map((bullet) => (
-                <li>{bullet}</li>
-              ))}
-            </ul>
-          )}
-        </article>
-      ))}
-    </div>
-  </section>
-
-  <section class="section showcase-section">
+  <section id="service" class="product-hero section home-service-section">
     <div class="section-head narrow" data-reveal>
-      <p class="eyebrow">{dictionary.showcase.eyebrow}</p>
-      <h2>{dictionary.showcase.title}</h2>
-      <p>{dictionary.showcase.description}</p>
+      <p class="eyebrow">{dictionary.productPage.eyebrow}</p>
+      <h2>{dictionary.productPage.title}</h2>
+      <p>{dictionary.productPage.description}</p>
     </div>
 
-    <div class="showcase" data-showcase>
-      <div class="showcase-tabs" data-reveal>
-        {dictionary.showcase.tabs.map((tab, index) => (
-          <button class:list={["showcase-tab", { "is-active": index === 0 }]} type="button" data-tab={tab.id}>
-            {tab.label}
-          </button>
-        ))}
-      </div>
-
-      <div class="showcase-panels" data-reveal>
-        {dictionary.showcase.tabs.map((tab, index) => (
-          <article class:list={["showcase-panel", { "is-active": index === 0 }]} data-panel={tab.id}>
-            <div class="showcase-copy">
-              <h3>{tab.title}</h3>
-              <p>{tab.body}</p>
-            </div>
-            <div class="showcase-visual">
-              {tab.bullets && (
-                <div class="visual-card">
-                  <span class="visual-label">{tab.visualLabel}</span>
-                  <strong>{tab.visualTitle}</strong>
-                  <ul class="mini-list">
-                    {tab.bullets.map((bullet) => (
-                      <li>{bullet}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-              {tab.stack && (
-                <div class="visual-stack">
-                  {tab.stack.map((stackLine) => (
-                    <div class="stack-card">{stackLine}</div>
-                  ))}
-                </div>
-              )}
-              {tab.reviewLines && (
-                <div class="review-board">
-                  {tab.reviewLines.map((line) => (
-                    <div class="review-line">
-                      <span class="review-dot"></span>
-                      <p>{line}</p>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section id="technology" class="section tech-section">
-    <div class="section-head" data-reveal>
-      <p class="eyebrow">{dictionary.technology.eyebrow}</p>
-      <h2>{dictionary.technology.title}</h2>
-      <p>{dictionary.technology.description}</p>
-    </div>
-
-    <div class="tech-layout">
-      <article class="tech-card tech-card-graphic" data-reveal>
-        <img src={`${import.meta.env.BASE_URL}assets/tech-lattice.svg`} alt="" aria-hidden="true" />
-        <div class="tech-card-copy">
-          <span class="eyebrow">{dictionary.technology.graphicEyebrow}</span>
-          <h3>{dictionary.technology.graphicTitle}</h3>
-          <p>{dictionary.technology.graphicBody}</p>
-        </div>
-      </article>
-
-      {dictionary.technology.cards.map((card) => (
-        <article class="tech-card" data-reveal>
-          <span class="card-index">{card.index}</span>
-          <h3>{card.title}</h3>
-          <p>{card.body}</p>
-        </article>
-      ))}
-
-      <article class="tech-card stats-card" data-reveal>
-        {dictionary.technology.stats.map((stat) => (
-          <div class="stat">
-            <strong data-count={stat.value}>0</strong>
-            <span>{stat.label}</span>
+    <div class="product-stage" data-reveal>
+      <img class="stage-art" src={`${import.meta.env.BASE_URL}assets/tech-lattice.svg`} alt="" aria-hidden="true" />
+      <div class="stage-shell">
+        {dictionary.productPage.stages.map((stage) => (
+          <div class="stage-column">
+            <span class="stage-label">{stage.label}</span>
+            <strong>{stage.title}</strong>
+            <p>{stage.body}</p>
           </div>
         ))}
-      </article>
+      </div>
     </div>
   </section>
 
-  <section id="company" class="section company-section">
-    <div class="section-head" data-reveal>
-      <p class="eyebrow">{dictionary.company.eyebrow}</p>
-      <h2>{dictionary.company.title}</h2>
-      <p>{dictionary.company.description}</p>
+  <section class="section product-gallery">
+    <article class="product-screenshot-card" data-reveal>
+      <div class="product-screenshot-copy">
+        <span class="card-index">{gallery.workspaceLabel}</span>
+        <h2>{gallery.workspaceTitle}</h2>
+        <p>{gallery.workspaceBody}</p>
+      </div>
+      <img
+        class="product-screenshot-image"
+        src={`${import.meta.env.BASE_URL}assets/workspace_screenshot.png`}
+        alt={gallery.workspaceAlt}
+      />
+    </article>
+
+    <article class="product-screenshot-card" data-reveal>
+      <div class="product-screenshot-copy">
+        <span class="card-index">{gallery.pricingLabel}</span>
+        <h2>{gallery.pricingTitle}</h2>
+        <p>{gallery.pricingBody}</p>
+      </div>
+      <img
+        class="product-screenshot-image"
+        src={`${import.meta.env.BASE_URL}assets/pricing_screenshot.png`}
+        alt={gallery.pricingAlt}
+      />
+    </article>
+  </section>
+
+  <section class="section product-grid">
+    {dictionary.productPage.surfaces.map((surface) => (
+      <article class:list={["product-card", { "product-card-wide": surface.wide }]} data-reveal>
+        <span class="card-index">{surface.index}</span>
+        <h2>{surface.title}</h2>
+        <p>{surface.body}</p>
+      </article>
+    ))}
+  </section>
+
+  <section class="section timeline-section">
+    <div class="section-head narrow" data-reveal>
+      <p class="eyebrow">{dictionary.productPage.flowEyebrow}</p>
+      <h2>{dictionary.productPage.flowTitle}</h2>
+      <p>{dictionary.productPage.flowDescription}</p>
     </div>
 
-    <div class="company-grid">
-      {dictionary.company.cards.map((card) => (
-        <article class:list={["company-card", { "company-card-wide": card.wide }]} data-reveal>
-          <span class="card-index">{card.index}</span>
-          {card.title && <h3>{card.title}</h3>}
-          {card.body && <p>{card.body}</p>}
-          {card.principles?.map((principle) => (
-            <div class="principle-row">
-              <strong>{principle.title}</strong>
-              <span>{principle.body}</span>
-            </div>
-          ))}
-        </article>
+    <div class="timeline-card" data-reveal>
+      {dictionary.productPage.steps.map((step) => (
+        <div class="timeline-step">
+          <span>{step.number}</span>
+          <div>
+            <strong>{step.title}</strong>
+            <p>{step.body}</p>
+          </div>
+        </div>
       ))}
     </div>
   </section>
 
-  <section id="contact" class="section contact-section" data-reveal>
+  <section class="section contact-section" data-reveal>
     <div class="contact-card">
       <div class="contact-copy">
-        <p class="eyebrow">{dictionary.contact.eyebrow}</p>
-        <h2>{dictionary.contact.title}</h2>
-        <p>{dictionary.contact.body}</p>
+        <p class="eyebrow">{dictionary.productPage.nextEyebrow}</p>
+        <h2>{dictionary.productPage.nextTitle}</h2>
+        <p>{dictionary.productPage.nextBody}</p>
       </div>
 
       <div class="contact-actions">
-        <a class="button" href="mailto:hello@logk.ai">{dictionary.contact.primaryCta}</a>
-        <a class="button button-ghost" href={productPath}>{dictionary.contact.secondaryCta}</a>
+        <a class="button" href="mailto:contact@logk.co.kr">{dictionary.productPage.primaryCta}</a>
+        <a class="button button-ghost" href={pricingPath}>{dictionary.pricingPage.eyebrow}</a>
       </div>
     </div>
   </section>

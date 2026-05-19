@@ -13,11 +13,10 @@ export const en: SiteDictionary = {
   },
   nav: {
     items: [
+      { key: "solution", label: "Service", href: "#service" },
+      { key: "pricing", label: "Pricing", href: "pricing" },
       { key: "company", label: "Company", href: "#company" },
-      { key: "solution", label: "Solution", href: "#solution" },
-      { key: "technology", label: "Technology", href: "#technology" },
-      { key: "contact", label: "Contact", href: "#contact" },
-      { key: "pricing", label: "Pricing", href: "pricing" }
+      { key: "contact", label: "Contact", href: "mailto:contact@logk.co.kr" }
     ],
     product: "Product",
     pricing: "Pricing",
@@ -231,7 +230,7 @@ export const en: SiteDictionary = {
     title: "Bring LogK into your AI workflow.",
     body:
       "LogK is designed for teams and advanced users who want to delegate across models with clear pricing, privacy controls, and stronger trust in the final answer.",
-    primaryCta: "hello@logk.ai",
+    primaryCta: "contact@logk.co.kr",
     secondaryCta: "Explore product details"
   },
   productPage: {
@@ -370,7 +369,7 @@ export const en: SiteDictionary = {
         yearlyPrice: "8,000",
         credits: "10,000",
         ctaLabel: "Get started →",
-        ctaHref: "mailto:hello@logk.ai",
+        ctaHref: "mailto:contact@logk.co.kr",
         features: [
           { text: "Multi-LLM simultaneous use", sub: "ChatGPT · Claude · Gemini included" },
           { text: "Response comparison" },
@@ -387,7 +386,7 @@ export const en: SiteDictionary = {
         credits: "33,000",
         bonusCredits: "+3,000",
         ctaLabel: "Get started →",
-        ctaHref: "mailto:hello@logk.ai",
+        ctaHref: "mailto:contact@logk.co.kr",
         features: [
           { text: "Multi-LLM simultaneous use", sub: "ChatGPT · Claude · Gemini included" },
           { text: "Response comparison" },
@@ -407,7 +406,7 @@ export const en: SiteDictionary = {
         badge: "🔥 Most popular plan",
         highlight: true,
         ctaLabel: "Start now →",
-        ctaHref: "mailto:hello@logk.ai",
+        ctaHref: "mailto:contact@logk.co.kr",
         features: [
           { text: "Multi-LLM simultaneous use", sub: "ChatGPT · Claude · Gemini included" },
           { text: "Response comparison & optimisation" },
@@ -427,7 +426,7 @@ export const en: SiteDictionary = {
         credits: "140,000",
         bonusCredits: "+40,000",
         ctaLabel: "Get started →",
-        ctaHref: "mailto:hello@logk.ai",
+        ctaHref: "mailto:contact@logk.co.kr",
         features: [
           { text: "Multi-LLM simultaneous use", sub: "ChatGPT · Claude · Gemini included" },
           { text: "Response comparison & optimisation" },
@@ -445,7 +444,7 @@ export const en: SiteDictionary = {
       description: "On-premise deployment optimised for high-security environments: public sector, finance, healthcare, and large enterprises. Supports KRW billing and organisation-specific security configuration.",
       tags: ["On-premise", "Air-gapped support", "KRW billing", "Full PII de-identification", "Internal document RAG", "SLA guarantee"],
       ctaLabel: "Contact sales →",
-      ctaHref: "mailto:hello@logk.ai",
+      ctaHref: "mailto:contact@logk.co.kr",
       note: "Response within 3 business days"
     },
     creditNotes: [
@@ -486,7 +485,7 @@ export const en: SiteDictionary = {
       title: "Experience LogK today",
       body: "Try the free demo to see multi-LLM comparison and privacy features in action.",
       ctaLabel: "Request a free demo",
-      ctaHref: "mailto:hello@logk.ai"
+      ctaHref: "mailto:contact@logk.co.kr"
     }
   }
 };

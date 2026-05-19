@@ -29,7 +29,7 @@ const copy =
           {
             label: "라우팅",
             title: "3개 모델 동시 위임",
-            body: "OpenAI 초안, Anthropic 비판, Google 검증 흐름으로 fan-out"
+            body: "OpenAI 초안, Anthropic 비판, Google 검증 흐름으로 분산 실행"
           },
           {
             label: "정책",
@@ -43,9 +43,9 @@ const copy =
           }
         ],
         railCards: [
-          { label: "권장 품질", value: "High confidence", body: "비교 + 집계 + 검증 루프 포함" },
-          { label: "예상 지연", value: "23 sec", body: "선택된 스택 기준 p50 예상" },
-          { label: "개인정보", value: "4 fields blocked", body: "민감 필드가 provider 호출 전에 제거됩니다." }
+          { label: "권장 품질", value: "높은 신뢰도", body: "비교, 집계, 검증 루프 포함" },
+          { label: "예상 지연", value: "23초", body: "선택된 스택 기준 예상 응답 시간" },
+          { label: "개인정보", value: "4개 필드 차단", body: "민감 필드는 프로바이더 호출 전에 제거됩니다." }
         ],
         models: [
           { label: "OpenAI", name: "GPT-5.2", meta: "강한 초안 생성, 도구 활용", state: "selected" },

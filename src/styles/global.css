@@ -54,17 +54,6 @@ textarea {
   font: inherit;
 }
 
-.scroll-progress {
-  position: fixed;
-  inset: 0 auto auto 0;
-  z-index: 30;
-  width: 100%;
-  height: 4px;
-  transform-origin: left center;
-  transform: scaleX(0);
-  background: linear-gradient(90deg, var(--accent), #74d7c6 70%, #a0ecff);
-}
-
 .page-glow {
   position: fixed;
   z-index: -1;
@@ -88,9 +77,8 @@ textarea {
   background: var(--glow-green);
 }
 
-/* Sections and footer: max-width-constrained, centred */
-.section,
-.site-footer {
+/* Sections: max-width-constrained, centred */
+.section {
   width: min(calc(100% - 2rem), var(--max-width));
   margin: 0 auto;
 }
@@ -162,6 +150,7 @@ textarea {
 .site-nav {
   flex: 1;
   justify-content: center;
+  gap: clamp(1.25rem, 3vw, 2.5rem);
 }
 
 .site-nav a,
@@ -246,11 +235,16 @@ textarea {
   padding: 5.5rem 0;
 }
 
+#service,
+#company {
+  scroll-margin-top: calc(var(--header-height) + 1.5rem);
+}
+
 .hero {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr);
   align-items: start;
-  gap: 2.4rem;
+  gap: 2rem;
   min-height: auto;
   padding-top: 3.5rem;
 }
@@ -258,7 +252,7 @@ textarea {
 .hero-copy {
   display: grid;
   justify-items: start;
-  max-width: 64rem;
+  max-width: 58rem;
 }
 
 .hero-copy h1 {
@@ -701,6 +695,10 @@ p {
   padding-top: 1rem;
 }
 
+.home-service-section {
+  padding-top: 3.5rem;
+}
+
 .trust-row {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -953,16 +951,25 @@ p {
 }
 
 .site-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0 0 2.5rem;
-  color: var(--text-faint);
+  width: 100%;
+  padding: 1.5rem;
+  background: #111827;
+  text-align: center;
 }
 
-.footer-copy {
-  text-align: right;
+.site-footer p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 0.8125rem;
+}
+
+.site-footer a {
+  color: #60a5fa;
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  color: #93c5fd;
 }
 
 .product-hero {
@@ -1932,6 +1939,15 @@ html[data-theme="dark"] .lane-track {
 
 /* ─── Pricing page ──────────────────────────────────────────────────────────── */
 
+.pricing-page {
+  min-height: 100vh;
+  background: #F8FAFF;
+}
+
+body:has(.pricing-page) {
+  background: #F8FAFF;
+}
+
 .pricing-container {
   max-width: var(--max-width);
   margin-inline: auto;
@@ -2052,8 +2068,8 @@ html[data-theme="dark"] .lane-track {
 
 /* Plans grid */
 .pricing-plans-section {
-  background: var(--bg);
-  padding-block: 0 2rem;
+  background: #F8FAFF;
+  padding-block: 3.75rem 5rem;
 }
 
 .pricing-grid {
@@ -2069,7 +2085,6 @@ html[data-theme="dark"] .lane-track {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
   padding: 2rem 1.75rem;
   border-radius: var(--radius-lg);
   background: var(--surface);
@@ -2115,6 +2130,8 @@ html[data-theme="dark"] .lane-track {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
+  min-height: 9.35rem;
+  margin-bottom: 1.25rem;
 }
 
 .plan-name {
@@ -2189,10 +2206,12 @@ html[data-theme="dark"] .lane-track {
 
 /* Credit box */
 .plan-credit-box {
-  background: var(--accent-soft);
-  border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
-  border-radius: var(--radius-md);
-  padding: 0.85rem 1rem;
+  min-height: 6.25rem;
+  margin-bottom: 1.25rem;
+  background: #EFF6FF;
+  border: 1px solid #DBEAFE;
+  border-radius: 8px;
+  padding: 14px 16px;
 }
 
 .plan-card-popular .plan-credit-box {
@@ -2205,8 +2224,8 @@ html[data-theme="dark"] .lane-track {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.07em;
-  color: var(--accent);
-  margin-bottom: 4px;
+  color: #2563EB;
+  margin-bottom: 6px;
 }
 
 .plan-card-popular .plan-credit-label {
@@ -2217,7 +2236,7 @@ html[data-theme="dark"] .lane-track {
   font-size: 1.5rem;
   font-weight: 900;
   letter-spacing: -0.04em;
-  color: var(--accent-deep);
+  color: #1D4ED8;
 }
 
 .plan-card-popular .plan-credits {
@@ -2257,9 +2276,10 @@ html[data-theme="dark"] .lane-track {
   width: 100%;
   text-align: center;
   justify-content: center;
-  border-radius: var(--radius-md);
-  padding: 0.75rem;
-  font-size: 0.9rem;
+  border-radius: 8px;
+  padding: 0.8rem;
+  font-size: 0.94rem;
+  margin-bottom: 1.5rem;
 }
 
 .plan-cta-default {
@@ -2291,7 +2311,7 @@ html[data-theme="dark"] .lane-track {
 .plan-divider {
   border: none;
   border-top: 1px solid var(--surface-border);
-  margin: 0;
+  margin: 0 0 1.25rem;
 }
 
 .plan-card-popular .plan-divider {
@@ -2304,7 +2324,7 @@ html[data-theme="dark"] .lane-track {
   text-transform: uppercase;
   letter-spacing: 0.07em;
   color: var(--text-faint);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 
 .plan-card-popular .plan-features-label {
@@ -2316,7 +2336,7 @@ html[data-theme="dark"] .lane-track {
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 0.6rem;
+  gap: 0.625rem;
   flex: 1;
 }
 
@@ -2451,16 +2471,16 @@ html[data-theme="dark"] .lane-track {
 
 /* Credit notes */
 .credit-notes {
-  padding: 1.5rem 2rem;
-  border-radius: var(--radius-md);
-  background: rgba(245, 158, 11, 0.06);
-  border: 1px solid rgba(245, 158, 11, 0.2);
-  margin-block: 0 3rem;
+  padding: 2.25rem 2.5rem;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
+  border: 1px solid #FDE68A;
+  margin-block: 0 5rem;
 }
 
 .credit-notes p {
   font-size: 0.8rem;
-  color: var(--text-soft);
+  color: #92400E;
   margin: 0;
   line-height: 1.7;
 }
@@ -2595,6 +2615,108 @@ html[data-theme="dark"] .lane-track {
   background: var(--accent-soft);
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+}
+
+/* Pricing dark mode */
+html[data-theme="dark"] .pricing-page {
+  background:
+    radial-gradient(circle at 18% 0%, rgba(59, 130, 246, 0.18), transparent 32rem),
+    radial-gradient(circle at 88% 18%, rgba(124, 58, 237, 0.16), transparent 30rem),
+    linear-gradient(180deg, #08111f 0%, #0b1220 48%, #070d18 100%);
+}
+
+html[data-theme="dark"] body:has(.pricing-page) {
+  background: #070d18;
+}
+
+html[data-theme="dark"] .pricing-hero {
+  background:
+    linear-gradient(135deg, rgba(15, 23, 42, 0.78) 0%, rgba(30, 41, 59, 0.62) 48%, rgba(49, 46, 129, 0.34) 100%),
+    radial-gradient(circle at 50% 0%, rgba(96, 165, 250, 0.2), transparent 28rem);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+html[data-theme="dark"] .pricing-plans-section,
+html[data-theme="dark"] .faq-section {
+  background: transparent;
+}
+
+html[data-theme="dark"] .pricing-toggle-wrap,
+html[data-theme="dark"] .plan-card,
+html[data-theme="dark"] .faq-item {
+  background: rgba(15, 23, 42, 0.78);
+  border-color: rgba(148, 163, 184, 0.16);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+}
+
+html[data-theme="dark"] .plan-card:hover {
+  border-color: rgba(96, 165, 250, 0.34);
+  box-shadow: 0 24px 70px rgba(2, 6, 23, 0.5);
+}
+
+html[data-theme="dark"] .plan-card-popular {
+  background:
+    linear-gradient(160deg, rgba(29, 78, 216, 0.96) 0%, rgba(37, 99, 235, 0.9) 52%, rgba(14, 165, 233, 0.82) 100%);
+  border-color: rgba(147, 197, 253, 0.42);
+  box-shadow: 0 26px 80px rgba(37, 99, 235, 0.26);
+}
+
+html[data-theme="dark"] .plan-credit-box {
+  background: rgba(30, 64, 175, 0.18);
+  border-color: rgba(96, 165, 250, 0.22);
+}
+
+html[data-theme="dark"] .plan-credit-label,
+html[data-theme="dark"] .plan-credits {
+  color: #93C5FD;
+}
+
+html[data-theme="dark"] .plan-bonus {
+  background: rgba(16, 185, 129, 0.18);
+  color: #A7F3D0;
+}
+
+html[data-theme="dark"] .plan-cta-default {
+  background: rgba(96, 165, 250, 0.14);
+  border-color: rgba(96, 165, 250, 0.28);
+  color: #BFDBFE;
+}
+
+html[data-theme="dark"] .plan-cta-default:hover {
+  background: #60A5FA;
+  color: #07111f;
+}
+
+html[data-theme="dark"] .enterprise-band {
+  background:
+    linear-gradient(135deg, rgba(15, 23, 42, 0.96) 0%, rgba(30, 41, 59, 0.9) 58%, rgba(37, 99, 235, 0.24) 100%);
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.32);
+}
+
+html[data-theme="dark"] .credit-notes {
+  background: linear-gradient(135deg, rgba(146, 64, 14, 0.18) 0%, rgba(120, 53, 15, 0.12) 100%);
+  border-color: rgba(251, 191, 36, 0.24);
+}
+
+html[data-theme="dark"] .credit-notes p {
+  color: #FCD34D;
+}
+
+html[data-theme="dark"] .faq-arrow {
+  background: rgba(30, 41, 59, 0.95);
+}
+
+html[data-theme="dark"] .trial-banner {
+  background:
+    linear-gradient(135deg, rgba(29, 78, 216, 0.95) 0%, rgba(79, 70, 229, 0.9) 52%, rgba(14, 165, 233, 0.78) 100%);
+  border: 1px solid rgba(147, 197, 253, 0.22);
+  box-shadow: 0 26px 80px rgba(37, 99, 235, 0.22);
+}
+
+html[data-theme="dark"] .trial-cta,
+html[data-theme="dark"] .enterprise-cta {
+  color: #0B1220;
 }
 
 /* Responsive */
