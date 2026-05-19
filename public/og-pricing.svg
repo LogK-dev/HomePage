@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%"   stop-color="#07111F"/>
+      <stop offset="60%"  stop-color="#0C1F4A"/>
+      <stop offset="100%" stop-color="#1D4ED8"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1080" cy="90"  r="320" fill="#2563EB" fill-opacity="0.13"/>
+  <circle cx="80"   cy="560" r="220" fill="#1D4ED8" fill-opacity="0.10"/>
+
+  <!-- brand mark -->
+  <rect x="72" y="64" width="56" height="56" rx="14" fill="#2563EB"/>
+  <text x="100" y="104" text-anchor="middle"
+        font-family="system-ui,-apple-system,Arial,sans-serif"
+        font-size="34" font-weight="800" fill="white">L</text>
+  <text x="146" y="104"
+        font-family="system-ui,-apple-system,Arial,sans-serif"
+        font-size="34" font-weight="700" fill="white">LogK</text>
+
+  <!-- eyebrow -->
+  <text x="72" y="196"
+        font-family="system-ui,-apple-system,Arial,sans-serif"
+        font-size="19" font-weight="600" fill="#93C5FD" letter-spacing="2">요금제</text>
+
+  <!-- headline -->
+  <text x="72" y="278"
+        font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',system-ui,Arial,sans-serif"
+        font-size="62" font-weight="800" fill="white">업무에 맞는 플랜을 선택하고</text>
+  <text x="72" y="356"
+        font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',system-ui,Arial,sans-serif"
+        font-size="62" font-weight="800" fill="#93C5FD">AI 활용을 시작하세요.</text>
+
+  <!-- plan cards -->
+  <rect x="72"  y="400" width="242" height="94" rx="12" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.14)" stroke-width="1"/>
+  <text x="193" y="435" text-anchor="middle"
+        font-family="system-ui,-apple-system,Arial,sans-serif"
+        font-size="14" font-weight="600" fill="rgba(255,255,255,0.55)" letter-spacing="1">LITE</text>
+  <text x="193" y="474" text-anchor="middle"
+        font-family="system-ui,-apple-system,Arial,sans-serif"
+        font-size="28" font-weight="800" fill="white">₩10,000</text>
+
+  <rect x="330" y="400" width="242" height="94" rx="12" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.14)" stroke-width="1"/>
+  <text x="451" y="435" text-anchor="middle"
+        font-family="system-ui,-apple-system,Arial,sans-serif"
+        font-size="14" font-weight="600" fill="rgba(255,255,255,0.55)" letter-spacing="1">STANDARD</text>
+  <text x="451" y="474" text-anchor="middle"
+        font-family="system-ui,-apple-system,Arial,sans-serif"
+        font-size="28" font-weight="800" fill="white">₩30,000</text>
+
+  <!-- PRO — highlighted -->
+  <rect x="588" y="390" width="242" height="114" rx="12" fill="#2563EB" stroke="#3B82F6" stroke-width="1.5"/>
+  <text x="709" y="424" text-anchor="middle"
+        font-family="system-ui,-apple-system,Arial,sans-serif"
+        font-size="14" font-weight="600" fill="rgba(255,255,255,0.75)" letter-spacing="1">PRO  🔥</text>
+  <text x="709" y="468" text-anchor="middle"
+        font-family="system-ui,-apple-system,Arial,sans-serif"
+        font-size="28" font-weight="800" fill="white">₩50,000</text>
+  <text x="709" y="492" text-anchor="middle"
+        font-family="'Malgun Gothic','Apple SD Gothic Neo',system-ui,Arial,sans-serif"
+        font-size="13" fill="rgba(255,255,255,0.60)">가장 인기 있는 플랜</text>
+
+  <rect x="846" y="400" width="242" height="94" rx="12" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.14)" stroke-width="1"/>
+  <text x="967" y="435" text-anchor="middle"
+        font-family="system-ui,-apple-system,Arial,sans-serif"
+        font-size="14" font-weight="600" fill="rgba(255,255,255,0.55)" letter-spacing="1">BUSINESS</text>
+  <text x="967" y="474" text-anchor="middle"
+        font-family="system-ui,-apple-system,Arial,sans-serif"
+        font-size="28" font-weight="800" fill="white">₩100,000</text>
+
+  <!-- footer note -->
+  <text x="72" y="570"
+        font-family="'Malgun Gothic','Apple SD Gothic Neo',system-ui,Arial,sans-serif"
+        font-size="19" fill="rgba(255,255,255,0.42)">
+    원화 결제 지원 · 연간 구독 시 20% 할인 · 모든 플랜에 멀티 LLM 포함
+  </text>
+
+  <text x="1128" y="610" text-anchor="end"
+        font-family="'Courier New',Consolas,monospace"
+        font-size="16" fill="rgba(255,255,255,0.28)">logk.co.kr</text>
+</svg>

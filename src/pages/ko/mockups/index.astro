@@ -5,10 +5,13 @@ import { getDictionary } from "@/i18n/messages";
 
 const locale = "ko";
 const dictionary = getDictionary(locale);
-const title = `${dictionary.meta.siteName} Mockups | ${dictionary.mockupsPage.eyebrow}`;
-const description = dictionary.mockupsPage.description;
 ---
 
-<BaseLayout locale={locale} title={title} description={description}>
+<BaseLayout
+  locale={locale}
+  title={dictionary.meta.mockupsTitle}
+  description={dictionary.meta.mockupsDescription}
+  ogImageFile="og-mockups.svg"
+>
   <MockupsPage locale={locale} dictionary={dictionary} />
 </BaseLayout>

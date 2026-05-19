@@ -8,11 +8,11 @@ const koPath = localizedPath("ko");
 const site             = Astro.site;
 const hasCanonicalSite = site && site.hostname !== "example.com";
 const canonicalUrl     = hasCanonicalSite ? new URL("/", site).href : undefined;
-const ogImage          = hasCanonicalSite ? new URL("og.svg", site).href : "/og.svg";
+const ogImage          = hasCanonicalSite ? new URL("og-home.svg", site).href : "/og-home.svg";
 
-const title       = "LogK | AI 위임 레이어";
+const title       = "LogK — 기업용 멀티 AI 플랫폼";
 const description =
-  "여러 AI 모델을 선택하고, 예상 비용을 먼저 확인한 뒤, 질문을 위임하고, 결과를 비교하거나 집계하는 하나의 대시보드.";
+  "25개 이상의 AI를 한 번에 위임하고, 개인정보를 자동 비식별화하며, 조직 단위로 관리합니다. 원화 결제 지원.";
 ---
 
 <!DOCTYPE html>

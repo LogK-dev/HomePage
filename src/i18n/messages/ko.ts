@@ -3,13 +3,18 @@ import type { SiteDictionary } from "@/i18n/schema";
 export const ko: SiteDictionary = {
   meta: {
     siteName: "LogK",
-    homeTitle: "LogK | 여러 AI 모델을 한 번에 쓰는 작업 공간",
+    homeTitle: "LogK — 기업용 멀티 AI 플랫폼",
     homeDescription:
-      "한 질문을 여러 AI 모델에 보내고, 비용과 결과를 한 화면에서 비교하세요.",
-    productTitle: "LogK Product | 멀티모델 AI 위임 서비스",
-    productDescription: "모델 선택, 비용 예측, 결과 비교, 개인정보 보호까지 LogK의 핵심 흐름을 살펴보세요.",
-    pricingTitle: "LogK 요금제 | 실행한 만큼만 지불하는 플랜",
-    pricingDescription: "워크플로에 맞는 플랜을 선택하세요. 모든 플랜에 모델 라우터, 비용 예측, 답변 비교가 포함됩니다."
+      "25개 이상의 AI를 한 번에 위임하고, 개인정보를 자동 비식별화하며, 조직 단위로 관리합니다. 원화 결제 지원.",
+    productTitle: "LogK 서비스 소개 — 멀티 AI 위임부터 기업 관리까지",
+    productDescription:
+      "모델 선택, 실행 전 비용 확인, 개인정보 자동 비식별화, 결재 워크플로, 조직 관리까지 — 기업 AI 활용의 전체 흐름.",
+    pricingTitle: "LogK 요금제 — ₩10,000부터 시작하는 멀티 AI 구독",
+    pricingDescription:
+      "Lite ₩10,000 · Standard ₩30,000 · Pro ₩50,000 · Business ₩100,000. 모든 플랜에 멀티 LLM 비교 활용 포함. 연간 구독 시 20% 할인.",
+    mockupsTitle: "LogK 제품 화면 — 실제 UI 목업 모음",
+    mockupsDescription:
+      "모델 선택, 답변 비교, 개인정보 비식별화, 크레딧 과금의 실제 화면입니다."
   },
   nav: {
     items: [

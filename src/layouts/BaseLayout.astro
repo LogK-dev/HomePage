@@ -8,13 +8,15 @@ interface Props {
   locale: Locale;
   title: string;
   description: string;
+  /** Filename inside /public (e.g. "og-home.svg"). Resolved to absolute URL automatically. */
+  ogImageFile?: string;
 }
 
-const { locale, title, description } = Astro.props;
+const { locale, title, description, ogImageFile = "og.svg" } = Astro.props;
 const site = Astro.site;
 const hasCanonicalSite = site && site.hostname !== "example.com";
 const canonicalUrl = hasCanonicalSite ? new URL(Astro.url.pathname, site).toString() : undefined;
-const ogImage = hasCanonicalSite ? new URL("og.svg", site).href : "/og.svg";
+const ogImage = hasCanonicalSite ? new URL(ogImageFile, site).href : `/${ogImageFile}`;
 const ogLocale = locale === "ko" ? "ko_KR" : "en_US";
 const ogLocaleAlt = locale === "ko" ? "en_US" : "ko_KR";
 ---

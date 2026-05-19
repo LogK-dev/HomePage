@@ -20,6 +20,8 @@ export type SiteDictionary = {
     productDescription: string;
     pricingTitle: string;
     pricingDescription: string;
+    mockupsTitle: string;
+    mockupsDescription: string;
   };
   nav: {
     items: NavItem[];
