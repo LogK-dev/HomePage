@@ -34,10 +34,6 @@ body {
   transition: background-color var(--transition), color var(--transition);
 }
 
-body.menu-open {
-  overflow: hidden;
-}
-
 img {
   display: block;
   max-width: 100%;
@@ -1209,7 +1205,14 @@ p {
   }
 
   .nav-toggle {
-    display: inline-block;
+    /* Pinned to the top-right of the (sticky) header so the burger ↔ X morph
+       happens in place — the header growing downward when the menu opens
+       doesn't drag the toggle with it. */
+    display: block;
+    position: absolute;
+    top: calc((var(--header-height) - 2.8rem) / 2);
+    right: 1rem;
+    z-index: 1;
   }
 
   .site-nav,
@@ -1218,8 +1221,10 @@ p {
   }
 
   .site-header.menu-open {
-    max-height: 100vh;
-    overflow-y: auto;
+    /* Grow in normal flow; body scrolls if menu exceeds viewport. */
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
   }
 
   .site-header.menu-open .site-nav,
@@ -1228,10 +1233,11 @@ p {
     width: 100%;
   }
 
-  .site-header.menu-open {
-    flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: space-between;
+  /* Keep the brand visually centered in the original top-bar zone even after
+     the header expands downward to host the menu — the toggle is anchored
+     top-right (absolute), so the brand needs to hold the top-bar's height. */
+  .site-header.menu-open .brand {
+    min-height: var(--header-height);
   }
 
   .site-header.menu-open .site-nav,
