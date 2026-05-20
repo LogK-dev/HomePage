@@ -1,487 +1,757 @@
-[Github Demo Page](https://logk-dev.github.io/HomePage/en/?preview=projects)
+# SelecAI Marketing Site
 
+Static Astro site for **SelecAI**, a multi-AI platform by **로그케이 (LogK)** that lets teams choose, delegate across, compare, and verify answers from multiple AI models.
 
-# LogK Homepage Demo
+Live site: **https://www.logk.co.kr**
 
-Astro-based multilingual startup homepage for **LogK**, a product that helps users choose, delegate across, compare, and verify answers from multiple AI models.
-
-This repository is designed to stay simple enough for a small team, while remaining clean and extensible as the homepage grows.
+---
 
 ## What This Project Is
 
-- A static Astro site suitable for GitHub Pages
-- A bilingual marketing site with `en` and `ko` routes
-- A design system with light and dark themes
-- A homepage and product page built from reusable page components
-- A foundation for an embedded `product-preview` app that can later replace static screenshots
+- An Astro 6 static site deployed to GitHub Pages
+- A Korean-only marketing site (`ko` is the only active locale; `/` redirects to `/ko/`)
+- A light-mode-only design with a swappable CSS theme system
+- Four content pages: Home, Product, Pricing, Mockups
+- A product-preview React/Vite embed (built but currently hidden in the hero)
+
+---
 
 ## Core Principles
 
-These are the architectural rules that keep the project manageable:
+1. **Routes stay thin.** Route files load a dictionary and render one page component. No markup logic in `src/pages/`.
+2. **Marketing copy lives in dictionaries.** All visible strings go in `src/i18n/messages/ko.ts`.
+3. **Page sections live in page components.** Large composition belongs in `src/components/pages/`.
+4. **Shared chrome stays shared.** Header, Footer, LanguageSwitcher, ClientInit are in `src/components/`.
+5. **Static assets are explicit.** Images and videos live in `public/assets/`.
+6. **One theme at a time.** Set `THEME` in `src/config/theme.ts` to switch the entire visual style.
 
-1. **Routes stay thin.**
-   Route files should mostly load a dictionary and render a page component.
-2. **Marketing copy lives in dictionaries.**
-   English and Korean text should stay under `src/i18n/messages/`.
-3. **Page sections live in page components.**
-   Large page composition belongs in `src/components/pages/`.
-4. **Shared chrome stays shared.**
-   Header, footer, theme toggle, locale switcher, and global client-side behavior live in shared components.
-5. **Static assets are explicit.**
-   Screenshots and decorative images live in `public/assets/`.
-6. **Product previews stay bounded.**
-   Future interactive product visuals should live behind a clear `product-preview` boundary instead of being scattered through homepage components.
+---
 
 ## Tech Stack
 
-| Layer | Choice | Why |
-| --- | --- | --- |
-| Site framework | Astro 6 | Static output, simple routing, strong fit for GitHub Pages |
-| Styling | Global CSS | Fast to iterate for a landing page and easy to deploy |
-| Language support | Astro i18n + typed dictionaries | Clean locale routing and controlled copy structure |
-| Interactivity | Small client script in `ClientInit.astro` | Keeps the site mostly static while enabling polished motion |
-| Product visuals | Static assets now, future `product-preview` app later | Keeps the homepage fast while leaving room for an interactive embedded preview |
+| Layer | Choice | Notes |
+|-------|--------|-------|
+| Framework | Astro 6, static output | GitHub Pages-ready, no SSR |
+| Styling | Global CSS + per-theme CSS files | Light mode only; dark mode vars exist but are unused |
+| Fonts | IBM Plex Mono, Instrument Sans, Sora (Google Fonts); Pretendard (CDN, blue theme only) | Loaded in BaseLayout |
+| i18n | Astro i18n + typed dictionaries | Korean only; `prefixDefaultLocale: true` |
+| Interactivity | Inline `<script>` in components + `ClientInit.astro` | No framework on the Astro side |
+| Product preview | React + Vite, built to `public/product-preview/` | Mounted via `[data-product-preview]`; currently hidden |
+
+---
 
 ## Quick Start
 
-### 1. Install dependencies
-
 ```bash
 npm install
+npm run dev          # http://localhost:4321
+npm run build        # production build → dist/
+npm run preview      # serve dist/ locally
+npm run check        # tsc + astro check
 ```
 
-### 2. Run local development server
-
-```bash
-npm run dev
-```
-
-Default Astro dev URL:
-
-```text
-http://localhost:4321
-```
-
-### 3. Build the static site
-
-```bash
-npm run build
-```
-
-### 4. Preview the built output
-
-```bash
-npm run preview
-```
-
-### 5. Type-check and Astro-check the project
-
-```bash
-npm run check
-```
+---
 
 ## Environment Variables
 
-The site is configured in [`astro.config.mjs`](./astro.config.mjs).
+All configuration lives in `astro.config.mjs`.
 
-| Variable | Purpose | Example |
-| --- | --- | --- |
-| `SITE_URL` | Canonical site origin. For GitHub project Pages, do not include the repo path. | `https://username.github.io` |
-| `BASE_PATH` | Subpath for GitHub Pages project deployments | `/PAGE_DEMO` |
+| Variable | Purpose | Default |
+|----------|---------|---------|
+| `SITE_URL` | Canonical origin (no trailing path) | `https://www.logk.co.kr` |
+| `BASE_PATH` | Subpath for GitHub project Pages | `undefined` (root) |
 
-### Example: local build with GitHub Pages-style base path
+`normalizeBase()` in `astro.config.mjs` converts `"/"` or empty string to `undefined` so Astro uses no base path.
 
 ```bash
+# Local build matching the company repo
+SITE_URL=https://www.logk.co.kr BASE_PATH=/ npm run build
+
+# Local build matching a GitHub project Pages repo
 SITE_URL=https://username.github.io BASE_PATH=/PAGE_DEMO npm run build
 ```
+
+---
 
 ## Project Map
 
 ```text
 .
-├── astro.config.mjs
+├── astro.config.mjs              # site/base config, i18n, locale list
 ├── package.json
-├── product-preview/
-│   ├── package.json                 # React/Vite embedded preview package
-│   ├── src/
-│   │   ├── components/              # preview-only UI pieces
-│   │   ├── demo-data/               # local product scenarios
-│   │   ├── state/                   # local preview state
-│   │   ├── styles/                  # namespaced preview CSS
-│   │   └── main.tsx                 # mounts into [data-product-preview]
-│   └── vite.config.ts               # builds into public/product-preview/
+├── .github/workflows/deploy.yml  # GitHub Pages CI
+├── docs/                         # supplementary guides
+├── product-preview/              # React/Vite embedded preview (separate package)
+│   ├── package.json
+│   ├── vite.config.ts            # library build → public/product-preview/
+│   └── src/
+│       ├── App.tsx
+│       ├── main.tsx              # mounts into [data-product-preview]
+│       ├── i18n.ts
+│       ├── preview.css           # namespaced under .lpv-* prefix
+│       └── components/
 ├── public/
-│   ├── assets/                     # screenshots and decorative static assets
-│   └── product-preview/            # generated preview build artifacts
+│   ├── assets/
+│   │   ├── selecAI_mockup/       # product screenshot assets (images + videos)
+│   │   │   ├── selecAI_multi_delegate.mov
+│   │   │   ├── selecAI_image_gen.mov
+│   │   │   ├── selecAI_private_masking.png
+│   │   │   ├── selecAI_corp_mgnt.png
+│   │   │   ├── selecAI_user_mgmt.png
+│   │   │   └── selecAI_prompt_pay.png
+│   │   ├── workspace_screenshot.png
+│   │   ├── pricing_screenshot.png
+│   │   ├── tech-lattice.svg
+│   │   ├── hero-orbit.svg
+│   │   └── signal-grid.svg
+│   ├── og-home.png               # OG image for homepage (1200×630 px)
+│   ├── og-product.png
+│   ├── og-pricing.png
+│   ├── og-mockups.png
+│   ├── og.png                    # fallback OG image
+│   └── product-preview/          # generated by npm run build:preview (git-ignored)
 ├── src/
-│   ├── components/
-│   │   ├── ClientInit.astro        # global client-side interactions
-│   │   ├── Footer.astro
-│   │   ├── Header.astro
-│   │   ├── LanguageSwitcher.astro
-│   │   ├── ThemeToggle.astro
-│   │   ├── mockups/                # Astro-rendered visual mockups
-│   │   └── pages/                  # page-level composition components
+│   ├── config/
+│   │   └── theme.ts              # THEME constant: "blue" | "logk"
+│   ├── shared/
+│   │   └── tabs.ts               # PREVIEW_TAB_IDS and PreviewTabId type
 │   ├── i18n/
-│   │   ├── messages/               # locale dictionaries
-│   │   └── schema.ts               # typed dictionary contract
-│   ├── layouts/
-│   │   └── BaseLayout.astro        # fonts, metadata, transitions, theme bootstrap
-│   ├── pages/
-│   │   ├── index.astro             # locale redirect entry
-│   │   ├── en/                     # English routes
-│   │   └── ko/                     # Korean routes
-│   ├── styles/
-│   │   └── global.css              # global visual system and page styles
+│   │   ├── locales.ts            # single source of truth for active locales
+│   │   ├── schema.ts             # SiteDictionary type + re-exports
+│   │   └── messages/
+│   │       ├── index.ts          # getDictionary(locale) resolver
+│   │       ├── ko.ts             # Korean content
+│   │       └── en.ts             # English content (currently unused by routes)
 │   ├── utils/
-│   │   └── i18n.ts                 # locale helpers
-│   └── content.config.ts           # currently empty; no content collections active
+│   │   └── i18n.ts               # localizedPath(), getLanguageOptions(), isLocale()
+│   ├── layouts/
+│   │   └── BaseLayout.astro      # HTML shell, meta, OG, fonts, ClientInit
+│   ├── components/
+│   │   ├── ClientInit.astro      # global JS: header, reveal, mobile menu
+│   │   ├── Header.astro
+│   │   ├── Footer.astro
+│   │   ├── LanguageSwitcher.astro
+│   │   ├── ThemeToggle.astro     # currently not shown in header
+│   │   ├── ContactBanner.astro   # dark gradient CTA strip
+│   │   ├── MediaShelf.astro      # segmented tab bar + horizontal scroll shelf
+│   │   ├── FeatureShelf.astro    # dot-navigated horizontal feature shelf
+│   │   └── pages/
+│   │       ├── HomePage.astro
+│   │       ├── ProductPage.astro
+│   │       ├── PricingPage.astro
+│   │       └── MockupsPage.astro
+│   ├── pages/
+│   │   ├── index.astro           # root redirect → /ko/
+│   │   ├── ko/
+│   │   │   ├── index.astro       # home
+│   │   │   ├── product.astro
+│   │   │   ├── pricing.astro
+│   │   │   └── mockups/index.astro
+│   │   └── en/
+│   │       └── pricing.astro     # stub; no other EN routes active
+│   ├── styles/
+│   │   ├── global.css
+│   │   └── themes/
+│   │       ├── blue.css          # clean blue professional (SelecAI reference)
+│   │       └── logk.css          # warm teal editorial (original LogK brand)
+│   └── content.config.ts         # empty; no content collections in use
 └── README.md
 ```
+
+---
 
 ## Architecture Overview
 
 ```mermaid
 flowchart LR
-    Browser["Browser Request"] --> Route["Astro Route<br/>src/pages/..."]
+    Browser --> Route["Astro Route\nsrc/pages/ko/*"]
     Route --> Layout["BaseLayout.astro"]
-    Route --> Page["Page Component<br/>src/components/pages/..."]
+    Route --> Page["Page Component\nsrc/components/pages/*"]
 
-    Layout --> Client["ClientInit.astro<br/>theme, reveal, tilt, tabs, counters"]
-    Layout --> GlobalCSS["src/styles/global.css"]
+    Layout --> Client["ClientInit.astro"]
+    Layout --> GlobalCSS["global.css + themes/*.css"]
+    Layout --> Fonts["Google Fonts / Pretendard CDN"]
 
-    Page --> Shared["Shared UI<br/>Header, Footer, ThemeToggle, LanguageSwitcher"]
-    Page --> Dict["Locale Dictionary<br/>src/i18n/messages/en.ts<br/>src/i18n/messages/ko.ts"]
-    Page --> Assets["Static Assets<br/>public/assets/*"]
-    Page --> Preview["Embedded Product Preview<br/>public/product-preview/*"]
-    Preview --> PreviewSource["React/Vite Source<br/>product-preview/src/*"]
+    Page --> Shared["Header · Footer · ContactBanner\nMediaShelf · FeatureShelf"]
+    Page --> Dict["Locale Dictionary\nko.ts / en.ts"]
+    Page --> Assets["public/assets/"]
+    Page --> Preview["product-preview/ (hidden)"]
 
-    Dict --> Schema["Typed Contract<br/>src/i18n/schema.ts"]
+    Dict --> Schema["src/i18n/schema.ts"]
+    Config["src/config/theme.ts"] --> Layout
 ```
 
-### Why This Matters
-
-- You can change marketing copy without touching layout logic.
-- You can redesign sections without changing route structure.
-- You can replace screenshots without touching Astro internals.
-- You can keep visual-only experimentation outside the main app tree.
+---
 
 ## Route Structure
 
-The project intentionally keeps route files minimal.
+Only Korean routes are active. `/` immediately redirects to `/ko/`.
 
 ```mermaid
 flowchart TD
-    Root["/"] --> Redirect["src/pages/index.astro<br/>redirect by browser language"]
-    Redirect --> EN["/en/"]
-    Redirect --> KO["/ko/"]
+    Root["/"] -- "JS + meta-refresh redirect" --> KO["/ko/"]
 
-    EN --> ENHome["/en/<br/>src/pages/en/index.astro"]
-    EN --> ENProduct["/en/product/<br/>src/pages/en/product.astro"]
-    EN --> ENMockups["/en/mockups/<br/>src/pages/en/mockups/index.astro"]
-
-    KO --> KOHome["/ko/<br/>src/pages/ko/index.astro"]
-    KO --> KOProduct["/ko/product/<br/>src/pages/ko/product.astro"]
-    KO --> KOMockups["/ko/mockups/<br/>src/pages/ko/mockups/index.astro"]
+    KO --> KOHome["/ko/\nHomePage.astro"]
+    KO --> KOProduct["/ko/product/\nProductPage.astro"]
+    KO --> KOPricing["/ko/pricing/\nPricingPage.astro"]
+    KO --> KOMockups["/ko/mockups/\nMockupsPage.astro"]
 ```
 
-### Route Rule
+`src/pages/en/pricing.astro` exists but there are no other EN routes. To fully activate English, add `"en"` to `src/i18n/locales.ts` and create the missing route files.
 
-If you add a new page, keep the route file small:
+### Route file pattern
 
-1. choose locale
-2. load dictionary
-3. render `BaseLayout`
-4. render one page component
+Every route file follows this exact pattern — keep it thin:
 
-That pattern is already used by the current localized pages.
+```astro
+---
+import PageComponent from "@/components/pages/PageComponent.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getDictionary } from "@/i18n/messages";
 
-## Page Rendering Flow
+const locale = "ko";
+const dictionary = getDictionary(locale);
+---
 
-```mermaid
-sequenceDiagram
-    participant User as User
-    participant Route as Astro Route
-    participant Dict as Locale Dictionary
-    participant Page as Page Component
-    participant Layout as BaseLayout
-    participant Client as ClientInit
-
-    User->>Route: Request /en/ or /ko/
-    Route->>Dict: Load matching dictionary
-    Route->>Page: Pass locale + dictionary
-    Route->>Layout: Pass title + description + locale
-    Layout-->>User: Send static HTML + CSS + assets
-    Client-->>User: Enhance with theme, reveal, showcase tabs, tilt, counters
+<BaseLayout
+  locale={locale}
+  title={dictionary.meta.pageTitle}
+  description={dictionary.meta.pageDescription}
+  ogImageFile="og-page.png"
+>
+  <PageComponent locale={locale} dictionary={dictionary} />
+</BaseLayout>
 ```
 
-## Responsibility Guide
+The homepage also injects the product-preview stylesheet via a head slot:
 
-When you want to change something, use this map:
-
-```mermaid
-flowchart TD
-    Start["I want to change something"] --> Copy{"Is it mostly text?"}
-    Copy -- Yes --> Dict["Edit src/i18n/messages/*.ts"]
-    Copy -- No --> Visual{"Is it a shared shell element?"}
-    Visual -- Yes --> Shared["Edit shared components<br/>Header / Footer / ThemeToggle / LanguageSwitcher"]
-    Visual -- No --> Page{"Is it page-specific?"}
-    Page -- Yes --> PageComp["Edit src/components/pages/*"]
-    Page -- No --> Behavior{"Is it global interactive behavior?"}
-    Behavior -- Yes --> Client["Edit src/components/ClientInit.astro"]
-    Behavior -- No --> Asset{"Is it an image or screenshot?"}
-    Asset -- Yes --> Assets["Replace or add files in public/assets/"]
-    Asset -- No --> Preview{"Is it an embedded product preview?"}
-    Preview -- Yes --> ProductPreview["Add or edit product-preview/"]
-    Preview -- No --> Config["Check astro.config.mjs or utils"]
+```astro
+<BaseLayout ...>
+  <link slot="head" rel="stylesheet" href={productPreviewCss} />
+  <HomePage locale={locale} dictionary={dictionary} />
+</BaseLayout>
 ```
 
-## Directory Details
+---
 
-### `src/pages/`
+## Theme System
 
-Purpose: file-based routing.
+The active theme is set in **`src/config/theme.ts`**:
 
-Current rule:
+```ts
+export const THEME = "blue" as const;  // or "logk"
+export type Theme = "logk" | "blue";
+```
 
-- Keep these files thin.
-- Do not put large UI markup here unless it is a tiny one-off route.
-- Prefer page components under `src/components/pages/`.
+`BaseLayout.astro` reads `THEME` and adds `class="theme-{THEME}"` to `<html>`. The matching CSS file under `src/styles/themes/` defines all design tokens. Dark mode HTML is present in the theme CSS files but is deliberately disabled — `BaseLayout` hardcodes `data-theme="light"` and `<meta name="color-scheme" content="light">`.
 
-### `src/components/pages/`
+### Theme: `blue` (current)
 
-Purpose: page composition.
+File: `src/styles/themes/blue.css`
 
-This is where large sections of the homepage and product page belong.
+| Token | Value |
+|-------|-------|
+| `--bg` | `#F8FAFF` |
+| `--text` | `#111827` |
+| `--accent` | `#2563EB` |
+| `--surface` | `#FFFFFF` |
+| `--surface-border` | `#E5E7EB` |
+| `--contact-gradient` | `linear-gradient(135deg, #2563EB, #7C3AED)` |
+| `--radius-xl` | `24px` |
+| Body font | Pretendard Variable (loaded from CDN) |
 
-Examples:
+### Theme: `logk`
 
-- `HomePage.astro`
-- `ProductPage.astro`
-- `MockupsPage.astro`
+File: `src/styles/themes/logk.css` — warm teal / editorial style (original LogK brand). Swap `THEME` to `"logk"` to activate.
 
-This directory is the right place when you are building a new page or heavily redesigning an existing one.
+---
 
-### `src/components/`
+## i18n
 
-Purpose: shared UI and site-wide behavior.
+### Locale registration
 
-Examples:
+`src/i18n/locales.ts` is the single source of truth:
 
-- `Header.astro`
-- `Footer.astro`
-- `ThemeToggle.astro`
-- `LanguageSwitcher.astro`
-- `ClientInit.astro`
+```ts
+export const locales = ["ko"] as const;
+export type Locale = (typeof locales)[number];
+```
 
-If a component appears across multiple pages, it belongs here rather than under `components/pages/`.
+This file is imported by `astro.config.mjs`, `schema.ts`, and `utils/i18n.ts`. Add a new locale string here first, then follow the steps in **Add a New Language** below.
 
-### `src/components/mockups/`
+### Dictionary resolver
 
-Purpose: Astro-rendered illustration/mockup components used inside the site itself.
+`src/i18n/messages/index.ts` exports `getDictionary(locale: Locale): SiteDictionary`. Route files call this to get all copy for a page.
 
-These components are part of the Astro app and should remain lightweight. If product visuals grow into a stateful, responsive demo surface, move that work into a dedicated `product-preview/` app boundary instead of expanding these components indefinitely.
+### Utility helpers (`src/utils/i18n.ts`)
 
-### `product-preview/`
+```ts
+localizedPath(locale, pathname?)  // → "/ko/pricing/" (respects BASE_URL)
+getLanguageOptions(locale, pathname?)  // → [{label, href, active}]
+isLocale(value)  // type guard
+```
 
-Purpose: responsive React/Vite product preview embedded into the homepage hero.
+---
 
-This package owns:
+## SiteDictionary Schema
 
-- local demo data for providers, models, privacy findings, traces, and answers
-- app chrome copy for the embedded preview shell
-- scenario data for homepage feature states such as routing, cost planning, privacy, synthesis, and audit trace
-- preview-only React state and interactions
-- model selection, run mode, cost estimate, privacy masking, trace, and comparison UI
-- namespaced CSS under the `lpv-` prefix
-- a Vite library build that emits stable files into `public/product-preview/`
+Defined in `src/i18n/schema.ts`. Every locale file must satisfy this type.
 
-The Astro homepage mounts it through a single DOM entrypoint:
+```ts
+type SiteDictionary = {
+  meta: {
+    siteName: string;         // shown in header brand wordmark
+    homeTitle: string;        // <title> for home page
+    homeDescription: string;
+    productTitle: string;
+    productDescription: string;
+    pricingTitle: string;
+    pricingDescription: string;
+    mockupsTitle: string;
+    mockupsDescription: string;
+  };
+
+  nav: {
+    items: NavItem[];         // rendered as header nav links
+    product: string;
+    pricing: string;
+    talkToSales: string;
+    home: string;
+    bookDemo: string;         // header CTA button label
+    menuOpen: string;         // aria-label for hamburger open
+    menuClose: string;        // aria-label for hamburger close
+  };
+
+  hero: {
+    eyebrow: string;
+    title: string;            // supports \n + white-space: pre-line
+    titleAccent: string;      // rendered in .headline-shift color
+    lede: string;
+    primaryCta: string;
+    secondaryCta: string;
+    metrics: Array<{ value: string; label: string }>;
+    previewFeatures: Array<{
+      id: PreviewFeatureId;   // must match a PREVIEW_TAB_IDS value
+      label: string;
+      summary: string;
+    }>;
+    previewFallback: { title: string; body: string };
+  };
+
+  trust: string[];            // short feature tags (not rendered on homepage currently)
+
+  company: {
+    eyebrow: string;
+    body: string[];           // each entry renders as a <p> in the company section
+  };
+
+  // solution, showcase, technology, contact — defined in schema, populated in ko.ts
+  // but not rendered on the current homepage. Kept for future use.
+
+  productPage: {
+    eyebrow: string;
+    title: string;            // supports \n + white-space: pre-line
+    description: string;
+    stages: Array<{ label: string; title: string; body: string }>;
+    surfaces: Array<{ index: string; title: string; body: string; wide?: boolean }>;
+    flowEyebrow: string;
+    flowTitle: string;
+    flowDescription: string;
+    steps: Array<{ number: string; title: string; body: string }>;
+    nextEyebrow: string;
+    nextTitle: string;
+    nextBody: string;
+    primaryCta: string;
+    secondaryCta: string;
+    gallery: {
+      workspaceLabel: string; workspaceTitle: string; workspaceBody: string; workspaceAlt: string;
+      pricingLabel: string;   pricingTitle: string;  pricingBody: string;  pricingAlt: string;
+    };
+  };
+
+  features: {
+    eyebrow: string;
+    title: string;
+    description: string;      // rendered as .section-lede in media shelf intro
+    rows: Array<{ eyebrow: string; title: string; body: string; bullets?: string[] }>;
+    adminSection: { ... };    // not rendered on current homepage
+  };
+
+  pricingPage: {
+    eyebrow: string;
+    badge: string;
+    title: string;
+    titleEmphasis?: string;   // wrapped in <em class="pricing-h1-em">
+    description: string;
+    toggle: { monthly: string; yearly: string; discount: string; annualNote: string };
+    creditLabel: string;
+    plans: Array<{
+      key: string; name: string; tagline: string;
+      currency: string; monthlyPrice: string; yearlyPrice: string;
+      credits: string; bonusCredits?: string; badge?: string;
+      ctaLabel: string; ctaHref: string; highlight?: boolean;
+      features: Array<{ text: string; sub?: string; icon?: "shield" }>;
+    }>;
+    enterprise: { title: string; description: string; tags: string[]; ctaLabel: string; ctaHref: string; note: string };
+    creditNotes: string[];
+    faq: { title: string; items: Array<{ question: string; answer: string }> };
+    trialBanner: { title: string; body: string; ctaLabel: string; ctaHref: string };
+  };
+
+  mockupsPage: {
+    eyebrow: string; title: string; description: string; lede: string; note: string;
+    primaryCta: string; secondaryCta: string;
+    scenes: Array<{ eyebrow: string; title: string; body: string }>;
+  };
+};
+```
+
+`NavItem` shape:
+
+```ts
+type NavItem = {
+  key: "company" | "solution" | "technology" | "contact" | "pricing";
+  label: string;
+  href: string;  // "#hash", "pricing", or "mailto:..."
+};
+```
+
+`href` values in `NavItem` are resolved by `Header.astro`:
+- `#hash` → `{homePath}#hash` (always points to homepage)
+- bare word like `"pricing"` → `localizedPath(locale, "pricing")`
+- `mailto:` or `http(s):` → passed through unchanged
+
+---
+
+## Component Catalog
+
+### `BaseLayout.astro`
+
+HTML shell. Props:
+
+```ts
+interface Props {
+  locale: Locale;
+  title: string;
+  description: string;
+  ogImageFile?: string;  // filename in /public, default "og.png"
+}
+```
+
+Responsibilities:
+- Sets `<html lang={locale} class="theme-{THEME}" data-theme="light">`
+- Loads Google Fonts (IBM Plex Mono, Instrument Sans, Sora) unconditionally
+- Loads Pretendard from CDN when `THEME === "blue"`
+- Emits full OG + Twitter Card meta tags
+- Generates canonical URL from `Astro.site` (skipped when hostname is `example.com`)
+- OG image is an absolute URL: `new URL(ogImageFile, Astro.site).href`
+- Renders `<ClientInit />` at end of body
+- Exposes `<slot name="head" />` for page-specific head injections
+
+---
+
+### `Header.astro`
+
+Props:
+
+```ts
+interface Props {
+  locale: Locale;
+  dictionary: SiteDictionary;
+  languageOptions: Array<{ label: string; href: string; active: boolean }>;
+}
+```
+
+Structure: brand mark → hamburger toggle → `<nav>` with `dictionary.nav.items` → `.header-actions` (CTA button hardcoded to `mailto:adm@logk.co.kr`) → `.header-controls` (LanguageSwitcher).
+
+The CTA button label comes from `dictionary.nav.bookDemo`.
+
+Active nav state: `isActive()` compares `localizedPath(locale, item.href)` against `Astro.url.pathname`.
+
+---
+
+### `Footer.astro`
+
+No props. Renders a single dark strip:
 
 ```html
-<div data-product-preview data-locale="en" data-feature="model-router"></div>
+<footer class="site-footer">
+  <p>
+    © {year} SelecAI (주)로그케이 ·
+    <a href="#">이용약관</a> ·
+    <a href="#">개인정보처리방침</a> ·
+    문의: <a href="mailto:contact@logk.co.kr">contact@logk.co.kr</a>
+  </p>
+</footer>
 ```
 
-The homepage feature tabs stay in Astro and dispatch `logk-preview:set-feature`. The tab labels and explanatory copy live in the typed i18n dictionaries. The React preview listens for that event and swaps to the matching scenario. This keeps the marketing layout static while allowing the embedded product surface to become richer over time.
+CSS: `background: #111827`, centered text, `font-size: 0.8125rem`, link color `#60a5fa`.
 
-The homepage should not import React internals directly. Keep this boundary stable so the preview can later grow into multiple screens without turning the marketing site into the product app.
+---
 
-### `src/i18n/`
+### `ContactBanner.astro`
 
-Purpose: locale management.
+Reusable dark-gradient CTA section used at the bottom of Home, Product, and Pricing pages.
 
-- `schema.ts` defines the typed contract for dictionaries.
-- `messages/en.ts` and `messages/ko.ts` provide actual localized content.
-- `messages/index.ts` resolves the correct dictionary for a locale.
+Props:
 
-This is one of the most important maintainability boundaries in the project.
-
-### `src/layouts/`
-
-Purpose: HTML shell, metadata, fonts, transitions, and global bootstrapping.
-
-`BaseLayout.astro` is responsible for:
-
-- `<html lang="...">`
-- `<title>` and meta description
-- canonical URL generation
-- font loading
-- Astro client router for smooth page transitions
-- initial theme bootstrap before paint
-
-### `src/utils/`
-
-Purpose: small pure helpers.
-
-Currently:
-
-- `i18n.ts` handles locale helpers and localized path generation
-
-Keep this directory for logic that should not live inside a component.
-
-### `src/styles/`
-
-Purpose: site-wide styling.
-
-Current state:
-
-- `global.css` contains the design system, section styles, responsive behavior, and theme variants.
-
-Guideline:
-
-- Keep tokens and shared utilities near the top.
-- Keep section-level styles grouped by feature.
-- If the site grows significantly, split this file into partials such as:
-  - `tokens.css`
-  - `layout.css`
-  - `home.css`
-  - `product.css`
-  - `mockups.css`
-
-That split is not required yet, but it is the next clean refactor if the stylesheet gets substantially larger.
-
-### `public/assets/`
-
-Purpose: immutable static assets served directly.
-
-Examples:
-
-- screenshot captures
-- background graphics
-- SVG accents
-
-Use this directory for final assets that the Astro site should ship directly.
-
-## Multilingual Structure
-
-The project uses locale-prefixed routes and typed dictionaries.
-
-```mermaid
-flowchart LR
-    Schema["src/i18n/schema.ts"] --> EN["src/i18n/messages/en.ts"]
-    Schema --> KO["src/i18n/messages/ko.ts"]
-    EN --> ENRoutes["src/pages/en/*"]
-    KO --> KORoutes["src/pages/ko/*"]
-    Utils["src/utils/i18n.ts"] --> ENRoutes
-    Utils --> KORoutes
+```ts
+interface Props {
+  eyebrow?: string;
+  title: string;
+  body: string;
+  primaryLabel: string;
+  primaryHref: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+}
 ```
 
-### Add a New Language
+Renders as `.trial-banner` with gradient background (`--contact-gradient`), centered content, and one or two action buttons. The secondary button uses `.trial-cta-secondary` (translucent white).
 
-If you later add a third locale such as Japanese:
+---
 
-1. Add the locale in `astro.config.mjs`
-2. Add it to `src/i18n/schema.ts`
-3. Create `src/i18n/messages/<locale>.ts`
-4. Register it in `src/i18n/messages/index.ts`
-5. Add localized route files under `src/pages/<locale>/`
-6. Update language option arrays in page components if you keep the current pattern
+### `MediaShelf.astro`
 
-### Important Note
+Horizontal scroll shelf with a segmented tab bar synced to the active slide.
 
-The current implementation keeps `languageOptions` arrays inside page components. That is acceptable for two languages and a small site.
+Props:
 
-If the number of locales or pages grows, move locale switcher option generation into a shared helper so each page does not define those arrays manually.
+```ts
+interface Props {
+  segments: Array<{
+    label: string;
+    src: string;
+    type: "image" | "video";
+  }>;
+}
+```
 
-## Theme and Motion System
+Structure:
+- `.media-tabs-wrap` → `.media-tabs` (segmented pill bar, centered, horizontally scrollable)
+- `.media-shelf-track` → `.media-shelf-slide` items (CSS scroll-snap, center-aligned, 86% width with 7% inline padding creating peek on both sides)
 
-Global behavior lives in `src/components/ClientInit.astro`.
+Each slide renders `<video autoplay muted loop playsinline>` or `<img loading="lazy">`.
 
-Current responsibilities:
+Behavior (inline `<script>`):
+- Clicking a tab calls `scrollIntoView({ inline: "center" })` on the target slide
+- `IntersectionObserver` (threshold 0.6) syncs the active tab when the user swipes
 
-- dark/light theme persistence with `localStorage`
-- scroll progress indicator
-- sticky header state
-- showcase tab cycling
-- hero tilt interaction
-- reveal-on-scroll animation
-- animated counters
-- mobile menu open/close behavior
+Current segments (in order):
 
-Guideline:
+| Tab label | Asset file | Type |
+|-----------|-----------|------|
+| 멀티 위임 | `selecAI_multi_delegate.mov` | video |
+| 이미지 생성 | `selecAI_image_gen.mov` | video |
+| 개인정보 보호 | `selecAI_private_masking.png` | image |
+| 기업 관리 | `selecAI_corp_mgnt.png` | image |
+| 유저 관리 | `selecAI_user_mgmt.png` | image |
+| 결재 워크플로 | `selecAI_prompt_pay.png` | image |
 
-- Put only site-wide enhancements here.
-- If a behavior belongs to one section only and becomes complex, extract it into a dedicated client island or script.
+---
 
-## Product Visual Workflow
+### `FeatureShelf.astro`
 
-The homepage hero now uses the embedded `product-preview` app. Static screenshots remain useful for deeper product sections and fallback material.
+Horizontal scroll shelf with dot-nav, used for feature rows with copy + visual pairs.
 
-### Current hero path: embedded `product-preview`
+Props:
 
-1. Edit preview UI under `product-preview/src/`
-2. Run `npm run build:preview` to emit static files into `public/product-preview/`
-3. Astro mounts the preview in `HomePage.astro`
-4. The preview reads `data-locale` so it can render English or Korean copy
-5. The homepage feature tabs dispatch `logk-preview:set-feature` to switch preview scenarios
+```ts
+interface Props {
+  rows: SiteDictionary["features"]["rows"];  // eyebrow, title, body, bullets?
+  assets: Array<{ src: string; type: "image" | "video" }>;
+}
+```
 
-Useful commands:
+Each slide has `.feature-shelf-copy` (text) and `.feature-shelf-visual` (media) side by side. Dot buttons at the bottom scroll to the matching slide. `IntersectionObserver` syncs dots on swipe.
+
+---
+
+### `LanguageSwitcher.astro`
+
+Props: `label: string`, `options: Array<{ label: string; href: string; active: boolean }>`.
+
+Renders a dropdown-style switcher. Currently only "KO" is active since `locales = ["ko"]`.
+
+---
+
+### `ClientInit.astro`
+
+Inlined in `BaseLayout`. Runs on every page. Responsibilities:
+
+- Sticky header: adds `.is-scrolled` to `[data-header]` when `scrollY > 10`
+- Mobile menu: `[data-nav-toggle]` toggles `[data-nav]` open/close, swaps `aria-label` between `menuOpen`/`menuClose` strings stored in `data-menu-*-label` attributes
+- Reveal on scroll: `IntersectionObserver` adds `.is-visible` to `[data-reveal]` elements
+
+---
+
+## Page Composition
+
+### HomePage.astro
+
+Sections in order:
+
+1. **Hero** — eyebrow, h1 (`title` + `titleAccent`), lede, two CTA buttons, hero video (`selecAI_multi_delegate.mov`). Product preview area exists but is `display:none`.
+2. **#service** — centered h2 from `dictionary.productPage.title` (supports `\n` line breaks)
+3. **Media shelf** — two `.section-lede` paragraphs (`productPage.description` + `features.description`), then `<MediaShelf segments={mediaSegments} />`
+4. **#company** — 2-col grid: eyebrow left, body paragraphs right (`dictionary.company.body`)
+5. **CTA** — `<ContactBanner>` using `productPage.next*` strings
+
+Key variables:
+
+```ts
+const mockupBase = `${base}assets/selecAI_mockup/`;
+const productPreviewBase = `${base}product-preview/`;
+const pricingPath = localizedPath(locale, "pricing");
+```
+
+---
+
+### ProductPage.astro
+
+Sections: hero (eyebrow + h1 + description), product stage columns, screenshot gallery (2 articles with `workspace_screenshot.png` and `pricing_screenshot.png`), feature grid (`productPage.surfaces`), timeline steps, ContactBanner.
+
+---
+
+### PricingPage.astro
+
+Sections: hero with billing toggle (monthly/yearly), plan cards, enterprise card, credit notes, FAQ accordion, ContactBanner (`trialBanner`).
+
+Billing toggle: `[data-pricing-toggle]` buttons with `data-mode="monthly"|"yearly"`. JS in the component toggles prices and hides/shows elements with `[data-monthly]` / `[data-yearly]` attributes.
+
+---
+
+### MockupsPage.astro
+
+Renders `src/components/mockups/` components: `ModelSelectionMockup`, `AnswerCompareMockup`, `PolicyControlMockup`, `CreditWalletMockup`, each wrapped in `MockupWindow`.
+
+---
+
+## CSS Architecture
+
+All site styles are in `src/styles/global.css`. Design tokens are provided by the active theme file loaded at build time by `BaseLayout`.
+
+Key token names (defined in theme CSS under `html.theme-blue`):
+
+```
+--bg, --bg-strong, --bg-top, --bg-bottom
+--surface, --surface-strong, --surface-border
+--text, --text-soft, --text-faint, --text-muted, --headline-shift
+--accent, --accent-bright, --accent-soft, --accent-deep
+--header-bg, --header-border, --header-shadow
+--button-bg, --button-shadow, --button-text
+--button-ghost-bg, --button-ghost-border, --button-ghost-text
+--contact-gradient
+--shadow-lg, --shadow-md
+--radius-xl (24px), --radius-lg (20px), --radius-md (12px)
+--body-font
+--glow-blue, --glow-green, --glow-cyan
+```
+
+Key CSS classes:
+
+| Class | Where used | Purpose |
+|-------|-----------|---------|
+| `.section` | page sections | max-width + padding wrapper |
+| `.section-head` | section intros | `display: grid; gap: 1rem; max-width: 50rem` |
+| `.section-head.narrow` | narrower intros | `max-width: 42rem` |
+| `.section-lede` | intro paragraphs | `font-size: 1.2rem`, `color: var(--text-soft)`, `max-width: 60ch` |
+| `.eyebrow` | section labels | small caps / mono style label above headings |
+| `.button` | primary CTA | gradient background, uses `--button-*` tokens |
+| `.button-ghost` | secondary CTA | white bg, border, `--button-ghost-*` tokens |
+| `.media-shelf` | MediaShelf root | — |
+| `.media-tabs-wrap` | tab bar container | centered, horizontally scrollable |
+| `.media-tabs` | segmented pill bar | inline-flex, border, `border-radius: 999px` |
+| `.media-tab.is-active` | selected tab | `background: var(--accent); color: #fff` |
+| `.media-shelf-track` | scroll container | flex, `scroll-snap-type: x mandatory`, `padding-inline: 7%` |
+| `.media-shelf-slide` | each item | `flex: 0 0 86%`, `scroll-snap-align: center` |
+| `.trial-banner` | ContactBanner | `background: var(--contact-gradient)`, centered |
+| `.trial-eyebrow` | banner eyebrow | IBM Plex Mono, `rgba(255,255,255,.72)` |
+| `.trial-cta-secondary` | secondary button | `background: rgba(255,255,255,.12)` |
+| `.home-service-section .section-head` | service title area | `text-align: center; margin-inline: auto` |
+| `.service-title` | service h2 | `white-space: pre-line; text-align: center` |
+| `.company-about-section` | company section | `grid-template-columns: 14rem 1fr; gap: 4rem` |
+| `.company-about-body p` | company paragraphs | `font-size: 1.2rem; line-height: 1.85` |
+| `.site-footer` | footer strip | `background: #111827; text-align: center; padding: 1.5rem` |
+| `.hero-copy h1` | hero heading | `white-space: pre-line` (enables `\n` line breaks) |
+| `[data-reveal]` | any element | starts invisible; `.is-visible` added by ClientInit on scroll |
+
+---
+
+## Enforced Line Breaks
+
+To break a heading at a specific word, put `\n` in the dictionary string and the CSS must have `white-space: pre-line` on that element.
+
+Currently active:
+- `hero.title` → `.hero-copy h1` has `white-space: pre-line`
+- `productPage.title` → `.service-title` has `white-space: pre-line`
+
+---
+
+## OG / Social Preview Images
+
+Each page has a dedicated OG image. Files live directly in `/public/` (not in a subdirectory):
+
+| File | Page |
+|------|------|
+| `og-home.png` | `/ko/` |
+| `og-product.png` | `/ko/product/` |
+| `og-pricing.png` | `/ko/pricing/` |
+| `og-mockups.png` | `/ko/mockups/` |
+| `og.png` | fallback default |
+
+Required dimensions: **1200 × 630 px**, PNG format. Absolute URLs are generated from `Astro.site` by `BaseLayout`.
+
+---
+
+## Product Preview (Embedded React App)
+
+The product preview is a React/Vite package that builds into `public/product-preview/`. It is mounted by the Astro homepage via:
+
+```html
+<div data-product-preview data-locale="ko" data-feature="chats"></div>
+```
+
+**Current status: hidden.** The mount point in `HomePage.astro` has `style="display:none"` and `aria-hidden="true"`. The CSS is still loaded via a head slot.
+
+To rebuild the preview after editing `product-preview/src/`:
 
 ```bash
-npm run build:preview
-npm run check:preview
-npm run dev:preview
+npm run build:preview   # builds into public/product-preview/
+npm run dev:preview     # standalone preview dev server
+npm run check:preview   # type-check the React source
 ```
 
-`public/product-preview/` is generated output and is ignored by git. The root `npm run build` command rebuilds it before Astro builds the static site.
+`public/product-preview/` is git-ignored. The root `npm run build` script rebuilds it automatically before the Astro build.
 
-### Screenshot path: use captured assets
+### Preview tab IDs
 
-1. Create or capture a screen image
-2. Save it into `public/assets/`
-3. Reference it from Astro page components
+Defined in `src/shared/tabs.ts` as `PREVIEW_TAB_IDS`. These must match `hero.previewFeatures[].id` in the dictionary:
 
-This is the current approach for:
+`"chats"`, `"projects"`, `"agents"`, `"usage"`, `"spending"`, `"billing"`
 
-- `workspace_screenshot.png`
-- `pricing_screenshot.png`
+The homepage dispatches `logk-preview:set-feature` with `{ detail: featureId }` when a tab is clicked. The React app listens for this event.
 
-This keeps the homepage fast and static while allowing the product preview to evolve with the real product UI.
+---
 
 ## GitHub Pages Deployment
 
-This site is already configured for static output.
+One workflow file: `.github/workflows/deploy.yml`. Uses Node 22 (required by Astro 6). Do not add a second Pages workflow — duplicate workflows race.
 
-For GitHub Pages, the main thing to get right is the base path.
+### Two-repo model
 
-The repository includes a single GitHub Pages workflow at `.github/workflows/deploy.yml`. It uses Node 22 because Astro 6 requires a modern Node runtime. Do not re-add the older `gh-pages` deployment workflow; duplicate Pages workflows can race or fail independently.
-
-### Two-repo deployment model
-
-This project is pushed to two GitHub repositories. Each repo has different GitHub Pages settings.
-
-**Personal repo** (project Pages, no custom domain):
-
-No configuration needed — the workflow auto-computes values from the repository owner and name:
+**Personal repo** (project Pages, auto-computed):
 
 ```
 SITE_URL  → https://<owner>.github.io/<repo>
 BASE_PATH → /<repo>
 ```
 
-**Company repo** (custom domain):
+No GitHub variables needed.
 
-Set the following in GitHub repo **Settings → Secrets and variables → Actions → Variables**:
+**Company repo** (custom domain `www.logk.co.kr`):
+
+Set these in **GitHub repo → Settings → Secrets and variables → Actions → Variables**:
 
 | Variable | Value |
 |----------|-------|
@@ -489,123 +759,94 @@ Set the following in GitHub repo **Settings → Secrets and variables → Action
 | `BASE_PATH` | `/` |
 | `CUSTOM_DOMAIN` | `www.logk.co.kr` |
 
-Setting `BASE_PATH=/` makes `normalizeBase()` return `undefined`, which removes the subpath prefix from all asset URLs. The `CUSTOM_DOMAIN` variable causes the workflow to write a `CNAME` file into the built output so GitHub Pages keeps your custom domain after each deploy.
+`CUSTOM_DOMAIN` causes the workflow to write a `CNAME` file into `dist/` so GitHub Pages keeps the custom domain after each deploy.
 
-### Why the base path matters
+### DNS (Gabia)
 
-All route generation and static asset references respect the GitHub Pages subpath through Astro config and `import.meta.env.BASE_URL`. When a custom domain is set, the site is served from the root `/`, so `BASE_PATH` must be absent or `/` — otherwise all CSS, JS, and asset URLs will 404.
+| Type | Host | Value |
+|------|------|-------|
+| CNAME | `www` | `<github-org>.github.io` |
+| A | `@` | `185.199.108.153` |
+| A | `@` | `185.199.109.153` |
+| A | `@` | `185.199.110.153` |
+| A | `@` | `185.199.111.153` |
 
-### Custom domain DNS setup (Gabia)
+After DNS propagates: verify custom domain in repo Settings → Pages, then enable Enforce HTTPS.
 
-To point `www.logk.co.kr` at GitHub Pages, add the following records in Gabia's DNS management panel:
+---
 
-| Type | Host | Value | TTL |
-|------|------|-------|-----|
-| CNAME | `www` | `<org-github-username>.github.io` | 3600 |
-| A | `@` | `185.199.108.153` | 3600 |
-| A | `@` | `185.199.109.153` | 3600 |
-| A | `@` | `185.199.110.153` | 3600 |
-| A | `@` | `185.199.111.153` | 3600 |
+## How to Add a New Page
 
-Replace `<org-github-username>` with the actual GitHub organization username that owns the company repo. The `A` records allow the apex domain `logk.co.kr` to also resolve; GitHub Pages will redirect it to `www.logk.co.kr` once the custom domain is verified.
+1. Create `src/components/pages/NewPage.astro`
+2. Add `src/pages/ko/new-page.astro` following the thin route pattern
+3. Add `meta.newPageTitle` and `meta.newPageDescription` to `SiteDictionary` in `schema.ts`
+4. Add the values to `ko.ts`
+5. Add a nav item to `ko.ts → nav.items` if it belongs in the menu
+6. Add an OG image `og-new-page.png` to `/public/`
 
-After adding DNS records:
+---
 
-1. Wait for DNS propagation (typically 5–30 minutes, up to 48 hours).
-2. Go to company repo **Settings → Pages** and confirm the custom domain shows as verified.
-3. Enable **Enforce HTTPS** once the TLS certificate is issued (usually within a few minutes of verification).
+## How to Add a New Language
 
-### Example local build with custom-domain settings
+1. Add the locale string to `src/i18n/locales.ts`
+2. Create `src/i18n/messages/<locale>.ts` implementing `SiteDictionary`
+3. Register it in `src/i18n/messages/index.ts`
+4. Create route files under `src/pages/<locale>/` (copy `ko/` as a template)
+5. Pass `ogImageFile` in each BaseLayout call
 
-```bash
-SITE_URL=https://www.logk.co.kr BASE_PATH=/ npm run build
+---
+
+## How to Switch the Visual Theme
+
+Edit one line in `src/config/theme.ts`:
+
+```ts
+export const THEME = "logk";  // was "blue"
 ```
 
-## How to Add a New Page Cleanly
+The HTML `class` attribute changes, the matching `themes/logk.css` token values apply globally, and Pretendard is no longer loaded (logk theme uses system fonts). No other files need to change.
 
-Example: adding an `/about/` page.
+---
 
-1. Create a page component such as `src/components/pages/AboutPage.astro`
-2. Add `src/pages/en/about.astro`
-3. Add `src/pages/ko/about.astro`
-4. Add any new localized strings to both dictionaries
-5. Add navigation links only if the page should appear in the main menu
+## Responsibility Reference
 
-Keep the route wrappers small. The page component should hold the real page markup.
+| Goal | File to edit |
+|------|-------------|
+| Change any text or copy | `src/i18n/messages/ko.ts` |
+| Reorder/add homepage sections | `src/components/pages/HomePage.astro` |
+| Change MediaShelf asset order or add a segment | `mediaSegments` array in `HomePage.astro` |
+| Change theme colors/fonts | `src/styles/themes/blue.css` (or `logk.css`) |
+| Switch active theme | `src/config/theme.ts` |
+| Change header/footer | `src/components/Header.astro` / `Footer.astro` |
+| Change global JS behavior (scroll, mobile menu) | `src/components/ClientInit.astro` |
+| Add a new reusable section component | `src/components/` |
+| Change product page layout | `src/components/pages/ProductPage.astro` |
+| Change pricing plans | `ko.ts → pricingPage.plans` + `PricingPage.astro` |
+| Add/replace product screenshots | `public/assets/` + reference from page component |
+| Change the i18n schema | `src/i18n/schema.ts` + update all locale files |
+| Change deploy behavior | `.github/workflows/deploy.yml` |
 
-## How to Change Homepage Content Cleanly
-
-### Change text
-
-Edit:
-
-- `src/i18n/messages/en.ts`
-- `src/i18n/messages/ko.ts`
-
-### Change layout or section order
-
-Edit:
-
-- `src/components/pages/HomePage.astro`
-
-### Change theme, spacing, card styles, or responsive rules
-
-Edit:
-
-- `src/styles/global.css`
-
-### Change shared navigation or top-level controls
-
-Edit:
-
-- `src/components/Header.astro`
-- `src/components/LanguageSwitcher.astro`
-- `src/components/ThemeToggle.astro`
+---
 
 ## Maintainability Checklist
 
-Before adding a feature, check the following:
+Before adding a feature:
 
-- Does this belong in a page component rather than a route file?
-- Is this text localized in both languages?
-- Is this a shared concern or only one page’s concern?
-- Is this a static asset or a generated mockup?
-- Is this behavior site-wide enough to belong in `ClientInit.astro`?
-- Will this change still work under a GitHub Pages base path?
+- [ ] Text → goes in `ko.ts`, schema updated if new key
+- [ ] Shared across pages → shared component, not duplicated in page components
+- [ ] Section-specific → page component, not route file
+- [ ] New interactive behavior → inline `<script>` or `ClientInit.astro`
+- [ ] Asset → named file in `public/assets/`, referenced with `${import.meta.env.BASE_URL}assets/...`
+- [ ] Works at root (`BASE_PATH=/`) and subpath (`BASE_PATH=/PAGE_DEMO`)
+
+---
 
 ## Current Tradeoffs
 
-The project is clean and workable now, but these are the next likely refactors if complexity grows:
+These are clean as-is, but are the next refactor candidates if complexity grows:
 
-1. Split `global.css` into multiple files
-2. Centralize language option generation
-3. Extract large interactive sections if they outgrow `ClientInit.astro`
-4. Add a content collection only if a real news/blog system returns
-5. Introduce a small `src/config/` layer if site metadata and navigation become more dynamic
-
-## Recommended Working Style
-
-For future edits, use this order:
-
-1. Update dictionary content
-2. Update page composition
-3. Update shared components only if needed
-4. Update styling
-5. Update `product-preview/` only when the embedded product surface changes
-6. Run `npm run check`
-7. Run `npm run build`
-
-That keeps content, structure, and visual changes easy to reason about.
-
-## Summary
-
-This repository is intentionally organized around a few strong boundaries:
-
-- routes
-- page composition
-- shared UI
-- localization
-- static assets
-- product preview boundary
-
-If you preserve those boundaries, the project will stay understandable even as the homepage, product page, and mockup library grow.
+1. Split `global.css` into `tokens.css`, `layout.css`, `home.css`, `product.css`, `pricing.css`
+2. `languageOptions` arrays are built inside each page component — move to a shared helper if locale count grows
+3. Product preview is hidden; reactivate by removing `display:none` from `.hero-preview` in `HomePage.astro`
+4. `en.ts` exists but no EN routes are active beyond `en/pricing.astro`
+5. `schema.ts` has fields (`solution`, `showcase`, `technology`, `contact`) populated in `ko.ts` but not rendered — clean up if confirmed unused
