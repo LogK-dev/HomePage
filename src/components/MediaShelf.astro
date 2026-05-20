@@ -95,21 +95,60 @@ const { segments } = Astro.props;
       tab.addEventListener("click", () => goTo(Number(tab.dataset.mediaTab)));
     });
 
-    // Sync tabs to whichever slide the user lands on via swipe/scroll —
-    // but stay quiet while we're animating to a clicked destination.
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (programmaticScrollActive) return;
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            syncTabs(Number((entry.target as HTMLElement).dataset.mediaSlide));
-          }
-        });
-      },
-      { root: track, threshold: 0.6 },
-    );
+    /** Track-scroll → active-tab sync.
+     *
+     *  The previous implementation used an IntersectionObserver with
+     *  `threshold: 0.6`: a slide only counted as "active" once 60% of its
+     *  area entered the viewport. During a fast horizontal flick across
+     *  multiple slides, intermediate slides could fail to cross that
+     *  threshold before scroll-snap captured the next destination — leaving
+     *  the tab bar to jump from e.g. "멀티 위임" straight to "개인정보 보호"
+     *  with no stop on "이미지 생성" in between.
+     *
+     *  This version computes which slide's *center* is nearest the track
+     *  viewport's center on every scroll frame. Always-correct, no
+     *  thresholds, naturally handles every scroll speed. */
+    const slides = [...track.querySelectorAll<HTMLElement>("[data-media-slide]")];
+    let scrollSyncFrame = 0;
 
-    track.querySelectorAll("[data-media-slide]").forEach((slide) => observer.observe(slide));
+    function activeIndexAtCurrentScroll(): number {
+      const viewportCenter = track.scrollLeft + track.clientWidth / 2;
+      let closest = 0;
+      let closestDist = Infinity;
+      for (let i = 0; i < slides.length; i++) {
+        const slide = slides[i];
+        const slideCenter = slide.offsetLeft + slide.clientWidth / 2;
+        const dist = Math.abs(slideCenter - viewportCenter);
+        if (dist < closestDist) {
+          closestDist = dist;
+          closest = i;
+        }
+      }
+      return closest;
+    }
+
+    function onTrackScroll() {
+      if (programmaticScrollActive) return;
+      if (scrollSyncFrame) return;
+      scrollSyncFrame = window.requestAnimationFrame(() => {
+        scrollSyncFrame = 0;
+        syncTabs(activeIndexAtCurrentScroll());
+      });
+    }
+
+    track.addEventListener("scroll", onTrackScroll, { passive: true });
+
+    /** Media (especially .mov videos) load asynchronously after first paint,
+     *  which changes the slide widths and shifts the closest-to-center
+     *  answer. A ResizeObserver re-runs the sync whenever the track or any
+     *  slide resizes — covering the load race, font swaps, viewport rotates,
+     *  and any future layout shift in one mechanism. */
+    const resizeSync = new ResizeObserver(() => {
+      if (programmaticScrollActive) return;
+      syncTabs(activeIndexAtCurrentScroll());
+    });
+    resizeSync.observe(track);
+    slides.forEach((slide) => resizeSync.observe(slide));
 
     // Safari (esp. iOS / Low Power Mode) often ignores the `autoplay` attribute even when
     // `muted` + `playsinline` are set, and pauses off-screen <video>s to save power. Calling

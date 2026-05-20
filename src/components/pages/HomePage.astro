@@ -42,11 +42,7 @@ const mediaSegments = [
         {dictionary.hero.title}
         <span class="headline-shift">{dictionary.hero.titleAccent}</span>
       </h1>
-      <p class="hero-lede">
-        멀티 LLM 동시 위임, 개인정보 자동 비식별화,<br class="br-narrow" />
-        조직 관리, 결제 워크플로까지<br />
-        — AI 활용의 복잡함을 SelecAI 하나로 해결합니다.
-      </p>
+      <p class="hero-lede">{dictionary.hero.lede}</p>
 
       <div class="hero-actions">
         <a class="button" href="#service">{dictionary.hero.primaryCta}</a>
@@ -112,10 +108,7 @@ const mediaSegments = [
   <section class="section media-shelf-section">
     <div class="media-shelf-intro" data-reveal>
       <p class="section-lede">{dictionary.productPage.description}</p>
-      <p class="section-lede">
-        모델 위임부터 개인정보 보호, 조직 관리, 결제 워크플로까지<br class="br-narrow" />
-        — SelecAI 하나로 해결합니다.
-      </p>
+      <p class="section-lede">{dictionary.features.description}</p>
     </div>
     <MediaShelf segments={mediaSegments} />
   </section>
@@ -124,18 +117,7 @@ const mediaSegments = [
   <section id="company" class="section company-about-section" data-reveal>
     <p class="eyebrow">{dictionary.company.eyebrow}</p>
     <div class="company-about-body">
-      {dictionary.company.body.map((para) => (
-        <p>
-          {para.map((seg, i) => (
-            // Leading space + <br class="br-narrow"> at the join:
-            //   wide → <br> is display:none, so segments read as
-            //          "활용하여 효율적인…" with a normal word break.
-            //   narrow → <br> takes effect; the trailing space before the
-            //            line break is whitespace-collapsed by the browser.
-            <>{i > 0 && <>{" "}<br class="br-narrow" /></>}{seg}</>
-          ))}
-        </p>
-      ))}
+      {dictionary.company.body.map((para) => <p>{para}</p>)}
     </div>
   </section>
 
@@ -144,16 +126,12 @@ const mediaSegments = [
     <ContactBanner
       eyebrow={dictionary.productPage.nextEyebrow}
       title={dictionary.productPage.nextTitle}
+      body={dictionary.productPage.nextBody}
       primaryLabel={dictionary.productPage.primaryCta}
       primaryHref="mailto:contact@logk.co.kr"
       secondaryLabel={dictionary.pricingPage.eyebrow}
       secondaryHref={pricingPath}
-    >
-      <Fragment slot="body">
-        우리 회사에 맞는 AI 사용 방식 구성과<br class="br-narrow" />
-        과금 정책을 함께 고민해 드립니다.
-      </Fragment>
-    </ContactBanner>
+    />
   </section>
 
 </main>

@@ -206,27 +206,11 @@ export const ko: SiteDictionary = {
   },
   company: {
     eyebrow: "회사 소개",
-    // Each paragraph is an array of segments. On wide viewports the segments
-    // flow as one line (browser wraps naturally with word-break: keep-all).
-    // On narrow viewports a <br class="br-narrow"> is inserted between them.
     body: [
-      [
-        "로그케이는 보안과 인공지능(AI)이라는 키워드를 활용하여",
-        "효율적인 서비스를 만들고자 노력하는 기업입니다."
-      ],
-      [
-        "로그케이의 대표 솔루션인 SelecAI 는 LLM을 기반으로 한",
-        "다양한 생성형AI 를 비교하고 선택해서 사용할 수 있는",
-        "온라인 솔루션 입니다."
-      ],
-      [
-        "기존 AI 제품들의 아쉬운 부분을 SelecAI 에 담아",
-        "효율적인 서비스로 재가공하였습니다."
-      ],
-      [
-        "저희 로그케이는 고객의 의견을 최우선으로 적극 반영하여",
-        "최고의 서비스를 제공하겠습니다. 언제든 연락주세요."
-      ]
+      "로그케이는 보안과 인공지능(AI)이라는 키워드를 활용하여 효율적인 서비스를 만들고자 노력하는 기업입니다.",
+      "로그케이의 대표 솔루션인 SelecAI 는 LLM을 기반으로 한 다양한 생성형AI 를 비교하고 선택해서 사용할 수 있는 온라인 솔루션 입니다.",
+      "기존 AI 제품들의 아쉬운 부분을 SelecAI 에 담아 효율적인 서비스로 재가공하였습니다.",
+      "저희 로그케이는 고객의 의견을 최우선으로 적극 반영하여 최고의 서비스를 제공하겠습니다. 언제든 연락주세요."
     ]
   },
   contact: {

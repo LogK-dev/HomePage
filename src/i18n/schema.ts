@@ -101,10 +101,7 @@ export type SiteDictionary = {
   };
   company: {
     eyebrow: string;
-    /** Each paragraph is split into segments; segments are joined with
-        `<br class="br-narrow" />` so on narrow viewports they break onto
-        their own lines. On wide viewports they read as one paragraph. */
-    body: Array<string[]>;
+    body: string[];
   };
   contact: {
     eyebrow: string;
