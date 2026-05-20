@@ -1,78 +1,63 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <!-- Mirrors the live mockups hero. -->
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
-      <stop offset="0%"   stop-color="#07111F"/>
-      <stop offset="60%"  stop-color="#0C1F4A"/>
-      <stop offset="100%" stop-color="#1D4ED8"/>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#EFF6FF"/>
+    </linearGradient>
+    <linearGradient id="brand-mark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"   stop-color="#1D4ED8"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
     </linearGradient>
   </defs>
 
   <rect width="1200" height="630" fill="url(#bg)"/>
-  <circle cx="1080" cy="90"  r="320" fill="#2563EB" fill-opacity="0.13"/>
-  <circle cx="80"   cy="560" r="220" fill="#1D4ED8" fill-opacity="0.10"/>
+  <circle cx="150"  cy="110" r="320" fill="#2563EB" fill-opacity="0.06"/>
+  <circle cx="1080" cy="540" r="280" fill="#3B82F6" fill-opacity="0.05"/>
 
-  <!-- brand mark -->
-  <rect x="72" y="64" width="56" height="56" rx="14" fill="#2563EB"/>
-  <text x="100" y="104" text-anchor="middle"
-        font-family="system-ui,-apple-system,Arial,sans-serif"
-        font-size="34" font-weight="800" fill="white">L</text>
-  <text x="146" y="104"
-        font-family="system-ui,-apple-system,Arial,sans-serif"
-        font-size="34" font-weight="700" fill="white">LogK</text>
+  <rect x="72" y="60" width="52" height="52" rx="16" fill="url(#brand-mark)"/>
+  <text x="98" y="98" text-anchor="middle"
+        font-family="Pretendard,system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',Arial,sans-serif"
+        font-size="30" font-weight="800" fill="white">L</text>
+  <text x="140" y="96"
+        font-family="Pretendard,system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',Arial,sans-serif"
+        font-size="26" font-weight="700" fill="#111827">LogK</text>
 
-  <!-- eyebrow -->
-  <text x="72" y="196"
-        font-family="system-ui,-apple-system,Arial,sans-serif"
-        font-size="19" font-weight="600" fill="#93C5FD" letter-spacing="2">제품 목업</text>
+  <text x="72" y="200"
+        font-family="Pretendard,system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',Arial,sans-serif"
+        font-size="22" font-weight="600" fill="#1D4ED8" letter-spacing="2">제품 목업</text>
 
-  <!-- headline -->
-  <text x="72" y="286"
-        font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',system-ui,Arial,sans-serif"
-        font-size="70" font-weight="800" fill="white">LogK 제품 화면</text>
-  <text x="72" y="366"
-        font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',system-ui,Arial,sans-serif"
-        font-size="38" font-weight="600" fill="#93C5FD">멀티 AI 위임, 보안, 관리의 실제 화면</text>
+  <text x="72" y="290"
+        font-family="Pretendard,system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',Arial,sans-serif"
+        font-size="74" font-weight="800" fill="#111827" letter-spacing="-2">LogK 제품 화면</text>
+  <text x="72" y="350"
+        font-family="Pretendard,system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',Arial,sans-serif"
+        font-size="28" font-weight="600" fill="#374151">멀티 AI 위임, 보안, 관리의 실제 화면</text>
 
-  <!-- screen list -->
-  <rect x="72"  y="418" width="220" height="80" rx="12" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.14)" stroke-width="1"/>
-  <text x="182" y="452" text-anchor="middle"
-        font-family="system-ui,-apple-system,Arial,sans-serif"
-        font-size="13" fill="rgba(255,255,255,0.45)" letter-spacing="1">화면 01</text>
-  <text x="182" y="480" text-anchor="middle"
-        font-family="'Malgun Gothic','Apple SD Gothic Neo',system-ui,Arial,sans-serif"
-        font-size="19" font-weight="700" fill="white">모델 선택</text>
+  <!-- Scene cards row (4 columns), matching mockupsPage.scenes -->
+  <g font-family="Pretendard,system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',Arial,sans-serif">
+    <rect x="72"  y="420" width="240" height="92" rx="14" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1.5"/>
+    <text x="192" y="454" text-anchor="middle" font-size="12" font-weight="700" fill="#9CA3AF" letter-spacing="1">화면 01</text>
+    <text x="192" y="488" text-anchor="middle" font-size="20" font-weight="700" fill="#111827">모델 보드</text>
 
-  <rect x="308" y="418" width="220" height="80" rx="12" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.14)" stroke-width="1"/>
-  <text x="418" y="452" text-anchor="middle"
-        font-family="system-ui,-apple-system,Arial,sans-serif"
-        font-size="13" fill="rgba(255,255,255,0.45)" letter-spacing="1">화면 02</text>
-  <text x="418" y="480" text-anchor="middle"
-        font-family="'Malgun Gothic','Apple SD Gothic Neo',system-ui,Arial,sans-serif"
-        font-size="19" font-weight="700" fill="white">답변 비교</text>
+    <rect x="324" y="420" width="240" height="92" rx="14" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1.5"/>
+    <text x="444" y="454" text-anchor="middle" font-size="12" font-weight="700" fill="#9CA3AF" letter-spacing="1">화면 02</text>
+    <text x="444" y="488" text-anchor="middle" font-size="20" font-weight="700" fill="#111827">답변 비교</text>
 
-  <rect x="544" y="418" width="220" height="80" rx="12" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.14)" stroke-width="1"/>
-  <text x="654" y="452" text-anchor="middle"
-        font-family="system-ui,-apple-system,Arial,sans-serif"
-        font-size="13" fill="rgba(255,255,255,0.45)" letter-spacing="1">화면 03</text>
-  <text x="654" y="480" text-anchor="middle"
-        font-family="'Malgun Gothic','Apple SD Gothic Neo',system-ui,Arial,sans-serif"
-        font-size="19" font-weight="700" fill="white">개인정보 제어</text>
+    <rect x="576" y="420" width="240" height="92" rx="14" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1.5"/>
+    <text x="696" y="454" text-anchor="middle" font-size="12" font-weight="700" fill="#9CA3AF" letter-spacing="1">화면 03</text>
+    <text x="696" y="488" text-anchor="middle" font-size="20" font-weight="700" fill="#111827">개인정보 제어</text>
 
-  <rect x="780" y="418" width="220" height="80" rx="12" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.14)" stroke-width="1"/>
-  <text x="890" y="452" text-anchor="middle"
-        font-family="system-ui,-apple-system,Arial,sans-serif"
-        font-size="13" fill="rgba(255,255,255,0.45)" letter-spacing="1">화면 04</text>
-  <text x="890" y="480" text-anchor="middle"
-        font-family="'Malgun Gothic','Apple SD Gothic Neo',system-ui,Arial,sans-serif"
-        font-size="19" font-weight="700" fill="white">크레딧 월렛</text>
+    <rect x="828" y="420" width="240" height="92" rx="14" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1.5"/>
+    <text x="948" y="454" text-anchor="middle" font-size="12" font-weight="700" fill="#9CA3AF" letter-spacing="1">화면 04</text>
+    <text x="948" y="488" text-anchor="middle" font-size="20" font-weight="700" fill="#111827">크레딧 월렛</text>
+  </g>
 
-  <text x="72" y="566"
-        font-family="'Malgun Gothic','Apple SD Gothic Neo',system-ui,Arial,sans-serif"
-        font-size="20" fill="rgba(255,255,255,0.42)">
-    데모 및 캡처용 목업 · 핵심 화면만 선별
-  </text>
+  <text x="72" y="568"
+        font-family="Pretendard,system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',Arial,sans-serif"
+        font-size="18" fill="#6B7280">데모 및 캡처용 목업 · 핵심 화면만 선별</text>
 
-  <text x="1128" y="610" text-anchor="end"
-        font-family="'Courier New',Consolas,monospace"
-        font-size="16" fill="rgba(255,255,255,0.28)">logk.co.kr</text>
+  <text x="1128" y="600" text-anchor="end"
+        font-family="Pretendard,system-ui,-apple-system,Arial,sans-serif"
+        font-size="14" fill="#9CA3AF">logk.co.kr</text>
 </svg>

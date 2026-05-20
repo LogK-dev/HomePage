@@ -1,67 +1,57 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <!-- Mirrors the live product hero. -->
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
-      <stop offset="0%"   stop-color="#07111F"/>
-      <stop offset="60%"  stop-color="#0C1F4A"/>
-      <stop offset="100%" stop-color="#1D4ED8"/>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#EFF6FF"/>
+    </linearGradient>
+    <linearGradient id="brand-mark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"   stop-color="#1D4ED8"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+    <linearGradient id="cta" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"   stop-color="#1D4ED8"/>
+      <stop offset="100%" stop-color="#2563EB"/>
     </linearGradient>
   </defs>
 
   <rect width="1200" height="630" fill="url(#bg)"/>
-  <circle cx="1080" cy="90"  r="320" fill="#2563EB" fill-opacity="0.13"/>
-  <circle cx="80"   cy="560" r="220" fill="#1D4ED8" fill-opacity="0.10"/>
+  <circle cx="150"  cy="110" r="320" fill="#2563EB" fill-opacity="0.06"/>
+  <circle cx="1080" cy="540" r="280" fill="#3B82F6" fill-opacity="0.05"/>
+  <circle cx="920"  cy="180" r="200" fill="#22C55E" fill-opacity="0.03"/>
 
-  <!-- brand mark -->
-  <rect x="72" y="64" width="56" height="56" rx="14" fill="#2563EB"/>
-  <text x="100" y="104" text-anchor="middle"
-        font-family="system-ui,-apple-system,Arial,sans-serif"
-        font-size="34" font-weight="800" fill="white">L</text>
-  <text x="146" y="104"
-        font-family="system-ui,-apple-system,Arial,sans-serif"
-        font-size="34" font-weight="700" fill="white">LogK</text>
+  <rect x="72" y="60" width="52" height="52" rx="16" fill="url(#brand-mark)"/>
+  <text x="98" y="98" text-anchor="middle"
+        font-family="Pretendard,system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',Arial,sans-serif"
+        font-size="30" font-weight="800" fill="white">L</text>
+  <text x="140" y="96"
+        font-family="Pretendard,system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',Arial,sans-serif"
+        font-size="26" font-weight="700" fill="#111827">LogK</text>
 
-  <!-- eyebrow -->
-  <text x="72" y="196"
-        font-family="system-ui,-apple-system,Arial,sans-serif"
-        font-size="19" font-weight="600" fill="#93C5FD" letter-spacing="2">서비스 소개</text>
+  <text x="72" y="186"
+        font-family="Pretendard,system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',Arial,sans-serif"
+        font-size="22" font-weight="600" fill="#1D4ED8" letter-spacing="2">제품</text>
 
-  <!-- headline -->
-  <text x="72" y="286"
-        font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',system-ui,Arial,sans-serif"
-        font-size="70" font-weight="800" fill="white">모델 고르고, 비용 보고,</text>
-  <text x="72" y="372"
-        font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',system-ui,Arial,sans-serif"
-        font-size="70" font-weight="800" fill="#93C5FD">답변을 비교하세요.</text>
+  <text x="72" y="270"
+        font-family="Pretendard,system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',Arial,sans-serif"
+        font-size="74" font-weight="800" fill="#111827" letter-spacing="-2">모델을 고르고,</text>
+  <text x="72" y="350"
+        font-family="Pretendard,system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',Arial,sans-serif"
+        font-size="74" font-weight="800" fill="#111827" letter-spacing="-2">비용을 보고,</text>
+  <text x="72" y="430"
+        font-family="Pretendard,system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',Arial,sans-serif"
+        font-size="74" font-weight="800" fill="#374151" letter-spacing="-2">답변을 비교하세요.</text>
 
-  <!-- feature rows -->
-  <rect x="72"  y="422" width="264" height="42" rx="10" fill="rgba(255,255,255,0.09)" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
-  <text x="204" y="449" text-anchor="middle"
-        font-family="'Malgun Gothic','Apple SD Gothic Neo',system-ui,Arial,sans-serif"
-        font-size="17" fill="rgba(255,255,255,0.80)">개인정보 자동 비식별화</text>
+  <text x="72" y="492"
+        font-family="Pretendard,system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',Arial,sans-serif"
+        font-size="22" fill="#4B5563">SelecAI 는 여러 AI 서비스를 하나의 작업 화면으로 묶습니다.</text>
 
-  <rect x="352" y="422" width="200" height="42" rx="10" fill="rgba(255,255,255,0.09)" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
-  <text x="452" y="449" text-anchor="middle"
-        font-family="'Malgun Gothic','Apple SD Gothic Neo',system-ui,Arial,sans-serif"
-        font-size="17" fill="rgba(255,255,255,0.80)">결제 워크플로</text>
+  <rect x="72" y="528" width="158" height="48" rx="24" fill="url(#cta)"/>
+  <text x="151" y="558" text-anchor="middle"
+        font-family="Pretendard,system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',Arial,sans-serif"
+        font-size="17" font-weight="600" fill="white">도입 문의</text>
 
-  <rect x="568" y="422" width="220" height="42" rx="10" fill="rgba(255,255,255,0.09)" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
-  <text x="678" y="449" text-anchor="middle"
-        font-family="'Malgun Gothic','Apple SD Gothic Neo',system-ui,Arial,sans-serif"
-        font-size="17" fill="rgba(255,255,255,0.80)">이미지 생성 비교</text>
-
-  <rect x="804" y="422" width="176" height="42" rx="10" fill="rgba(255,255,255,0.09)" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
-  <text x="892" y="449" text-anchor="middle"
-        font-family="'Malgun Gothic','Apple SD Gothic Neo',system-ui,Arial,sans-serif"
-        font-size="17" fill="rgba(255,255,255,0.80)">조직 관리</text>
-
-  <!-- description -->
-  <text x="72" y="530"
-        font-family="'Malgun Gothic','Apple SD Gothic Neo',system-ui,Arial,sans-serif"
-        font-size="22" fill="rgba(255,255,255,0.50)">
-    멀티 LLM 위임 · 실행 전 비용 확인 · 보안 정책 연동
-  </text>
-
-  <text x="1128" y="598" text-anchor="end"
-        font-family="'Courier New',Consolas,monospace"
-        font-size="16" fill="rgba(255,255,255,0.28)">logk.co.kr</text>
+  <text x="1128" y="600" text-anchor="end"
+        font-family="Pretendard,system-ui,-apple-system,Arial,sans-serif"
+        font-size="14" fill="#9CA3AF">logk.co.kr</text>
 </svg>
