@@ -80,6 +80,16 @@ export type SiteDictionary = {
   /** Second paragraph of the home page's media-shelf intro (the first
    *  paragraph reuses `productPage.description`). */
   mediaShelfLede: string;
+  /** Customer logos shown between the service section and the company
+   *  section on the home page. `name` is used for the img alt only; the
+   *  page renders just the logo image. `asset` is relative to
+   *  `/assets/customer_logo_list/`. */
+  customersEyebrow: string;
+  customers: Array<{
+    name: string;
+    asset: string;
+    href: string;
+  }>;
   mockupsPage: {
     eyebrow: string;
     title: string;

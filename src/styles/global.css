@@ -324,9 +324,13 @@ textarea {
 
 .hero-copy h1 {
   max-width: 14ch;
-  /* Shrink more aggressively than the global h1 clamp when width is scarce so the
-     enforced 3-line title doesn't overflow on narrow viewports. */
-  font-size: clamp(2.2rem, 7vw, 6.5rem);
+  /* The 3-line nowrap title must never exceed the viewport width — even at
+     browser zoom, where rem/px values stay constant in CSS pixels while the
+     viewport shrinks. The outer min(..., 12vw) caps font-size at 12% of
+     viewport width regardless of the inner clamp's rem floor, so the
+     widest line ("안전하게 쓰세요.", ~8 Korean chars) stays under 100% width
+     at any zoom level. */
+  font-size: min(clamp(2.2rem, 7vw, 6.5rem), 12vw);
 }
 
 /* The hero title is explicitly built as three block lines so the layout is
@@ -384,9 +388,11 @@ textarea {
   margin-bottom: 1rem;
 }
 
-/* Larger eyebrow for the home hero and the company section. */
+/* Larger eyebrow for the home hero, the company section, and the
+   customer-logos section — same visual weight across the home page. */
 .hero .eyebrow,
-.company-about-section .eyebrow {
+.company-about-section .eyebrow,
+.customer-logos-section .eyebrow {
   font-size: 1.05rem;
 }
 
@@ -1601,8 +1607,11 @@ html[data-theme="dark"] .contact-card .button-ghost {
 
 .media-shelf {
   /* Slide height — width is intrinsic per media aspect ratio.
-     Override per-instance by setting --shelf-height on the .media-shelf element. */
-  --shelf-height: clamp(360px, 62vh, 620px);
+     The `min(..., 50vw)` outer cap keeps the slide narrower than the viewport
+     even at browser zoom (rem/px floors don't shrink under zoom, but vw does).
+     50vw allows a 16:9 media to be ~89vw wide — fits comfortably within the
+     viewport with the 7%/4% track padding around it. */
+  --shelf-height: min(clamp(280px, 62vh, 620px), 50vw);
   display: grid;
   gap: 1.25rem;
 }
@@ -1660,6 +1669,18 @@ html[data-theme="dark"] .contact-card .button-ghost {
   /* Padding creates side space so adjacent slides peek in */
   padding-inline: 7%;
   scroll-padding-inline: 7%;
+  /* Mouse-drag scrolling — see MediaShelf.astro. The cursor invites the
+     drag affordance; `.is-dragging` suppresses scroll-snap so the user's
+     drag tracks the cursor 1:1 instead of fighting snap points. */
+  cursor: grab;
+  /* Don't let the browser eat horizontal-pan gestures for back/forward. */
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.media-shelf-track.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
 }
 
 .media-shelf-track::-webkit-scrollbar {
@@ -1687,7 +1708,7 @@ html[data-theme="dark"] .contact-card .button-ghost {
 
 @media (max-width: 820px) {
   .media-shelf {
-    --shelf-height: clamp(280px, 55vh, 460px);
+    --shelf-height: min(clamp(220px, 55vh, 460px), 55vw);
   }
 
   .media-shelf-track {
@@ -1736,6 +1757,48 @@ html[data-theme="dark"] .contact-card .button-ghost {
 .home-service-section .section-head {
   text-align: center;
   margin-inline: auto;
+}
+
+/* ── Customer logos ─────────────────────────────────────────────────────── */
+.customer-logos-section {
+  display: grid;
+  justify-items: center;
+  gap: 1.75rem;
+  padding-block: 3.5rem;
+}
+
+.customer-logos {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 2.5rem 3rem;
+}
+
+.customer-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* Default: full color, lightly muted. Hover/focus lifts and reveals
+     full opacity. */
+  opacity: 0.9;
+  transition: opacity var(--transition), transform var(--transition);
+}
+
+.customer-logo:hover,
+.customer-logo:focus-visible {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+.customer-logo img {
+  display: block;
+  height: 3rem;
+  width: auto;
+  max-width: 100%;
 }
 
 /* ── Company about section ─────────────────────────────────────────────── */

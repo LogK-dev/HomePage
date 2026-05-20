@@ -80,6 +80,26 @@ const mediaSegments = dictionary.mediaShelf.map((entry) => ({
     <MediaShelf segments={mediaSegments} />
   </section>
 
+  <!-- ── Customers ────────────────────────────────────────────────────── -->
+  <section class="section customer-logos-section" data-reveal>
+    <p class="eyebrow">{dictionary.customersEyebrow}</p>
+    <ul class="customer-logos">
+      {dictionary.customers.map((customer) => (
+        <li>
+          <a
+            class="customer-logo"
+            href={customer.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={customer.name}
+          >
+            <img src={`${base}assets/customer_logo_list/${customer.asset}`} alt={customer.name} loading="lazy" />
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
   <!-- ── Company ──────────────────────────────────────────────────────── -->
   <section id="company" class="section company-about-section" data-reveal>
     <p class="eyebrow">{dictionary.company.eyebrow}</p>

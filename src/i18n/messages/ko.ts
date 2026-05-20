@@ -7,7 +7,7 @@ export const ko: SiteDictionary = {
     homeTitle: "SelecAI — 기업용 멀티 AI 플랫폼",
     homeDescription:
       "25개 이상의 AI를 한 번에 위임하고, 개인정보를 자동 비식별화하며, 조직 단위로 관리합니다. 원화 결제 지원.",
-    productTitle: "SelecAI 서비스 소개 — 멀티 AI 위임부터 기업 관리까지",
+    productTitle: "SelecAI 서비스 소개 — 멀티 AI 동시 활용부터 기업 관리까지",
     productDescription:
       "모델 선택, 실행 전 비용 확인, 개인정보 자동 비식별화, 결제 워크플로, 조직 관리까지 — 기업 AI 활용의 전체 흐름.",
     pricingTitle: "SelecAI 요금제 — ₩10,000부터 시작하는 멀티 AI 구독",
@@ -164,6 +164,11 @@ export const ko: SiteDictionary = {
       "멀티 LLM 동시 활용부터 개인정보 보호, 조직 관리, 결제 워크플로까지",
       "— SelecAI 하나로 해결합니다."
     ),
+  customersEyebrow: "주요 고객사",
+  customers: [
+    { name: "KAIST",  asset: "kaist.png",   href: "https://www.kaist.ac.kr/kr/" },
+    { name: "무니티", asset: "moonity.png", href: "https://moonity.net/?lang=ko" }
+  ],
   mockupsPage: {
     eyebrow: "제품 목업",
     title: "SelecAI 제품 화면",

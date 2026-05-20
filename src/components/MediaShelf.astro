@@ -95,6 +95,72 @@ const { segments } = Astro.props;
       tab.addEventListener("click", () => goTo(Number(tab.dataset.mediaTab)));
     });
 
+    /** Mouse-drag scrolling. Touch already pans natively; this just adds the
+     *  same affordance for desktop mouse users. We don't intercept touch
+     *  pointer events to avoid fighting the browser's native momentum scroll. */
+    const DRAG_THRESHOLD_PX = 6;
+    let dragState: {
+      pointerId: number;
+      startX: number;
+      scrollStart: number;
+      moved: boolean;
+    } | null = null;
+    /** When set to a future timestamp, slide-click handlers no-op until then.
+     *  Prevents the click that fires at the end of a drag from re-centering
+     *  whatever slide the cursor happened to release over. */
+    let dragSuppressClicksUntil = 0;
+
+    track.addEventListener("pointerdown", (event) => {
+      if (event.pointerType !== "mouse" || event.button !== 0) return;
+      dragState = {
+        pointerId: event.pointerId,
+        startX: event.clientX,
+        scrollStart: track.scrollLeft,
+        moved: false
+      };
+    });
+
+    track.addEventListener("pointermove", (event) => {
+      if (!dragState || event.pointerId !== dragState.pointerId) return;
+      const delta = event.clientX - dragState.startX;
+      if (!dragState.moved && Math.abs(delta) > DRAG_THRESHOLD_PX) {
+        dragState.moved = true;
+        track.classList.add("is-dragging");
+        // Capture so the drag continues even if the cursor leaves the track.
+        try { track.setPointerCapture(event.pointerId); } catch { /* noop */ }
+      }
+      if (dragState.moved) {
+        // The track has `scroll-snap-type: x mandatory` which fights live
+        // scrollLeft changes. `.is-dragging` disables snap in CSS during drag.
+        track.scrollLeft = dragState.scrollStart - delta;
+        event.preventDefault();
+      }
+    });
+
+    function endDrag(event: PointerEvent) {
+      if (!dragState || event.pointerId !== dragState.pointerId) return;
+      const wasDrag = dragState.moved;
+      dragState = null;
+      if (wasDrag) {
+        track.classList.remove("is-dragging");
+        dragSuppressClicksUntil = performance.now() + 250;
+        // Snap to the slide nearest the release position via the existing
+        // goTo() — same animation + tab-sync path used by tab clicks.
+        goTo(activeIndexAtCurrentScroll());
+      }
+    }
+    track.addEventListener("pointerup", endDrag);
+    track.addEventListener("pointercancel", endDrag);
+
+    // Clicking a peeking slide on either side centers it — same path as a
+    // tab click. Skip when the click is the tail-end of a drag.
+    track.querySelectorAll<HTMLElement>("[data-media-slide]").forEach((slide) => {
+      slide.addEventListener("click", () => {
+        if (performance.now() < dragSuppressClicksUntil) return;
+        goTo(Number(slide.dataset.mediaSlide));
+      });
+    });
+
     /** Track-scroll → active-tab sync.
      *
      *  The previous implementation used an IntersectionObserver with
