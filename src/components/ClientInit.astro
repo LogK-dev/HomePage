@@ -152,6 +152,15 @@
 
     navToggle.dataset.menuInitialized = "true";
 
+    /** Close the mobile menu and reset toggle ARIA attributes. */
+    const closeMenu = () => {
+      const openLabel = navToggle.dataset.menuOpenLabel ?? "Open menu";
+      navToggle.setAttribute("aria-expanded", "false");
+      navToggle.setAttribute("aria-label", openLabel);
+      header.classList.remove("menu-open");
+      document.body.classList.remove("menu-open");
+    };
+
     navToggle.addEventListener("click", () => {
       const expanded = navToggle.getAttribute("aria-expanded") === "true";
       const openLabel = navToggle.dataset.menuOpenLabel ?? "Open menu";
@@ -160,6 +169,22 @@
       navToggle.setAttribute("aria-label", expanded ? openLabel : closeLabel);
       header.classList.toggle("menu-open", !expanded);
       document.body.classList.toggle("menu-open", !expanded);
+
+      // When transitioning into the open state, arm a one-shot scroll
+      // listener that auto-dismisses the dropdown the moment the user
+      // begins scrolling. Deferred by one frame so the click-induced
+      // layout shift can't trip the listener immediately.
+      if (!expanded) {
+        window.requestAnimationFrame(() => {
+          window.addEventListener(
+            "scroll",
+            () => {
+              if (header.classList.contains("menu-open")) closeMenu();
+            },
+            { once: true, passive: true }
+          );
+        });
+      }
     });
 
     [
@@ -167,13 +192,7 @@
       ...document.querySelectorAll<HTMLAnchorElement>(".header-actions a"),
       ...document.querySelectorAll<HTMLAnchorElement>(".header-controls a")
     ].forEach((link) => {
-      link.addEventListener("click", () => {
-        const openLabel = navToggle.dataset.menuOpenLabel ?? "Open menu";
-        navToggle.setAttribute("aria-expanded", "false");
-        navToggle.setAttribute("aria-label", openLabel);
-        header.classList.remove("menu-open");
-        document.body.classList.remove("menu-open");
-      });
+      link.addEventListener("click", closeMenu);
     });
   };
 

@@ -5,6 +5,7 @@ import Header from "@/components/Header.astro";
 import MediaShelf from "@/components/MediaShelf.astro";
 import type { Locale, SiteDictionary } from "@/i18n/schema";
 import { getLanguageOptions, localizedPath } from "@/utils/i18n";
+import { preferBreakAt } from "@/utils/text";
 
 interface Props {
   locale: Locale;
@@ -39,7 +40,12 @@ const mediaSegments = [
     <div class="hero-copy" data-reveal>
       <p class="eyebrow">{dictionary.hero.eyebrow}</p>
       <h1>
-        {dictionary.hero.title}
+        {/* Title contains `\n` separators in the dictionary; split into one
+            <span> per line so the CSS can pin each as a block + nowrap and
+            the layout never collapses or wraps further regardless of width. */}
+        {dictionary.hero.title.split("\n").map((line) => (
+          <span class="hero-title-line">{line}</span>
+        ))}
         <span class="headline-shift">{dictionary.hero.titleAccent}</span>
       </h1>
       <p class="hero-lede">{dictionary.hero.lede}</p>
@@ -117,7 +123,7 @@ const mediaSegments = [
   <section id="company" class="section company-about-section" data-reveal>
     <p class="eyebrow">{dictionary.company.eyebrow}</p>
     <div class="company-about-body">
-      {dictionary.company.body.map((para) => <p>{para}</p>)}
+      {dictionary.company.body.map((para) => <p>{preferBreakAt(para)}</p>)}
     </div>
   </section>
 

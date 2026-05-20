@@ -324,10 +324,18 @@ textarea {
 
 .hero-copy h1 {
   max-width: 14ch;
-  white-space: pre-line;
   /* Shrink more aggressively than the global h1 clamp when width is scarce so the
      enforced 3-line title doesn't overflow on narrow viewports. */
   font-size: clamp(2.2rem, 7vw, 6.5rem);
+}
+
+/* The hero title is explicitly built as three block lines so the layout is
+   enforced at every viewport width — no additional wrapping is allowed
+   inside a line. The container's font clamp() handles narrow viewports. */
+.hero-copy h1 > .hero-title-line,
+.hero-copy h1 > .headline-shift {
+  display: block;
+  white-space: nowrap;
 }
 
 /* Responsive line-break utilities. Pair `<br class="br-narrow">` with a
@@ -1062,9 +1070,13 @@ p {
 .site-footer p {
   margin: 0;
   color: #6b7280;
-  /* Container-driven so the footer scales smoothly between desktop and
-     narrow widths without an abrupt breakpoint. */
-  font-size: clamp(0.72rem, 1.4cqi, 0.875rem);
+  /* Always a single line; font scales with the footer's own width.
+     The 2.5cqi rate is calibrated so the full meta line stays on one row
+     down to ~320px viewports; below that the floor kicks in and there
+     may be slight overflow — acceptable per spec ("reduce font if not
+     enough width"). */
+  white-space: nowrap;
+  font-size: clamp(0.42rem, 2.5cqi, 0.875rem);
   line-height: 1.85;
 }
 
@@ -1234,8 +1246,7 @@ p {
     grid-column: auto;
   }
 
-  .contact-card,
-  .site-footer {
+  .contact-card {
     flex-direction: column;
     align-items: flex-start;
   }
@@ -1348,10 +1359,11 @@ p {
     padding: 4.2rem 0;
   }
 
-  .section,
-  .site-footer {
+  .section {
     width: min(calc(100% - 1.2rem), var(--max-width));
   }
+  /* Note: .site-footer intentionally NOT included here — it should span
+     the full viewport width regardless of breakpoint. */
 
   .hero-lede,
   p {
@@ -2695,16 +2707,29 @@ body:has(.pricing-page) {
 .pricing-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1.25rem;
-  align-items: stretch; /* equal card heights */
+  /* Six explicit row tracks. Each plan-card opts into these via
+     `grid-template-rows: subgrid` below, so every card's same-named section
+     (head, credit-box, cta, divider, features-label, features-list) lines up
+     across columns regardless of how much content sits inside.
+       row 1: plan-head (title + price)
+       row 2: plan-credit-box
+       row 3: plan-cta button
+       row 4: plan-divider
+       row 5: plan-features-label
+       row 6: plan-features list */
+  grid-template-rows: auto auto auto auto auto auto;
+  row-gap: 1.25rem;
+  column-gap: 1.25rem;
+  align-items: stretch;
   margin-bottom: 2.5rem;
 }
 
 /* Plan card */
 .plan-card {
   position: relative;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 6;
   padding: 2rem 1.75rem;
   border-radius: var(--radius-lg);
   background: var(--surface);
@@ -2745,13 +2770,14 @@ body:has(.pricing-page) {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
 }
 
-/* Plan head */
+/* Plan head — sits in row 1 of the subgrid. Min-height kept so the head
+   reserves space even when copy is short (e.g. badge-less cards). Margin
+   removed; spacing between sections is handled by the subgrid row-gap. */
 .plan-head {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
   min-height: 9.35rem;
-  margin-bottom: 1.25rem;
 }
 
 .plan-name {
@@ -2875,14 +2901,20 @@ body:has(.pricing-page) {
   color: rgba(255, 255, 255, 0.55);
 }
 
-/* Credit box */
+/* Credit box — row 2 of subgrid. Subgrid stretches every credit-box to
+   the row's height (= tallest box across the 4 cards), so Lite (no bonus
+   chip) ends up the same visual size as the others.
+   Also: container-type makes the box queryable so the `.plan-bonus` chip
+   inside can size its font as a fraction of the credit-box's own width
+   (via `cqi`). All 4 credit-boxes share the same width (subgrid column),
+   so all bonus chips end up at identical sizes — group-uniform shrink. */
 .plan-credit-box {
   min-height: 6.25rem;
-  margin-bottom: 1.25rem;
   background: #EFF6FF;
   border: 1px solid #DBEAFE;
   border-radius: 8px;
   padding: 14px 16px;
+  container-type: inline-size;
 }
 
 .plan-card-popular .plan-credit-box {
@@ -2933,7 +2965,12 @@ body:has(.pricing-page) {
   color: #065F46;
   border-radius: 999px;
   padding: 2px 10px;
-  font-size: 0.72rem;
+  /* Never wrap inside the chip. When the credit-box gets too narrow for
+     0.72rem to fit "🎁 보너스 +40,000 크레딧 포함" on one line, the cqi
+     term takes over and shrinks the font instead. All 4 credit-boxes have
+     the same width (subgrid row), so every chip lands at the same size. */
+  white-space: nowrap;
+  font-size: clamp(0.55rem, 6cqi, 0.72rem);
   font-weight: 700;
 }
 
@@ -2942,7 +2979,7 @@ body:has(.pricing-page) {
   color: #D1FAE5;
 }
 
-/* Plan CTA */
+/* Plan CTA — row 3 of subgrid. Margin removed; row-gap handles spacing. */
 .plan-cta {
   width: 100%;
   text-align: center;
@@ -2950,7 +2987,6 @@ body:has(.pricing-page) {
   border-radius: 8px;
   padding: 0.8rem;
   font-size: 0.94rem;
-  margin-bottom: 1.5rem;
 }
 
 .plan-cta-default {
@@ -2982,7 +3018,12 @@ body:has(.pricing-page) {
 .plan-divider {
   border: none;
   border-top: 1px solid var(--surface-border);
-  margin: 0 0 1.25rem;
+  margin: 0;
+  /* Row 4 of subgrid — its own row, so the line lands at the same Y across
+     all 4 cards regardless of varying credit-box / cta heights. The hr's
+     own height is just 1px; the row collapses to that height. */
+  align-self: center;
+  width: 100%;
 }
 
 .plan-card-popular .plan-divider {
@@ -2995,7 +3036,7 @@ body:has(.pricing-page) {
   text-transform: uppercase;
   letter-spacing: 0.07em;
   color: var(--text-faint);
-  margin-bottom: 0.75rem;
+  /* Row 5 of subgrid; row-gap handles the space below. */
 }
 
 .plan-card-popular .plan-features-label {
@@ -3007,8 +3048,15 @@ body:has(.pricing-page) {
   margin: 0;
   padding: 0;
   display: grid;
+  /* Uniform spacing between every feature item, regardless of how many a
+     card has. */
   gap: 0.625rem;
-  flex: 1;
+  /* Sit at the top of row 6 (the tallest features list across all cards).
+     Cards with fewer items leave whitespace at the bottom of the row,
+     which is the intended trade-off for keeping the divider aligned. */
+  align-self: start;
+  /* Don't grow content rows beyond what the items need. */
+  grid-auto-rows: min-content;
 }
 
 .plan-feature-item {

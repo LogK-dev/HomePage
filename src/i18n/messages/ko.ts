@@ -206,11 +206,13 @@ export const ko: SiteDictionary = {
   },
   company: {
     eyebrow: "회사 소개",
+    // `​` (zero-width space) marks the preferred line-break point used
+    // by preferBreakAt(). See src/utils/text.ts.
     body: [
-      "로그케이는 보안과 인공지능(AI)이라는 키워드를 활용하여 효율적인 서비스를 만들고자 노력하는 기업입니다.",
-      "로그케이의 대표 솔루션인 SelecAI 는 LLM을 기반으로 한 다양한 생성형AI 를 비교하고 선택해서 사용할 수 있는 온라인 솔루션 입니다.",
-      "기존 AI 제품들의 아쉬운 부분을 SelecAI 에 담아 효율적인 서비스로 재가공하였습니다.",
-      "저희 로그케이는 고객의 의견을 최우선으로 적극 반영하여 최고의 서비스를 제공하겠습니다. 언제든 연락주세요."
+      "로그케이는 보안과 인공지능(AI)이라는 키워드를 활용하여 ​효율적인 서비스를 만들고자 노력하는 기업입니다.",
+      "로그케이의 대표 솔루션인 SelecAI 는 LLM을 기반으로 한 다양한 생성형AI를 비교하고 선택해서 사용할 수 있는 온라인 솔루션 입니다.",
+      "기존 AI 제품들의 아쉬운 부분을 SelecAI에 담아 ​효율적인 서비스로 재가공하였습니다.",
+      "저희 로그케이는 고객의 의견을 최우선으로 적극 반영하여 ​최고의 서비스를 제공하겠습니다. 언제든 연락주세요."
     ]
   },
   contact: {
@@ -287,8 +289,11 @@ export const ko: SiteDictionary = {
     ],
     nextEyebrow: "다음 단계",
     nextTitle: "도입을 논의하고 싶으신가요?",
+    // `​` marks the preferred line-break opportunity used by
+    // preferBreakAt(): if the container is wide enough the sentence stays
+    // on one line, otherwise the browser wraps at this single position.
     nextBody:
-      "우리 회사에 맞는 AI 사용 방식 구성과 과금 정책을 함께 고민해 드립니다.",
+      "우리 회사에 맞는 AI 사용 방식 구성과 과금 정책을 ​함께 고민해 드립니다.",
     primaryCta: "도입 문의",
     secondaryCta: "홈으로 돌아가기",
     gallery: {
@@ -524,7 +529,8 @@ export const ko: SiteDictionary = {
     },
     trialBanner: {
       title: "지금 바로 LogK를 경험해 보세요",
-      body: "무료 데모를 통해 멀티 LLM 비교 활용과 보안 기능을 직접 확인해 보실 수 있습니다.",
+      // `​` marks the preferred line-break used by preferBreakAt().
+      body: "무료 데모를 통해 멀티 LLM 비교 활용과 보안 기능을 ​직접 확인해 보실 수 있습니다.",
       ctaLabel: "무료 데모 신청하기",
       ctaHref: "mailto:contact@logk.co.kr"
     }
