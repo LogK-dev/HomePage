@@ -331,6 +331,12 @@ textarea {
   margin-bottom: 1rem;
 }
 
+/* Larger eyebrow for the home hero and the company section. */
+.hero .eyebrow,
+.company-about-section .eyebrow {
+  font-size: 1.05rem;
+}
+
 h1,
 h2,
 h3 {
