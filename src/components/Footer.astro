@@ -1,15 +1,7 @@
 ---
-import type { Locale, SiteDictionary } from "@/i18n/schema";
-
-interface Props {
-  locale: Locale;
-  dictionary: SiteDictionary;
-}
-
-// Props are accepted (and passed by all page components) but the current
-// footer copy is hardcoded. Wire them up if/when the footer becomes
-// dictionary-driven.
-const { locale: _locale, dictionary: _dictionary } = Astro.props;
+// Footer is currently fully static; it takes no props.
+// If the copyright/links need to become locale-aware later, accept a
+// `locale` prop and route the strings through the dictionary.
 ---
 
 <footer class="site-footer">

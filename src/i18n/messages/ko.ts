@@ -1,18 +1,19 @@
 import type { SiteDictionary } from "@/i18n/schema";
+import { phrase } from "@/utils/text";
 
 export const ko: SiteDictionary = {
   meta: {
     siteName: "LogK",
-    homeTitle: "LogK — 기업용 멀티 AI 플랫폼",
+    homeTitle: "SelecAI — 기업용 멀티 AI 플랫폼",
     homeDescription:
       "25개 이상의 AI를 한 번에 위임하고, 개인정보를 자동 비식별화하며, 조직 단위로 관리합니다. 원화 결제 지원.",
-    productTitle: "LogK 서비스 소개 — 멀티 AI 위임부터 기업 관리까지",
+    productTitle: "SelecAI 서비스 소개 — 멀티 AI 위임부터 기업 관리까지",
     productDescription:
       "모델 선택, 실행 전 비용 확인, 개인정보 자동 비식별화, 결제 워크플로, 조직 관리까지 — 기업 AI 활용의 전체 흐름.",
-    pricingTitle: "LogK 요금제 — ₩10,000부터 시작하는 멀티 AI 구독",
+    pricingTitle: "SelecAI 요금제 — ₩10,000부터 시작하는 멀티 AI 구독",
     pricingDescription:
-      "Lite ₩10,000 · Standard ₩30,000 · Pro ₩50,000 · Business ₩100,000. 모든 플랜에 멀티 LLM 비교 활용 포함. 연간 구독 시 20% 할인.",
-    mockupsTitle: "LogK 제품 화면 — 실제 UI 목업 모음",
+      "Lite ₩10,000 · Standard ₩30,000 · Pro ₩50,000 · Business ₩100,000. SelecAI 모든 플랜에 멀티 LLM 동시 활용 포함. 연간 구독 시 20% 할인.",
+    mockupsTitle: "SelecAI 제품 화면 — 실제 UI 목업 모음",
     mockupsDescription:
       "모델 선택, 답변 비교, 개인정보 비식별화, 크레딧 과금의 실제 화면입니다."
   },
@@ -23,209 +24,60 @@ export const ko: SiteDictionary = {
       { key: "pricing", label: "요금제", href: "pricing" },
       { key: "contact", label: "문의하기", href: "mailto:contact@logk.co.kr" }
     ],
-    product: "제품",
-    pricing: "요금제",
-    talkToSales: "도입 문의",
     home: "홈",
     bookDemo: "무료 데모 신청",
     menuOpen: "메뉴 열기",
     menuClose: "메뉴 닫기"
-  },
-  theme: {
-    light: "라이트",
-    dark: "다크",
-    toggleLabel: "색상 테마 전환"
   },
   localeSwitcher: {
     label: "언어"
   },
   hero: {
     eyebrow: "기업용 멀티 AI 플랫폼",
-    title: "여러 AI를,\n조직에 맞게",
+    title: "다양한 AI를,\n조직에 맞게",
     titleAccent: "안전하게 쓰세요.",
     lede:
-      "멀티 LLM 동시 위임, 개인정보 자동 비식별화, 조직 관리, 결제 워크플로까지 — AI 활용의 복잡함을 SelecAI 하나로 해결합니다.",
+      phrase(
+        "멀티 LLM 동시 활용, 개인정보 자동 비식별화, 조직 관리, 결제 워크플로까지",
+        " — AI 활용의 복잡함을 SelecAI 하나로 해결합니다."
+      ),
     primaryCta: "서비스 소개",
-    secondaryCta: "요금제 보기",
-    metrics: [
-      { value: "한 번 입력", label: "여러 모델에 동시에 요청" },
-      { value: "비용 먼저", label: "실행 전 예상 크레딧 확인" },
-      { value: "결과 비교", label: "답변 차이를 한 화면에서 검토" }
-    ],
-    previewFeatures: [
-      {
-        id: "chats",
-        label: "채팅",
-        summary: "하나의 대화를 여러 모델에 위임하면서 문맥을 일관되게 유지합니다."
-      },
-      {
-        id: "projects",
-        label: "프로젝트",
-        summary: "목표와 담당자, 반복 워크플로를 기준으로 AI 작업 공간을 정리합니다."
-      },
-      {
-        id: "agents",
-        label: "에이전트",
-        summary: "초안 작성, 비판적 검토, 검증처럼 역할이 분명한 에이전트를 구성합니다."
-      },
-      {
-        id: "usage",
-        label: "사용량",
-        summary: "팀과 워크플로별 요청량, 토큰 사용량, 모델 분포를 한눈에 확인합니다."
-      },
-      {
-        id: "spending",
-        label: "지출",
-        summary: "위임 실행 전후의 크레딧 사용량과 예산 영향을 투명하게 추적합니다."
-      },
-      {
-        id: "billing",
-        label: "과금",
-        summary: "청구서, 결제수단, 계정 단위 과금 설정을 한곳에서 관리합니다."
-      }
-    ],
-    previewFallback: {
-      title: "제품 미리보기 로딩 중…",
-      body: "인터랙티브 데모를 보려면 JavaScript를 활성화하세요."
-    }
+    secondaryCta: "요금제 보기"
   },
-  trust: [
-    "25+ AI 모델 지원",
-    "실행 전 비용 확인",
-    "멀티 LLM 동시 위임",
-    "개인정보 자동 비식별화",
-    "결제 워크플로",
-    "기업 조직 관리"
+  mediaShelf: [
+    { label: "LLM 동시 활용",     asset: "selecAI_multi_delegate.mov", type: "video" },
+    { label: "이미지 생성",   asset: "selecAI_image_gen.mov",       type: "video" },
+    { label: "개인정보 보호", asset: "selecAI_private_masking.png", type: "image" },
+    { label: "기업 관리",     asset: "selecAI_corp_mgnt.png",       type: "image" },
+    { label: "유저 관리",     asset: "selecAI_user_mgmt.png",       type: "image" },
+    { label: "결제 워크플로", asset: "selecAI_prompt_pay.png",      type: "image" }
   ],
-  solution: {
-    eyebrow: "솔루션",
-    title: "하나의 질문을 여러 AI 서비스에 동시에 위임합니다.",
-    description:
-      "많은 AI 제품은 하나의 채팅창이나 개발자용 게이트웨이에 머물러 있습니다. LogK는 그 위에서 모델 선택, 비용 판단, 결과 비교, 검증까지 이어지는 사용자 중심의 의사결정 레이어를 만듭니다.",
-    cards: [
-      {
-        index: "01",
-        title: "하나의 대시보드에서 여러 모델을 선택",
-        body:
-          "사용자는 하나의 모델을 빠르게 선택하거나 여러 모델을 함께 선택해 비교, 집계, 작업별 추천 조합을 구성할 수 있습니다.",
-        bullets: [
-          "프로바이더, 속도, 품질, 모달리티 기준의 모델 카드",
-          "여러 답변을 한 화면에서 비교",
-          "질문 맥락에 맞춘 추천 모델 스택"
-        ],
-        tall: true
-      },
-      {
-        index: "02",
-        title: "위임 전에 비용을 먼저 확인",
-        body:
-          "요청을 실행하기 전에 예상 크레딧을 보여주어, 가격과 품질, 응답 범위 사이에서 의도적인 선택을 할 수 있게 합니다."
-      },
-      {
-        index: "03",
-        title: "필요한 경우 자동 검증을 추가",
-        body:
-          "모델 간 의견이 갈리거나 신뢰도가 낮을 때 자동으로 후속 질문과 검증 루프를 실행해 답변의 근거를 보강합니다."
-      }
-    ]
-  },
-  showcase: {
-    eyebrow: "제품 인터페이스",
-    title: "선택, 위임, 검증으로 이어지는 하나의 흐름.",
-    description:
-      "작업은 단순합니다. 모델 스택을 고르고, 여러 프로바이더에 위임한 뒤, 결과를 비교하고 검증해 최종 답변을 결정합니다.",
-    tabs: [
-      {
-        id: "plan",
-        label: "선택",
-        title: "작업에 맞는 모델 스택을 선택합니다",
-        body:
-          "빠른 응답이 필요하면 단일 모델을, 비교가 필요하면 여러 모델을, 글쓰기·코딩·리서치처럼 목적이 뚜렷한 작업에는 추천 스택을 선택할 수 있습니다.",
-        visualLabel: "모델 스택",
-        visualTitle: "GPT-5.2, Claude Sonnet, Gemini Pro 이사회 검토 스택",
-        bullets: [
-          "실행 전 예상 크레딧 확인",
-          "품질, 지연시간, 개인정보 정책을 함께 고려",
-          "반복 업무를 위한 모델 스택 저장"
-        ]
-      },
-      {
-        id: "build",
-        label: "위임",
-        title: "한 번의 요청을 여러 프로바이더로 위임합니다",
-        body:
-          "LogK는 선택된 모델로 요청을 분산 실행하고, 비용과 상태를 중앙에서 추적하며, 프로바이더와 후속 단계가 달라도 실행 흐름을 일관되게 유지합니다.",
-        stack: [
-          "OpenAI: 도구 사용이 필요한 1차 답변",
-          "Anthropic: 추론과 비판적 검토",
-          "Google: 검증 및 멀티모달 후속 확인"
-        ]
-      },
-      {
-        id: "review",
-        label: "검증",
-        title: "최종 답변을 비교하고 검증합니다",
-        body:
-          "하나의 답변에만 의존하지 않고 모델 간 차이, 신뢰도 격차, 검증 과정을 함께 보여주어 더 납득 가능한 결론에 도달하게 합니다.",
-        reviewLines: [
-          "프로바이더 간 불일치를 집계 전에 표시",
-          "신뢰도가 낮을 때 검증 프롬프트 실행",
-          "모델 추적 정보와 함께 최종 답변 생성"
-        ]
-      }
-    ]
-  },
-  technology: {
-    eyebrow: "기술",
-    title: "모델 선택, 비용 통제, 개인정보 보호를 함께 설계한 위임 계층.",
-    description:
-      "LogK는 단순한 모델 스위처가 아닙니다. 더 적합한 모델을 선택하고, 크레딧 비용을 관리하며, 민감한 문맥이 부적절한 경로로 전송되지 않도록 돕는 라우팅 및 의사결정 레이어입니다.",
-    graphicEyebrow: "라우팅 그래프",
-    graphicTitle: "작업 인식형 모델 오케스트레이션",
-    graphicBody:
-      "질문이 프로바이더로 전달되기 전에 후보 모델 스택, 개인정보 정책, 예상 비용, 검증 단계를 먼저 계산합니다.",
-    cards: [
-      {
-        index: "A",
-        title: "멀티모델 추천과 라우팅",
-        body:
-          "현재 프롬프트에 맞는 모델 또는 모델 스택을 추천하고 가격, 품질, 가용성, 워크플로 프리셋에 따라 요청을 라우팅합니다."
-      },
-      {
-        index: "B",
-        title: "개인정보 보호와 비용 거버넌스",
-        body:
-          "위임 전에 비식별화와 차단 규칙을 적용하고, 크레딧 기반 과금을 실행·팀·계정 단위로 투명하게 관리합니다."
-      }
-    ],
-    stats: [
-      { value: 7, label: "위임 전 평가되는 모델 및 프로바이더 경로" },
-      { value: 3, label: "핵심 사용자 행동: 선택, 위임, 검증" },
-      { value: 100, label: "외부 전송 전 점검되는 민감 필드 비율" }
-    ]
-  },
   company: {
     eyebrow: "회사 소개",
-    // `​` (zero-width space) marks the preferred line-break point used
-    // by preferBreakAt(). See src/utils/text.ts.
+    // phrase(...) marks the preferred line-break point: the browser wraps
+    // between segments only when the container narrows. See src/utils/text.ts.
     body: [
-      "로그케이는 보안과 인공지능(AI)이라는 키워드를 활용하여 ​효율적인 서비스를 만들고자 노력하는 기업입니다.",
-      "로그케이의 대표 솔루션인 SelecAI 는 LLM을 기반으로 한 다양한 생성형AI를 비교하고 선택해서 사용할 수 있는 온라인 솔루션 입니다.",
-      "기존 AI 제품들의 아쉬운 부분을 SelecAI에 담아 ​효율적인 서비스로 재가공하였습니다.",
-      "저희 로그케이는 고객의 의견을 최우선으로 적극 반영하여 ​최고의 서비스를 제공하겠습니다. 언제든 연락주세요."
+      phrase(
+        "로그케이는 보안과 인공지능(AI)이라는 키워드를 활용하여",
+        "효율적인 서비스를 만들고자 노력하는 기업입니다."
+      ),
+      phrase(
+        "로그케이의 대표 솔루션인 SelecAI 는 LLM을 기반으로 한",
+        "다양한 생성형AI를 비교하고 선택해서 사용할 수 있는 온라인 솔루션 입니다."
+      ),
+      phrase(
+        "기존 AI 제품들의 아쉬운 부분을 SelecAI에 담아",
+        "효율적인 서비스로 재가공하였습니다."
+      ),
+      phrase(
+        "저희 로그케이는 고객의 의견을 최우선으로 적극 반영하여",
+        "최고의 서비스를 제공하겠습니다. 언제든 연락주세요."
+      )
     ]
-  },
-  contact: {
-    eyebrow: "문의",
-    title: "LogK 도입을 문의하세요.",
-    body:
-      "여러 AI 모델을 업무에 함께 쓰고 싶은 팀을 위해 준비하고 있습니다.",
-    primaryCta: "contact@logk.co.kr",
-    secondaryCta: "제품 보기"
   },
   productPage: {
     eyebrow: "제품",
-    title: "모델을 고르고,\n비용을 보고,\n답변을 비교하세요.",
+    title: "모델을 선택하고,\n비용을 확인하고,\n답변을 비교하세요.",
     description:
       "SelecAI 는 여러 AI 서비스를 하나의 작업 화면으로 묶습니다.",
     stages: [
@@ -289,11 +141,11 @@ export const ko: SiteDictionary = {
     ],
     nextEyebrow: "다음 단계",
     nextTitle: "도입을 논의하고 싶으신가요?",
-    // `​` marks the preferred line-break opportunity used by
-    // preferBreakAt(): if the container is wide enough the sentence stays
-    // on one line, otherwise the browser wraps at this single position.
-    nextBody:
-      "우리 회사에 맞는 AI 사용 방식 구성과 과금 정책을 ​함께 고민해 드립니다.",
+    // phrase(...) marks the preferred line-break point. See src/utils/text.ts.
+    nextBody: phrase(
+      "우리 회사에 맞는 AI 사용 방식 구성과 과금 정책을",
+      "함께 고민해 드립니다."
+    ),
     primaryCta: "도입 문의",
     secondaryCta: "홈으로 돌아가기",
     gallery: {
@@ -307,62 +159,14 @@ export const ko: SiteDictionary = {
       pricingAlt: "LogK pricing dashboard screenshot"
     }
   },
-  features: {
-    eyebrow: "핵심 기능",
-    title: "기업 AI 활용에 필요한 모든 것",
-    description: "모델 위임부터 개인정보 보호, 조직 관리, 결제 워크플로까지 — SelecAI 하나로 해결합니다.",
-    rows: [
-      {
-        eyebrow: "개인정보 보호",
-        title: "프롬프트 전송 전, 민감정보를 자동으로 가립니다",
-        body: "이름·전화번호·이메일·주민등록번호·계좌번호 등 9가지 개인정보 유형을 외부 AI 서버로 전송하기 전에 자동 탐지·비식별화합니다. OCR을 통해 이미지·PDF 내 민감정보도 처리하며, 원본은 저장하지 않습니다.",
-        bullets: [
-          "NER + 정규식 + sLLM 조합으로 정확하게 탐지",
-          "이미지·PDF OCR 포함 9가지 유형 지원",
-          "원본 미저장 — 비식별화 결과만 보관"
-        ]
-      },
-      {
-        eyebrow: "결제 워크플로",
-        title: "AI 사용 요청을 조직이 직접 승인합니다",
-        body: "관리자가 설정한 정책에 따라 민감한 AI 요청을 결제 라인에 올릴 수 있습니다. 승인·거부 이력이 남아 AI 사용 감사(audit)가 가능하며, 조직의 AI 거버넌스를 체계적으로 운영할 수 있습니다.",
-        bullets: [
-          "대기·승인·거부 상태 실시간 확인",
-          "결제 이력 전체 보관",
-          "감사(audit) 로그 지원"
-        ]
-      },
-      {
-        eyebrow: "이미지 생성 비교",
-        title: "여러 AI의 이미지 결과를 나란히 확인합니다",
-        body: "동일한 프롬프트로 생성된 이미지를 ChatGPT, Gemini, Grok 등 여러 AI 서비스에서 나란히 비교합니다. 가장 원하는 결과를 빠르게 선택하고, 프롬프트를 수정해 반복 비교할 수 있습니다.",
-        bullets: [
-          "여러 AI 이미지 생성 결과를 동시에 비교",
-          "프롬프트 수정 후 즉시 재비교",
-          "원하는 결과를 한 번에 선택"
-        ]
-      }
-    ],
-    adminSection: {
-      eyebrow: "조직 관리",
-      title: "LLM 정책과 멤버를 조직 단위로 관리합니다",
-      description: "관리자는 허용 LLM 모델을 직접 선택하고, 멤버별 활성화 여부와 권한을 한 화면에서 설정합니다. 팀 규모가 커져도 관리 부담이 늘지 않습니다.",
-      corp: {
-        title: "기업 관리",
-        body: "허용 LLM 모델 및 기업 정책 설정",
-        alt: "selecAI 기업 관리 화면 — LLM 모델 정책 설정"
-      },
-      user: {
-        title: "유저 관리",
-        body: "멤버 활성화·역할 권한 제어",
-        alt: "selecAI 유저 관리 화면 — 멤버 활성화 및 권한 설정"
-      }
-    }
-  },
+  mediaShelfLede:
+    phrase(
+      "멀티 LLM 동시 활용부터 개인정보 보호, 조직 관리, 결제 워크플로까지",
+      "— SelecAI 하나로 해결합니다."
+    ),
   mockupsPage: {
     eyebrow: "제품 목업",
-    title: "LogK 제품 화면",
-    description: "모델 선택, 답변 비교, 개인정보 제어, 크레딧 과금 화면입니다.",
+    title: "SelecAI 제품 화면",
     lede:
       "여러 AI 모델을 한 화면에서 고르고 비교하는 제품 목업입니다.",
     note:
@@ -395,9 +199,9 @@ export const ko: SiteDictionary = {
   pricingPage: {
     eyebrow: "요금제",
     badge: "지금 바로 시작 가능 · 원화 결제 지원",
-    title: "업무에 맞는 플랜을 선택하고",
+    title: "업무에 적합한 플랜을 선택하고",
     titleEmphasis: "AI 활용을 시작하세요",
-    description: "모든 플랜에 멀티 LLM 비교 활용이 포함됩니다.\n상위 플랜일수록 더 많은 크레딧과 기능을 제공합니다.",
+    description: "SelecAI 모든 플랜에 멀티 LLM 동시 활용이 포함됩니다.\n상위 플랜일수록 더 많은 크레딧과 기능을 제공합니다.",
     toggle: {
       monthly: "월간 구독",
       yearly: "연간 구독",
@@ -415,7 +219,6 @@ export const ko: SiteDictionary = {
         yearlyPrice: "8,000",
         credits: "10,000",
         ctaLabel: "시작하기 →",
-        ctaHref: "mailto:contact@logk.co.kr",
         features: [
           { text: "멀티 LLM 동시 사용", sub: "ChatGPT · Claude · Gemini 포함" },
           { text: "응답 비교 기능" },
@@ -432,7 +235,6 @@ export const ko: SiteDictionary = {
         credits: "33,000",
         bonusCredits: "+3,000",
         ctaLabel: "시작하기 →",
-        ctaHref: "mailto:contact@logk.co.kr",
         features: [
           { text: "멀티 LLM 동시 사용", sub: "ChatGPT · Claude · Gemini 포함" },
           { text: "응답 비교 기능" },
@@ -452,7 +254,6 @@ export const ko: SiteDictionary = {
         badge: "🔥 가장 인기 있는 플랜",
         highlight: true,
         ctaLabel: "지금 시작하기 →",
-        ctaHref: "mailto:contact@logk.co.kr",
         features: [
           { text: "멀티 LLM 동시 사용", sub: "ChatGPT · Claude · Gemini 포함" },
           { text: "응답 비교 · 최적화" },
@@ -472,7 +273,6 @@ export const ko: SiteDictionary = {
         credits: "140,000",
         bonusCredits: "+40,000",
         ctaLabel: "시작하기 →",
-        ctaHref: "mailto:contact@logk.co.kr",
         features: [
           { text: "멀티 LLM 동시 사용", sub: "ChatGPT · Claude · Gemini 포함" },
           { text: "응답 비교 · 최적화" },
@@ -490,7 +290,6 @@ export const ko: SiteDictionary = {
       description: "공공기관, 금융, 의료, 대기업 등 고보안 환경에 최적화된 폐쇄망 구축형 서비스입니다. 원화 결제 및 조직 맞춤형 보안 설정을 지원합니다.",
       tags: ["온프레미스 구축", "폐쇄망 지원", "원화 결제", "개인정보 완전 비식별화", "내부 문서 RAG", "SLA 보장"],
       ctaLabel: "도입 문의하기 →",
-      ctaHref: "mailto:contact@logk.co.kr",
       note: "영업일 기준 3일 내 회신 드립니다"
     },
     creditNotes: [
@@ -528,11 +327,12 @@ export const ko: SiteDictionary = {
       ]
     },
     trialBanner: {
-      title: "지금 바로 LogK를 경험해 보세요",
-      // `​` marks the preferred line-break used by preferBreakAt().
-      body: "무료 데모를 통해 멀티 LLM 비교 활용과 보안 기능을 ​직접 확인해 보실 수 있습니다.",
-      ctaLabel: "무료 데모 신청하기",
-      ctaHref: "mailto:contact@logk.co.kr"
+      title: "지금 바로 SelecAI를 경험해 보세요",
+      body: phrase(
+        "무료 데모를 통해 멀티 LLM ehdtl 활용과 보안 기능을",
+        "직접 확인해 보실 수 있습니다."
+      ),
+      ctaLabel: "무료 데모 신청하기"
     }
   }
 };

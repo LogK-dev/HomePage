@@ -1,11 +1,8 @@
 ---
-import { preferBreakAt } from "@/utils/text";
-
 interface Props {
   eyebrow?: string;
   title: string;
-  /** Plain-text body. For responsive line breaks, omit `body` and pass markup via the "body" slot instead. */
-  body?: string;
+  body: string;
   primaryLabel: string;
   primaryHref: string;
   secondaryLabel?: string;
@@ -14,16 +11,12 @@ interface Props {
 
 const { eyebrow, title, body, primaryLabel, primaryHref, secondaryLabel, secondaryHref } =
   Astro.props;
-
-// Honor any `​` (zero-width-space) preferred-break markers in the body.
-// preferBreakAt() returns the input unchanged if no markers are present.
-const renderedBody = body ? preferBreakAt(body) : body;
 ---
 
 <div class="trial-banner">
   {eyebrow && <p class="trial-eyebrow">{eyebrow}</p>}
   <h2>{title}</h2>
-  <p><slot name="body">{renderedBody}</slot></p>
+  <p>{body}</p>
   <div class="trial-banner-actions">
     <a class="trial-cta button" href={primaryHref}>{primaryLabel}</a>
     {secondaryLabel && secondaryHref && (

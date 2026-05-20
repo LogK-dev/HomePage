@@ -2,39 +2,36 @@
  * Text-layout helpers.
  */
 
-/**
- * Marker character used in dictionary strings to point at the preferred
- * line-break opportunity for a sentence. Place it immediately after the
- * space you'd like the browser to break at, e.g.:
- *
- *   "...정책을 ​함께 고민해 드립니다."
- *
- * The marker itself is a zero-width space — invisible in rendered output
- * and unobtrusive in source. Other text rendering remains untouched if
- * the marker is absent (the helper returns the string as-is).
- */
-export const PREFERRED_BREAK_MARKER = "​";
+/** Non-breaking space character (U+00A0). Visually identical to a normal
+ *  space but the browser will not use it as a line-break opportunity. */
+const NBSP = " ";
 
 /**
- * Transform a string so the browser is only *allowed* to wrap at the
- * preferred break points marked by `PREFERRED_BREAK_MARKER`.
+ * Compose a sentence whose only allowed line-break opportunities are
+ * **between** the provided segments. Spaces inside each segment become
+ * non-breaking spaces, so the browser only ever wraps where the author
+ * inserted a segment boundary.
  *
- * Mechanism:
- *   1. Split on the pattern " ​" (space + ZWSP) — those positions
- *      become the only regular spaces in the output.
- *   2. Within each segment, every remaining space is replaced with a
- *      non-breaking space ( ) — the browser can't wrap there.
- *   3. The segments are rejoined with a single regular space.
+ * Usage in dictionary strings:
  *
- * Effect: a sentence stays on one line whenever the container is wide
- * enough; the browser only wraps at marked positions when it has to.
+ *   phrase(
+ *     "우리 회사에 맞는 AI 사용 방식 구성과 과금 정책을",
+ *     "함께 고민해 드립니다."
+ *   )
  *
- * If the string contains no marker the input is returned unchanged.
+ * On wide viewports the sentence stays on one line. As the container
+ * narrows, the browser breaks at the first available segment boundary,
+ * then the next, etc. A single-segment call (or a plain string literal)
+ * leaves the text alone — natural word wrapping applies.
+ *
+ * Works in conjunction with the global `word-break: keep-all` rule:
+ * Korean words can never split mid-character, and non-segment spaces
+ * (now NBSPs) can never split either, so the only legal break points
+ * are the ones the author authored.
  */
-export function preferBreakAt(text: string): string {
-  if (!text.includes(PREFERRED_BREAK_MARKER)) return text;
-  return text
-    .split(` ${PREFERRED_BREAK_MARKER}`)
-    .map((segment) => segment.replace(/ /g, " "))
-    .join(" ");
+export function phrase(...segments: string[]): string {
+  if (segments.length <= 1) {
+    return segments[0] ?? "";
+  }
+  return segments.map((segment) => segment.replace(/ /g, NBSP)).join(" ");
 }

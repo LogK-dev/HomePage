@@ -3,7 +3,7 @@ import ContactBanner from "@/components/ContactBanner.astro";
 import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
 import type { Locale, SiteDictionary } from "@/i18n/schema";
-import { getLanguageOptions, localizedPath } from "@/utils/i18n";
+import { getContactHref, getLanguageOptions, localizedPath } from "@/utils/i18n";
 
 interface Props {
   locale: Locale;
@@ -104,11 +104,11 @@ const gallery = dictionary.productPage.gallery;
       title={dictionary.productPage.nextTitle}
       body={dictionary.productPage.nextBody}
       primaryLabel={dictionary.productPage.primaryCta}
-      primaryHref="mailto:contact@logk.co.kr"
+      primaryHref={getContactHref(dictionary)}
       secondaryLabel={dictionary.productPage.secondaryCta}
       secondaryHref={homePath}
     />
   </section>
 </main>
 
-<Footer locale={locale} dictionary={dictionary} />
+<Footer />

@@ -17,8 +17,9 @@ const site = Astro.site;
 const hasCanonicalSite = site && site.hostname !== "example.com";
 const canonicalUrl = hasCanonicalSite ? new URL(Astro.url.pathname, site).toString() : undefined;
 const ogImage = hasCanonicalSite ? new URL(ogImageFile, site).href : `/${ogImageFile}`;
-const ogLocale = locale === "ko" ? "ko_KR" : "en_US";
-const ogLocaleAlt = locale === "ko" ? "en_US" : "ko_KR";
+// Single-locale site (Korean). When EN is re-enabled, derive both this and
+// an `og:locale:alternate` tag from the active `locale` prop.
+const ogLocale = "ko_KR";
 ---
 
 <!DOCTYPE html>
@@ -52,7 +53,6 @@ const ogLocaleAlt = locale === "ko" ? "en_US" : "ko_KR";
     <meta property="og:image:height"      content="630" />
     {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
     <meta property="og:locale"            content={ogLocale} />
-    <meta property="og:locale:alternate"  content={ogLocaleAlt} />
     <!-- Twitter / X Card -->
     <meta name="twitter:card"             content="summary_large_image" />
     <meta name="twitter:title"            content={title} />

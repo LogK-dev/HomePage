@@ -1,7 +1,7 @@
 ---
 import LanguageSwitcher from "@/components/LanguageSwitcher.astro";
 import type { Locale, SiteDictionary } from "@/i18n/schema";
-import { localizedPath } from "@/utils/i18n";
+import { getContactHref, localizedPath } from "@/utils/i18n";
 
 type LanguageOption = {
   label: string;
@@ -19,6 +19,10 @@ const { locale, dictionary, languageOptions } = Astro.props;
 const homePath = localizedPath(locale);
 const currentPath = Astro.url.pathname;
 
+// The Book-Demo CTA reuses the contact nav item's href so there's a single
+// source of truth for the contact destination (currently mailto:…).
+const bookDemoHref = getContactHref(dictionary);
+
 const resolveHref = (href: string): string => {
   if (href.startsWith("#")) return `${homePath}${href}`;
   if (href.startsWith("mailto:") || href.startsWith("http://") || href.startsWith("https://")) return href;
@@ -34,7 +38,7 @@ const isActive = (href: string): boolean => {
 ---
 
 <header class="site-header" data-header>
-  <a class="brand" href={homePath} aria-label={`${dictionary.meta.siteName} home`}>
+  <a class="brand" href={homePath} aria-label={`${dictionary.meta.siteName} ${dictionary.nav.home}`}>
     <span class="brand-mark">L</span>
     <span class="brand-word">{dictionary.meta.siteName}</span>
   </a>
@@ -70,7 +74,7 @@ const isActive = (href: string): boolean => {
     </nav>
 
     <div class="header-actions">
-      <a class="button header-cta" href="mailto:contact@logk.co.kr">
+      <a class="button header-cta" href={bookDemoHref}>
         {dictionary.nav.bookDemo}
       </a>
     </div>

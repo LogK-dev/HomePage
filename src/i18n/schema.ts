@@ -1,12 +1,10 @@
-import { PREVIEW_TAB_IDS, type PreviewTabId } from "@/shared/tabs";
 import { locales } from "@/i18n/locales";
 
-export { PREVIEW_TAB_IDS, locales };
-export type PreviewFeatureId = PreviewTabId;
+export { locales };
 export type { Locale } from "@/i18n/locales";
 
 export type NavItem = {
-  key: "company" | "solution" | "technology" | "contact" | "pricing";
+  key: "company" | "solution" | "contact" | "pricing";
   label: string;
   href: string;
 };
@@ -25,18 +23,10 @@ export type SiteDictionary = {
   };
   nav: {
     items: NavItem[];
-    product: string;
-    pricing: string;
-    talkToSales: string;
     home: string;
     bookDemo: string;
     menuOpen: string;
     menuClose: string;
-  };
-  theme: {
-    light: string;
-    dark: string;
-    toggleLabel: string;
   };
   localeSwitcher: {
     label: string;
@@ -48,67 +38,18 @@ export type SiteDictionary = {
     lede: string;
     primaryCta: string;
     secondaryCta: string;
-    metrics: Array<{ value: string; label: string }>;
-    previewFeatures: Array<{
-      // First entry becomes the default tab — order is load-bearing.
-      id: PreviewFeatureId;
-      label: string;
-      summary: string;
-    }>;
-    previewFallback: {
-      title: string;
-      body: string;
-    };
   };
-  trust: string[];
-  solution: {
-    eyebrow: string;
-    title: string;
-    description: string;
-    cards: Array<{
-      index: string;
-      title: string;
-      body: string;
-      bullets?: string[];
-      tall?: boolean;
-    }>;
-  };
-  showcase: {
-    eyebrow: string;
-    title: string;
-    description: string;
-    tabs: Array<{
-      id: "plan" | "build" | "review";
-      label: string;
-      title: string;
-      body: string;
-      visualLabel?: string;
-      visualTitle?: string;
-      bullets?: string[];
-      stack?: string[];
-      reviewLines?: string[];
-    }>;
-  };
-  technology: {
-    eyebrow: string;
-    title: string;
-    description: string;
-    graphicEyebrow: string;
-    graphicTitle: string;
-    graphicBody: string;
-    cards: Array<{ index: string; title: string; body: string }>;
-    stats: Array<{ value: number; label: string }>;
-  };
+  /** Home page — segmented media shelf below the hero. Each entry maps a
+   *  user-facing tab label to its asset (filename relative to
+   *  `/assets/selecAI_mockup/`) and media type. */
+  mediaShelf: Array<{
+    label: string;
+    asset: string;
+    type: "image" | "video";
+  }>;
   company: {
     eyebrow: string;
     body: string[];
-  };
-  contact: {
-    eyebrow: string;
-    title: string;
-    body: string;
-    primaryCta: string;
-    secondaryCta: string;
   };
   productPage: {
     eyebrow: string;
@@ -136,28 +77,12 @@ export type SiteDictionary = {
       pricingAlt: string;
     };
   };
-  features: {
-    eyebrow: string;
-    title: string;
-    description: string;
-    rows: Array<{
-      eyebrow: string;
-      title: string;
-      body: string;
-      bullets?: string[];
-    }>;
-    adminSection: {
-      eyebrow: string;
-      title: string;
-      description: string;
-      corp: { title: string; body: string; alt: string };
-      user: { title: string; body: string; alt: string };
-    };
-  };
+  /** Second paragraph of the home page's media-shelf intro (the first
+   *  paragraph reuses `productPage.description`). */
+  mediaShelfLede: string;
   mockupsPage: {
     eyebrow: string;
     title: string;
-    description: string;
     lede: string;
     note: string;
     primaryCta: string;
@@ -177,6 +102,8 @@ export type SiteDictionary = {
       annualNote: string;
     };
     creditLabel: string;
+    /** Plan CTAs all route to the shared contact destination derived via
+     *  `getContactHref(dictionary)` — no per-plan href stored here. */
     plans: Array<{
       key: string;
       name: string;
@@ -188,7 +115,6 @@ export type SiteDictionary = {
       bonusCredits?: string;
       badge?: string;
       ctaLabel: string;
-      ctaHref: string;
       highlight?: boolean;
       features: Array<{
         text: string;
@@ -201,7 +127,6 @@ export type SiteDictionary = {
       description: string;
       tags: string[];
       ctaLabel: string;
-      ctaHref: string;
       note: string;
     };
     creditNotes: string[];
@@ -213,7 +138,6 @@ export type SiteDictionary = {
       title: string;
       body: string;
       ctaLabel: string;
-      ctaHref: string;
     };
   };
 };

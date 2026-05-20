@@ -1,7 +1,5 @@
 <script>
-  let showcaseInterval: number | undefined;
   let revealObserver: IntersectionObserver | undefined;
-  let counterObserver: IntersectionObserver | undefined;
 
   const syncHeaderState = () => {
     const header = document.querySelector<HTMLElement>("[data-header]");
@@ -10,51 +8,6 @@
     }
 
     header.classList.toggle("is-condensed", window.scrollY > 18);
-  };
-
-  const initShowcase = (reducedMotion: boolean) => {
-    if (showcaseInterval) {
-      window.clearInterval(showcaseInterval);
-      showcaseInterval = undefined;
-    }
-
-    const showcase = document.querySelector<HTMLElement>("[data-showcase]");
-    if (!showcase) {
-      return;
-    }
-
-    const tabs = [...showcase.querySelectorAll<HTMLElement>("[data-tab]")];
-    const panels = [...showcase.querySelectorAll<HTMLElement>("[data-panel]")];
-    let activeIndex = tabs.findIndex((tab) => tab.classList.contains("is-active"));
-    activeIndex = activeIndex >= 0 ? activeIndex : 0;
-
-    const setPanel = (name?: string) => {
-      if (!name) {
-        return;
-      }
-
-      tabs.forEach((tab) => {
-        tab.classList.toggle("is-active", tab.dataset.tab === name);
-    });
-
-      panels.forEach((panel) => {
-        panel.classList.toggle("is-active", panel.dataset.panel === name);
-      });
-    };
-
-    tabs.forEach((tab, index) => {
-      tab.addEventListener("click", () => {
-        activeIndex = index;
-        setPanel(tab.dataset.tab);
-      });
-    });
-
-    if (!reducedMotion && tabs.length > 1) {
-      showcaseInterval = window.setInterval(() => {
-        activeIndex = (activeIndex + 1) % tabs.length;
-        setPanel(tabs[activeIndex].dataset.tab);
-      }, 4200);
-    }
   };
 
   const initReveal = (reducedMotion: boolean) => {
@@ -87,54 +40,6 @@
       item.style.transitionDelay = reducedMotion ? "0ms" : `${Math.min(index * 40, 220)}ms`;
       revealObserver!.observe(item);
     });
-  };
-
-  const initCounters = (reducedMotion: boolean) => {
-    if (counterObserver) {
-      counterObserver.disconnect();
-      counterObserver = undefined;
-    }
-
-    const items = [...document.querySelectorAll<HTMLElement>("[data-count]")];
-    if (items.length === 0) {
-      return;
-    }
-
-    counterObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) {
-            return;
-          }
-
-          const node = entry.target as HTMLElement;
-          const target = Number(node.dataset.count ?? 0);
-          const duration = reducedMotion ? 0 : 1200;
-          const start = performance.now();
-
-          const tick = (timestamp: number) => {
-            if (duration === 0) {
-              node.textContent = String(target);
-              return;
-            }
-
-            const progress = Math.min((timestamp - start) / duration, 1);
-            const eased = 1 - Math.pow(1 - progress, 3);
-            node.textContent = String(Math.round(target * eased));
-
-            if (progress < 1) {
-              window.requestAnimationFrame(tick);
-            }
-          };
-
-          window.requestAnimationFrame(tick);
-          counterObserver!.unobserve(node);
-        });
-      },
-      { threshold: 0.45 }
-    );
-
-    items.forEach((item) => counterObserver!.observe(item));
   };
 
   const initMobileMenu = () => {
@@ -203,6 +108,11 @@
         return;
       }
 
+      // The plans section advertises a `data-pricing-mode` attribute that
+      // CSS uses to drive the "was → now" strikethrough animation. Each
+      // mode flip writes both the textContent swaps and the attribute.
+      const plansSection = document.querySelector<HTMLElement>("[data-pricing-mode]");
+
       const setMode = (mode: string) => {
         buttons.forEach((button) => {
           const isActive = button.dataset.mode === mode;
@@ -211,6 +121,7 @@
         });
 
         const isYearly = mode === "yearly";
+        plansSection?.setAttribute("data-pricing-mode", mode);
 
         document.querySelectorAll<HTMLElement>(".plan-amount").forEach((node) => {
           node.textContent = isYearly ? (node.dataset.yearly ?? "") : (node.dataset.monthly ?? "");
@@ -235,13 +146,40 @@
     });
   };
 
+  const initFaq = () => {
+    document.querySelectorAll<HTMLElement>("[data-faq]").forEach((item) => {
+      if (item.dataset.faqInitialized === "true") {
+        return;
+      }
+      item.dataset.faqInitialized = "true";
+
+      const trigger = item.querySelector<HTMLButtonElement>(".faq-question");
+      const answer = item.querySelector<HTMLElement>(".faq-answer");
+      if (!trigger || !answer) {
+        return;
+      }
+
+      trigger.addEventListener("click", () => {
+        const wasOpen = item.classList.contains("is-open");
+        // Accordion behavior: close any sibling that's currently open.
+        document.querySelectorAll<HTMLElement>("[data-faq].is-open").forEach((open) => {
+          open.classList.remove("is-open");
+          open.querySelector<HTMLElement>(".faq-answer")?.classList.remove("is-open");
+        });
+        if (!wasOpen) {
+          item.classList.add("is-open");
+          answer.classList.add("is-open");
+        }
+      });
+    });
+  };
+
   const initPage = () => {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     initMobileMenu();
-    initShowcase(reducedMotion);
     initPricingToggle();
+    initFaq();
     initReveal(reducedMotion);
-    initCounters(reducedMotion);
     syncHeaderState();
     document.querySelectorAll<HTMLElement>("[data-year]").forEach((node) => {
       node.textContent = String(new Date().getFullYear());

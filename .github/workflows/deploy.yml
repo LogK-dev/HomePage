@@ -36,18 +36,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install product-preview dependencies
-        run: npm install
-        working-directory: product-preview
-
-      - name: Type-check product-preview
-        run: npx tsc --noEmit
-        working-directory: product-preview
-
-      - name: Build product-preview
-        run: npm run build
-        working-directory: product-preview
-
       - name: Type-check site
         run: npx astro check
 

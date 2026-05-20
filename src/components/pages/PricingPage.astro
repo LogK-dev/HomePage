@@ -2,8 +2,7 @@
 import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
 import type { Locale, SiteDictionary } from "@/i18n/schema";
-import { getLanguageOptions, localizedPath } from "@/utils/i18n";
-import { preferBreakAt } from "@/utils/text";
+import { getContactHref, getLanguageOptions } from "@/utils/i18n";
 
 interface Props {
   locale: Locale;
@@ -12,7 +11,8 @@ interface Props {
 
 const { locale, dictionary } = Astro.props;
 const p = dictionary.pricingPage;
-const homePath = localizedPath(locale);
+// All plan / enterprise / trial CTAs route to the same contact destination.
+const contactHref = getContactHref(dictionary);
 ---
 
 <Header locale={locale} dictionary={dictionary} languageOptions={getLanguageOptions(locale, "pricing")} />
@@ -86,7 +86,7 @@ const homePath = localizedPath(locale);
 
           <a
             class:list={["button", "plan-cta", { "plan-cta-popular": plan.highlight, "plan-cta-default": !plan.highlight }]}
-            href={plan.ctaHref}
+            href={contactHref}
           >
             {plan.ctaLabel}
           </a>
@@ -126,7 +126,7 @@ const homePath = localizedPath(locale);
         </div>
       </div>
       <div class="enterprise-right">
-        <a class="button enterprise-cta" href={p.enterprise.ctaHref}>{p.enterprise.ctaLabel}</a>
+        <a class="button enterprise-cta" href={contactHref}>{p.enterprise.ctaLabel}</a>
         <span class="enterprise-note">{p.enterprise.note}</span>
       </div>
     </div>
@@ -167,62 +167,11 @@ const homePath = localizedPath(locale);
   <div class="pricing-container" style="padding-bottom: 5rem;">
     <div class="trial-banner" data-reveal>
       <h2>{p.trialBanner.title}</h2>
-      <p>{preferBreakAt(p.trialBanner.body)}</p>
-      <a class="button trial-cta" href={p.trialBanner.ctaHref}>{p.trialBanner.ctaLabel}</a>
+      <p>{p.trialBanner.body}</p>
+      <a class="button trial-cta" href={contactHref}>{p.trialBanner.ctaLabel}</a>
     </div>
   </div>
 
 </main>
 
-<Footer locale={locale} dictionary={dictionary} />
-
-<script>
-  /* ── Monthly / Yearly toggle ─────────────────────────────────────────────── */
-  const toggle = document.querySelector("[data-pricing-toggle]");
-  if (toggle) {
-    const buttons = [...toggle.querySelectorAll<HTMLButtonElement>(".ptoggle-btn")];
-
-    // The plans section drives the "was → now" animation off its `data-pricing-mode` attribute.
-    const plansSection = document.querySelector<HTMLElement>("[data-pricing-mode]");
-
-    const setMode = (mode: string) => {
-      buttons.forEach(b => b.classList.toggle("is-active", b.dataset.mode === mode));
-      const isYearly = mode === "yearly";
-
-      if (plansSection) plansSection.setAttribute("data-pricing-mode", mode);
-
-      document.querySelectorAll<HTMLElement>(".plan-amount").forEach(el => {
-        el.textContent = isYearly ? (el.dataset.yearly ?? "") : (el.dataset.monthly ?? "");
-      });
-
-      document.querySelectorAll<HTMLElement>(".plan-annual-note").forEach(el => {
-        el.textContent = isYearly ? (el.dataset.annualPrice ?? "") : "";
-      });
-    };
-
-    buttons.forEach(btn => {
-      btn.addEventListener("click", () => setMode(btn.dataset.mode ?? "monthly"));
-    });
-  }
-
-  /* ── FAQ accordion ───────────────────────────────────────────────────────── */
-  document.querySelectorAll<HTMLElement>("[data-faq]").forEach(item => {
-    const btn = item.querySelector<HTMLButtonElement>(".faq-question");
-    const answer = item.querySelector<HTMLElement>(".faq-answer");
-    if (!btn || !answer) return;
-
-    btn.addEventListener("click", () => {
-      const isOpen = item.classList.contains("is-open");
-      // Close all
-      document.querySelectorAll("[data-faq]").forEach(el => {
-        el.classList.remove("is-open");
-        el.querySelector(".faq-answer")?.classList.remove("is-open");
-      });
-      // Toggle clicked
-      if (!isOpen) {
-        item.classList.add("is-open");
-        answer.classList.add("is-open");
-      }
-    });
-  });
-</script>
+<Footer />

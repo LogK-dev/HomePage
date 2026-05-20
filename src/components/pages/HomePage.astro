@@ -4,8 +4,7 @@ import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
 import MediaShelf from "@/components/MediaShelf.astro";
 import type { Locale, SiteDictionary } from "@/i18n/schema";
-import { getLanguageOptions, localizedPath } from "@/utils/i18n";
-import { preferBreakAt } from "@/utils/text";
+import { getContactHref, getLanguageOptions, localizedPath } from "@/utils/i18n";
 
 interface Props {
   locale: Locale;
@@ -17,18 +16,15 @@ const pricingPath = localizedPath(locale, "pricing");
 const languageOptions = getLanguageOptions(locale);
 const base = import.meta.env.BASE_URL;
 const mockupBase = `${base}assets/selecAI_mockup/`;
-const productPreviewBase = `${base}product-preview/`;
-const previewFeatures = dictionary.hero.previewFeatures;
-const previewJsSrc = `${productPreviewBase}product-preview.js${import.meta.env.PROD ? `?v=${Date.now()}` : ""}`;
 
-const mediaSegments = [
-  { label: "멀티 위임",    src: `${mockupBase}selecAI_multi_delegate.mov`, type: "video" as const },
-  { label: "이미지 생성",  src: `${mockupBase}selecAI_image_gen.mov`,       type: "video" as const },
-  { label: "개인정보 보호", src: `${mockupBase}selecAI_private_masking.png`, type: "image" as const },
-  { label: "기업 관리",    src: `${mockupBase}selecAI_corp_mgnt.png`,       type: "image" as const },
-  { label: "유저 관리",    src: `${mockupBase}selecAI_user_mgmt.png`,       type: "image" as const },
-  { label: "결제 워크플로", src: `${mockupBase}selecAI_prompt_pay.png`,      type: "image" as const },
-];
+// Tab labels + asset filenames live in the dictionary so they share the
+// i18n surface with the rest of user-facing copy. The component just
+// resolves the asset filenames to fully-qualified URLs here.
+const mediaSegments = dictionary.mediaShelf.map((entry) => ({
+  label: entry.label,
+  src: `${mockupBase}${entry.asset}`,
+  type: entry.type
+}));
 ---
 
 <Header locale={locale} dictionary={dictionary} languageOptions={languageOptions} />
@@ -56,49 +52,14 @@ const mediaSegments = [
       </div>
     </div>
 
-    <div class="hero-visual" data-reveal>
+    <div class="hero-visual" data-reveal aria-hidden="true">
       <video
         src={`${mockupBase}selecAI_multi_delegate.mov`}
         autoplay
         muted
         loop
         playsinline
-        aria-label="여러 AI 채팅 이력을 한 화면에서 확인하는 데모"
       ></video>
-    </div>
-
-    <!-- Product preview — code preserved, visually disabled -->
-    <div class="hero-preview" aria-hidden="true" style="display:none" data-preview-area>
-      <div class="preview-switcher" data-preview-switcher aria-label="Product feature tabs">
-        {previewFeatures.map((feature, index) => (
-          <button
-            class:list={["preview-switcher-button", { "is-active": index === 0 }]}
-            type="button"
-            data-preview-feature={feature.id}
-            aria-selected={index === 0 ? "true" : "false"}
-          >
-            <strong>{feature.label}</strong>
-          </button>
-        ))}
-      </div>
-      <div class="preview-feature-copy" data-preview-feature-copy>
-        {previewFeatures.map((feature, index) => (
-          <article class:list={["preview-feature-panel", { "is-active": index === 0 }]} data-preview-feature-panel={feature.id}>
-            <span>{String(index + 1).padStart(2, "0")}</span>
-            <strong>{feature.label}</strong>
-            <p>{feature.summary}</p>
-          </article>
-        ))}
-      </div>
-      <div class="product-preview-mount">
-        <div data-product-preview data-locale={locale} data-feature={previewFeatures[0].id} data-product-url={`${localizedPath(locale)}#service`}>
-          <div class="product-preview-fallback">
-            <strong>{dictionary.hero.previewFallback.title}</strong>
-            <p>{dictionary.hero.previewFallback.body}</p>
-          </div>
-        </div>
-      </div>
-      <script is:inline type="module" src={previewJsSrc}></script>
     </div>
   </section>
 
@@ -114,7 +75,7 @@ const mediaSegments = [
   <section class="section media-shelf-section">
     <div class="media-shelf-intro" data-reveal>
       <p class="section-lede">{dictionary.productPage.description}</p>
-      <p class="section-lede">{dictionary.features.description}</p>
+      <p class="section-lede">{dictionary.mediaShelfLede}</p>
     </div>
     <MediaShelf segments={mediaSegments} />
   </section>
@@ -123,7 +84,7 @@ const mediaSegments = [
   <section id="company" class="section company-about-section" data-reveal>
     <p class="eyebrow">{dictionary.company.eyebrow}</p>
     <div class="company-about-body">
-      {dictionary.company.body.map((para) => <p>{preferBreakAt(para)}</p>)}
+      {dictionary.company.body.map((para) => <p>{para}</p>)}
     </div>
   </section>
 
@@ -134,7 +95,7 @@ const mediaSegments = [
       title={dictionary.productPage.nextTitle}
       body={dictionary.productPage.nextBody}
       primaryLabel={dictionary.productPage.primaryCta}
-      primaryHref="mailto:contact@logk.co.kr"
+      primaryHref={getContactHref(dictionary)}
       secondaryLabel={dictionary.pricingPage.eyebrow}
       secondaryHref={pricingPath}
     />
@@ -142,4 +103,4 @@ const mediaSegments = [
 
 </main>
 
-<Footer locale={locale} dictionary={dictionary} />
+<Footer />
