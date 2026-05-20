@@ -173,6 +173,7 @@ textarea {
 
 .nav-toggle {
   display: none;
+  position: relative;
   width: 2.8rem;
   height: 2.8rem;
   border: 0;
@@ -180,15 +181,51 @@ textarea {
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.9);
   box-shadow: 0 10px 18px rgba(23, 30, 44, 0.06);
+  cursor: pointer;
 }
 
+/* Three bars positioned absolutely so the burger → X transform stays symmetric. */
 .nav-toggle span {
-  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
   width: 1.1rem;
   height: 2px;
-  margin: 0.24rem auto;
   border-radius: 999px;
   background: var(--text);
+  transition: transform 0.25s ease, opacity 0.2s ease;
+  will-change: transform, opacity;
+}
+
+.nav-toggle span:nth-child(1) {
+  transform: translate(-50%, calc(-50% - 0.42rem));
+}
+
+.nav-toggle span:nth-child(2) {
+  transform: translate(-50%, -50%);
+}
+
+.nav-toggle span:nth-child(3) {
+  transform: translate(-50%, calc(-50% + 0.42rem));
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(1) {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+  transform: translate(-50%, -50%) scaleX(0.4);
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(3) {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-toggle span {
+    transition: none;
+  }
 }
 
 .button {
@@ -1172,8 +1209,7 @@ p {
   }
 
   .nav-toggle {
-    display: inline-grid;
-    place-items: center;
+    display: inline-block;
   }
 
   .site-nav,
@@ -1848,6 +1884,9 @@ html[data-theme="dark"] .contact-card .button-ghost {
 }
 
 .media-shelf {
+  /* Slide height — width is intrinsic per media aspect ratio.
+     Override per-instance by setting --shelf-height on the .media-shelf element. */
+  --shelf-height: clamp(360px, 62vh, 620px);
   display: grid;
   gap: 1.25rem;
 }
@@ -1913,8 +1952,9 @@ html[data-theme="dark"] .contact-card .button-ghost {
 }
 
 .media-shelf-slide {
-  /* 86% width + 7% padding each side = adjacent slides peek ~7% */
-  flex: 0 0 86%;
+  /* Unified height; width is intrinsic per media aspect ratio so nothing letterboxes. */
+  flex: 0 0 auto;
+  height: var(--shelf-height);
   scroll-snap-align: center;
   border-radius: var(--radius-xl);
   overflow: hidden;
@@ -1925,19 +1965,19 @@ html[data-theme="dark"] .contact-card .button-ghost {
 
 .media-shelf-slide img,
 .media-shelf-slide video {
-  width: 100%;
+  height: 100%;
+  width: auto;
   display: block;
-  vertical-align: top;
 }
 
 @media (max-width: 820px) {
+  .media-shelf {
+    --shelf-height: clamp(280px, 55vh, 460px);
+  }
+
   .media-shelf-track {
     padding-inline: 4%;
     scroll-padding-inline: 4%;
-  }
-
-  .media-shelf-slide {
-    flex: 0 0 92%;
   }
 }
 

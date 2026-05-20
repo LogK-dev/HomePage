@@ -35,7 +35,7 @@ const { segments } = Astro.props;
     {segments.map((seg, i) => (
       <div class="media-shelf-slide" data-media-slide={i}>
         {seg.type === "video" ? (
-          <video src={seg.src} autoplay muted loop playsinline />
+          <video src={seg.src} autoplay muted loop playsinline preload="auto" />
         ) : (
           <img src={seg.src} alt={seg.label} loading={i === 0 ? "eager" : "lazy"} />
         )}
@@ -79,5 +79,24 @@ const { segments } = Astro.props;
     );
 
     track.querySelectorAll("[data-media-slide]").forEach((slide) => observer.observe(slide));
+
+    // Safari (esp. iOS / Low Power Mode) often ignores the `autoplay` attribute even when
+    // `muted` + `playsinline` are set, and pauses off-screen <video>s to save power. Calling
+    // play() each time a video scrolls into the track viewport recovers both cases without
+    // restructuring the markup.
+    const videoPlayObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const video = entry.target as HTMLVideoElement;
+          void video.play().catch(() => {
+            /* Autoplay was blocked (e.g. battery saver with no user gesture) — leave paused. */
+          });
+        });
+      },
+      { root: track, threshold: 0.25 },
+    );
+
+    shelf.querySelectorAll<HTMLVideoElement>("video").forEach((video) => videoPlayObserver.observe(video));
   });
 </script>
