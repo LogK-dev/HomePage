@@ -2,7 +2,8 @@
 interface Props {
   eyebrow?: string;
   title: string;
-  body: string;
+  /** Plain-text body. For responsive line breaks, omit `body` and pass markup via the "body" slot instead. */
+  body?: string;
   primaryLabel: string;
   primaryHref: string;
   secondaryLabel?: string;
@@ -16,7 +17,7 @@ const { eyebrow, title, body, primaryLabel, primaryHref, secondaryLabel, seconda
 <div class="trial-banner">
   {eyebrow && <p class="trial-eyebrow">{eyebrow}</p>}
   <h2>{title}</h2>
-  <p>{body}</p>
+  <p><slot name="body">{body}</slot></p>
   <div class="trial-banner-actions">
     <a class="trial-cta button" href={primaryHref}>{primaryLabel}</a>
     {secondaryLabel && secondaryHref && (

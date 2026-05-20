@@ -43,7 +43,7 @@ const homePath = localizedPath(locale);
   </section>
 
   <!-- ── Plan cards ────────────────────────────────────────────────────────── -->
-  <section class="section pricing-plans-section">
+  <section class="section pricing-plans-section" data-pricing-mode="monthly">
     <div class="pricing-grid">
       {p.plans.map((plan) => (
         <article class:list={["plan-card", { "plan-card-popular": plan.highlight }]}>
@@ -53,11 +53,19 @@ const homePath = localizedPath(locale);
             <div class="plan-name">{plan.name}</div>
             <div class="plan-tagline">{plan.tagline}</div>
             <div class="plan-price-row">
-              <span class="plan-currency">{plan.currency}</span>
-              <span class="plan-amount" data-monthly={plan.monthlyPrice} data-yearly={plan.yearlyPrice}>
-                {plan.monthlyPrice}
-              </span>
-              <span class="plan-period">/월</span>
+              <!-- "Was" line: monthly price with strikethrough, animated in when yearly mode is active. -->
+              <div class="plan-price-was" aria-hidden="true">
+                <span class="plan-currency-was">{plan.currency}</span>
+                <span class="plan-amount-was">{plan.monthlyPrice}</span>
+                <span class="plan-period-was">/월</span>
+              </div>
+              <div class="plan-price-now">
+                <span class="plan-currency">{plan.currency}</span>
+                <span class="plan-amount" data-monthly={plan.monthlyPrice} data-yearly={plan.yearlyPrice}>
+                  {plan.monthlyPrice}
+                </span>
+                <span class="plan-period">/월</span>
+              </div>
             </div>
             <div class="plan-annual-note" data-annual-price={`연 ${plan.currency}${
               (parseInt(plan.yearlyPrice.replace(/,/g, "")) * 12).toLocaleString("ko-KR")
@@ -105,7 +113,12 @@ const homePath = localizedPath(locale);
     <div class="enterprise-band" data-reveal>
       <div class="enterprise-left">
         <h3>{p.enterprise.title}</h3>
-        <p>{p.enterprise.description}</p>
+        <p>
+          공공기관, 금융, 의료, 대기업 등<br class="br-narrow" />
+          고보안 환경에 최적화된<br />
+          폐쇄망 구축형 서비스입니다.<br />
+          원화 결제 및 조직 맞춤형 보안 설정을 지원합니다.
+        </p>
         <div class="enterprise-tags">
           {p.enterprise.tags.map((tag) => (
             <span class="enterprise-tag">{tag}</span>
@@ -154,7 +167,10 @@ const homePath = localizedPath(locale);
   <div class="pricing-container" style="padding-bottom: 5rem;">
     <div class="trial-banner" data-reveal>
       <h2>{p.trialBanner.title}</h2>
-      <p>{p.trialBanner.body}</p>
+      <p>
+        무료 데모를 통해 멀티 LLM 비교 활용과<br class="br-narrow" />
+        보안 기능을 직접 확인해 보실 수 있습니다.
+      </p>
       <a class="button trial-cta" href={p.trialBanner.ctaHref}>{p.trialBanner.ctaLabel}</a>
     </div>
   </div>
@@ -169,9 +185,14 @@ const homePath = localizedPath(locale);
   if (toggle) {
     const buttons = [...toggle.querySelectorAll<HTMLButtonElement>(".ptoggle-btn")];
 
+    // The plans section drives the "was → now" animation off its `data-pricing-mode` attribute.
+    const plansSection = document.querySelector<HTMLElement>("[data-pricing-mode]");
+
     const setMode = (mode: string) => {
       buttons.forEach(b => b.classList.toggle("is-active", b.dataset.mode === mode));
       const isYearly = mode === "yearly";
+
+      if (plansSection) plansSection.setAttribute("data-pricing-mode", mode);
 
       document.querySelectorAll<HTMLElement>(".plan-amount").forEach(el => {
         el.textContent = isYearly ? (el.dataset.yearly ?? "") : (el.dataset.monthly ?? "");

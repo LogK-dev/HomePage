@@ -53,24 +53,30 @@ const isActive = (href: string): boolean => {
     <span></span>
   </button>
 
-  <nav class="site-nav" data-nav>
-    {dictionary.nav.items.map((item) => (
-      <a
-        class:list={[{ "nav-active": isActive(item.href) }]}
-        href={resolveHref(item.href)}
-      >
-        {item.label}
+  <!-- On desktop this wrapper uses `display: contents` so its children
+       participate in the header's flex layout. On mobile it becomes an
+       absolutely-positioned dropdown panel anchored below the top bar, with
+       an open/close transform+opacity animation. -->
+  <div class="site-nav-panel" data-nav-panel>
+    <nav class="site-nav" data-nav>
+      {dictionary.nav.items.map((item) => (
+        <a
+          class:list={[{ "nav-active": isActive(item.href) }]}
+          href={resolveHref(item.href)}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="header-actions">
+      <a class="button header-cta" href="mailto:contact@logk.co.kr">
+        {dictionary.nav.bookDemo}
       </a>
-    ))}
-  </nav>
+    </div>
 
-  <div class="header-actions">
-    <a class="button header-cta" href="mailto:adm@logk.co.kr">
-      {dictionary.nav.bookDemo}
-    </a>
-  </div>
-
-  <div class="header-controls">
-    <LanguageSwitcher label={dictionary.localeSwitcher.label} options={languageOptions} />
+    <div class="header-controls">
+      <LanguageSwitcher label={dictionary.localeSwitcher.label} options={languageOptions} />
+    </div>
   </div>
 </header>

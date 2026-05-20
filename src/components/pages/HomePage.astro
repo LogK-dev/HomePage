@@ -19,7 +19,6 @@ const mockupBase = `${base}assets/selecAI_mockup/`;
 const productPreviewBase = `${base}product-preview/`;
 const previewFeatures = dictionary.hero.previewFeatures;
 const previewJsSrc = `${productPreviewBase}product-preview.js${import.meta.env.PROD ? `?v=${Date.now()}` : ""}`;
-const f = dictionary.features;
 
 const mediaSegments = [
   { label: "멀티 위임",    src: `${mockupBase}selecAI_multi_delegate.mov`, type: "video" as const },
@@ -27,7 +26,7 @@ const mediaSegments = [
   { label: "개인정보 보호", src: `${mockupBase}selecAI_private_masking.png`, type: "image" as const },
   { label: "기업 관리",    src: `${mockupBase}selecAI_corp_mgnt.png`,       type: "image" as const },
   { label: "유저 관리",    src: `${mockupBase}selecAI_user_mgmt.png`,       type: "image" as const },
-  { label: "결재 워크플로", src: `${mockupBase}selecAI_prompt_pay.png`,      type: "image" as const },
+  { label: "결제 워크플로", src: `${mockupBase}selecAI_prompt_pay.png`,      type: "image" as const },
 ];
 ---
 
@@ -43,7 +42,11 @@ const mediaSegments = [
         {dictionary.hero.title}
         <span class="headline-shift">{dictionary.hero.titleAccent}</span>
       </h1>
-      <p class="hero-lede">{dictionary.hero.lede}</p>
+      <p class="hero-lede">
+        멀티 LLM 동시 위임, 개인정보 자동 비식별화,<br class="br-narrow" />
+        조직 관리, 결제 워크플로까지<br />
+        — AI 활용의 복잡함을 SelecAI 하나로 해결합니다.
+      </p>
 
       <div class="hero-actions">
         <a class="button" href="#service">{dictionary.hero.primaryCta}</a>
@@ -109,7 +112,10 @@ const mediaSegments = [
   <section class="section media-shelf-section">
     <div class="media-shelf-intro" data-reveal>
       <p class="section-lede">{dictionary.productPage.description}</p>
-      <p class="section-lede">{f.description}</p>
+      <p class="section-lede">
+        모델 위임부터 개인정보 보호, 조직 관리, 결제 워크플로까지<br class="br-narrow" />
+        — SelecAI 하나로 해결합니다.
+      </p>
     </div>
     <MediaShelf segments={mediaSegments} />
   </section>
@@ -118,7 +124,18 @@ const mediaSegments = [
   <section id="company" class="section company-about-section" data-reveal>
     <p class="eyebrow">{dictionary.company.eyebrow}</p>
     <div class="company-about-body">
-      {dictionary.company.body.map((para) => <p>{para}</p>)}
+      {dictionary.company.body.map((para) => (
+        <p>
+          {para.map((seg, i) => (
+            // Leading space + <br class="br-narrow"> at the join:
+            //   wide → <br> is display:none, so segments read as
+            //          "활용하여 효율적인…" with a normal word break.
+            //   narrow → <br> takes effect; the trailing space before the
+            //            line break is whitespace-collapsed by the browser.
+            <>{i > 0 && <>{" "}<br class="br-narrow" /></>}{seg}</>
+          ))}
+        </p>
+      ))}
     </div>
   </section>
 
@@ -127,12 +144,16 @@ const mediaSegments = [
     <ContactBanner
       eyebrow={dictionary.productPage.nextEyebrow}
       title={dictionary.productPage.nextTitle}
-      body={dictionary.productPage.nextBody}
       primaryLabel={dictionary.productPage.primaryCta}
-      primaryHref="mailto:adm@logk.co.kr"
+      primaryHref="mailto:contact@logk.co.kr"
       secondaryLabel={dictionary.pricingPage.eyebrow}
       secondaryHref={pricingPath}
-    />
+    >
+      <Fragment slot="body">
+        우리 회사에 맞는 AI 사용 방식 구성과<br class="br-narrow" />
+        과금 정책을 함께 고민해 드립니다.
+      </Fragment>
+    </ContactBanner>
   </section>
 
 </main>

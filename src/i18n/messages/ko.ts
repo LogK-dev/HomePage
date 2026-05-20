@@ -8,7 +8,7 @@ export const ko: SiteDictionary = {
       "25개 이상의 AI를 한 번에 위임하고, 개인정보를 자동 비식별화하며, 조직 단위로 관리합니다. 원화 결제 지원.",
     productTitle: "LogK 서비스 소개 — 멀티 AI 위임부터 기업 관리까지",
     productDescription:
-      "모델 선택, 실행 전 비용 확인, 개인정보 자동 비식별화, 결재 워크플로, 조직 관리까지 — 기업 AI 활용의 전체 흐름.",
+      "모델 선택, 실행 전 비용 확인, 개인정보 자동 비식별화, 결제 워크플로, 조직 관리까지 — 기업 AI 활용의 전체 흐름.",
     pricingTitle: "LogK 요금제 — ₩10,000부터 시작하는 멀티 AI 구독",
     pricingDescription:
       "Lite ₩10,000 · Standard ₩30,000 · Pro ₩50,000 · Business ₩100,000. 모든 플랜에 멀티 LLM 비교 활용 포함. 연간 구독 시 20% 할인.",
@@ -19,9 +19,9 @@ export const ko: SiteDictionary = {
   nav: {
     items: [
       { key: "solution", label: "서비스 소개", href: "#service" },
-      { key: "pricing", label: "요금제", href: "pricing" },
       { key: "company", label: "회사 소개", href: "#company" },
-      { key: "contact", label: "문의하기", href: "mailto:adm@logk.co.kr" }
+      { key: "pricing", label: "요금제", href: "pricing" },
+      { key: "contact", label: "문의하기", href: "mailto:contact@logk.co.kr" }
     ],
     product: "제품",
     pricing: "요금제",
@@ -44,7 +44,7 @@ export const ko: SiteDictionary = {
     title: "여러 AI를,\n조직에 맞게",
     titleAccent: "안전하게 쓰세요.",
     lede:
-      "멀티 LLM 동시 위임, 개인정보 자동 비식별화, 조직 관리, 결재 워크플로까지 — AI 활용의 복잡함을 SelecAI 하나로 해결합니다.",
+      "멀티 LLM 동시 위임, 개인정보 자동 비식별화, 조직 관리, 결제 워크플로까지 — AI 활용의 복잡함을 SelecAI 하나로 해결합니다.",
     primaryCta: "서비스 소개",
     secondaryCta: "요금제 보기",
     metrics: [
@@ -94,7 +94,7 @@ export const ko: SiteDictionary = {
     "실행 전 비용 확인",
     "멀티 LLM 동시 위임",
     "개인정보 자동 비식별화",
-    "결재 워크플로",
+    "결제 워크플로",
     "기업 조직 관리"
   ],
   solution: {
@@ -206,11 +206,27 @@ export const ko: SiteDictionary = {
   },
   company: {
     eyebrow: "회사 소개",
+    // Each paragraph is an array of segments. On wide viewports the segments
+    // flow as one line (browser wraps naturally with word-break: keep-all).
+    // On narrow viewports a <br class="br-narrow"> is inserted between them.
     body: [
-      "로그케이는 보안과 인공지능(AI)이라는 키워드를 활용하여 효율적인 서비스를 만들고자 노력하는 기업입니다.",
-      "로그케이의 대표 솔루션인 SelecAI 는 LLM을 기반으로한 다양한 생성형AI 를 비교하고 선택해서 사용할 수 있는 온라인 솔루션 입니다.",
-      "기존 AI 제품들의 아쉬운 부분을 SelecAI 에 담아 효율적인 서비스로 재가공하였습니다.",
-      "저희 로그케이는 고객의 의견을 최우선으로 적극 반영하여 최고의 서비스를 제공하겠습니다. 언제든 연락주세요."
+      [
+        "로그케이는 보안과 인공지능(AI)이라는 키워드를 활용하여",
+        "효율적인 서비스를 만들고자 노력하는 기업입니다."
+      ],
+      [
+        "로그케이의 대표 솔루션인 SelecAI 는 LLM을 기반으로 한",
+        "다양한 생성형AI 를 비교하고 선택해서 사용할 수 있는",
+        "온라인 솔루션 입니다."
+      ],
+      [
+        "기존 AI 제품들의 아쉬운 부분을 SelecAI 에 담아",
+        "효율적인 서비스로 재가공하였습니다."
+      ],
+      [
+        "저희 로그케이는 고객의 의견을 최우선으로 적극 반영하여",
+        "최고의 서비스를 제공하겠습니다. 언제든 연락주세요."
+      ]
     ]
   },
   contact: {
@@ -218,7 +234,7 @@ export const ko: SiteDictionary = {
     title: "LogK 도입을 문의하세요.",
     body:
       "여러 AI 모델을 업무에 함께 쓰고 싶은 팀을 위해 준비하고 있습니다.",
-    primaryCta: "adm@logk.co.kr",
+    primaryCta: "contact@logk.co.kr",
     secondaryCta: "제품 보기"
   },
   productPage: {
@@ -305,7 +321,7 @@ export const ko: SiteDictionary = {
   features: {
     eyebrow: "핵심 기능",
     title: "기업 AI 활용에 필요한 모든 것",
-    description: "모델 위임부터 개인정보 보호, 조직 관리, 결재 워크플로까지 — SelecAI 하나로 해결합니다.",
+    description: "모델 위임부터 개인정보 보호, 조직 관리, 결제 워크플로까지 — SelecAI 하나로 해결합니다.",
     rows: [
       {
         eyebrow: "개인정보 보호",
@@ -318,12 +334,12 @@ export const ko: SiteDictionary = {
         ]
       },
       {
-        eyebrow: "결재 워크플로",
+        eyebrow: "결제 워크플로",
         title: "AI 사용 요청을 조직이 직접 승인합니다",
-        body: "관리자가 설정한 정책에 따라 민감한 AI 요청을 결재 라인에 올릴 수 있습니다. 승인·거부 이력이 남아 AI 사용 감사(audit)가 가능하며, 조직의 AI 거버넌스를 체계적으로 운영할 수 있습니다.",
+        body: "관리자가 설정한 정책에 따라 민감한 AI 요청을 결제 라인에 올릴 수 있습니다. 승인·거부 이력이 남아 AI 사용 감사(audit)가 가능하며, 조직의 AI 거버넌스를 체계적으로 운영할 수 있습니다.",
         bullets: [
           "대기·승인·거부 상태 실시간 확인",
-          "결재 이력 전체 보관",
+          "결제 이력 전체 보관",
           "감사(audit) 로그 지원"
         ]
       },
@@ -410,7 +426,7 @@ export const ko: SiteDictionary = {
         yearlyPrice: "8,000",
         credits: "10,000",
         ctaLabel: "시작하기 →",
-        ctaHref: "mailto:adm@logk.co.kr",
+        ctaHref: "mailto:contact@logk.co.kr",
         features: [
           { text: "멀티 LLM 동시 사용", sub: "ChatGPT · Claude · Gemini 포함" },
           { text: "응답 비교 기능" },
@@ -427,7 +443,7 @@ export const ko: SiteDictionary = {
         credits: "33,000",
         bonusCredits: "+3,000",
         ctaLabel: "시작하기 →",
-        ctaHref: "mailto:adm@logk.co.kr",
+        ctaHref: "mailto:contact@logk.co.kr",
         features: [
           { text: "멀티 LLM 동시 사용", sub: "ChatGPT · Claude · Gemini 포함" },
           { text: "응답 비교 기능" },
@@ -447,7 +463,7 @@ export const ko: SiteDictionary = {
         badge: "🔥 가장 인기 있는 플랜",
         highlight: true,
         ctaLabel: "지금 시작하기 →",
-        ctaHref: "mailto:adm@logk.co.kr",
+        ctaHref: "mailto:contact@logk.co.kr",
         features: [
           { text: "멀티 LLM 동시 사용", sub: "ChatGPT · Claude · Gemini 포함" },
           { text: "응답 비교 · 최적화" },
@@ -467,7 +483,7 @@ export const ko: SiteDictionary = {
         credits: "140,000",
         bonusCredits: "+40,000",
         ctaLabel: "시작하기 →",
-        ctaHref: "mailto:adm@logk.co.kr",
+        ctaHref: "mailto:contact@logk.co.kr",
         features: [
           { text: "멀티 LLM 동시 사용", sub: "ChatGPT · Claude · Gemini 포함" },
           { text: "응답 비교 · 최적화" },
@@ -485,7 +501,7 @@ export const ko: SiteDictionary = {
       description: "공공기관, 금융, 의료, 대기업 등 고보안 환경에 최적화된 폐쇄망 구축형 서비스입니다. 원화 결제 및 조직 맞춤형 보안 설정을 지원합니다.",
       tags: ["온프레미스 구축", "폐쇄망 지원", "원화 결제", "개인정보 완전 비식별화", "내부 문서 RAG", "SLA 보장"],
       ctaLabel: "도입 문의하기 →",
-      ctaHref: "mailto:adm@logk.co.kr",
+      ctaHref: "mailto:contact@logk.co.kr",
       note: "영업일 기준 3일 내 회신 드립니다"
     },
     creditNotes: [
@@ -526,7 +542,7 @@ export const ko: SiteDictionary = {
       title: "지금 바로 LogK를 경험해 보세요",
       body: "무료 데모를 통해 멀티 LLM 비교 활용과 보안 기능을 직접 확인해 보실 수 있습니다.",
       ctaLabel: "무료 데모 신청하기",
-      ctaHref: "mailto:adm@logk.co.kr"
+      ctaHref: "mailto:contact@logk.co.kr"
     }
   }
 };

@@ -49,6 +49,14 @@ const { segments } = Astro.props;
     const track = shelf.querySelector<HTMLElement>("[data-media-track]")!;
     const tabs = shelf.querySelectorAll<HTMLButtonElement>("[data-media-tab]");
 
+    /** While a tab click is animating the track to its destination, intermediate
+        slides pass through the observer threshold and would briefly steal
+        `.is-active`, causing the tab bar to "blink" through every tab between
+        source and destination. We lock the destination tab and suppress
+        observer-driven sync until the programmatic scroll settles. */
+    let programmaticScrollActive = false;
+    let scrollSettleTimer: number | null = null;
+
     function syncTabs(index: number) {
       tabs.forEach((tab, i) => {
         tab.classList.toggle("is-active", i === index);
@@ -58,17 +66,40 @@ const { segments } = Astro.props;
 
     function goTo(index: number) {
       const slide = track.querySelector<HTMLElement>(`[data-media-slide="${index}"]`);
-      slide?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+      if (!slide) return;
+      // Lock the destination tab *before* scrolling so intermediate slides
+      // can't flip it back.
       syncTabs(index);
+      programmaticScrollActive = true;
+      slide.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+
+      // Release the lock once scrolling stops. Prefer the native scrollend
+      // event (Chrome 114+, Safari 18+, Firefox 109+); fall back to a timer
+      // for older browsers.
+      if (scrollSettleTimer !== null) window.clearTimeout(scrollSettleTimer);
+      scrollSettleTimer = window.setTimeout(() => {
+        programmaticScrollActive = false;
+        scrollSettleTimer = null;
+      }, 700);
     }
+
+    track.addEventListener("scrollend", () => {
+      programmaticScrollActive = false;
+      if (scrollSettleTimer !== null) {
+        window.clearTimeout(scrollSettleTimer);
+        scrollSettleTimer = null;
+      }
+    });
 
     tabs.forEach((tab) => {
       tab.addEventListener("click", () => goTo(Number(tab.dataset.mediaTab)));
     });
 
-    // Sync tabs when user swipes/scrolls
+    // Sync tabs to whichever slide the user lands on via swipe/scroll —
+    // but stay quiet while we're animating to a clicked destination.
     const observer = new IntersectionObserver(
       (entries) => {
+        if (programmaticScrollActive) return;
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             syncTabs(Number((entry.target as HTMLElement).dataset.mediaSlide));

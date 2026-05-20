@@ -18,6 +18,18 @@
 
 html {
   scroll-behavior: smooth;
+  /* Korean-aware text wrapping foundation:
+     - `keep-all` prevents mid-word breaks (e.g., 쓰세요 cannot split as 쓰세\n요).
+     - Inherits to all descendants. English text still wraps at spaces.
+     For long unbreakable strings (URLs, code) override per-element with
+     `word-break: break-all` or `overflow-wrap: anywhere`. */
+  word-break: keep-all;
+}
+
+/* Modern text-wrap: pretty keeps the last line of paragraphs / headings from
+   becoming a lone "orphan" word. Browsers fall back to "auto" if unsupported. */
+h1, h2, h3, h4, p, li, blockquote, figcaption {
+  text-wrap: pretty;
 }
 
 body {
@@ -100,6 +112,12 @@ textarea {
 
 .site-header.is-condensed {
   border-bottom-color: color-mix(in srgb, var(--header-border) 160%, transparent);
+}
+
+/* On desktop the panel is transparent to layout — children participate in the
+   header's flex row directly. The mobile @media block overrides this. */
+.site-nav-panel {
+  display: contents;
 }
 
 .brand {
@@ -307,6 +325,33 @@ textarea {
 .hero-copy h1 {
   max-width: 14ch;
   white-space: pre-line;
+  /* Shrink more aggressively than the global h1 clamp when width is scarce so the
+     enforced 3-line title doesn't overflow on narrow viewports. */
+  font-size: clamp(2.2rem, 7vw, 6.5rem);
+}
+
+/* Responsive line-break utilities. Pair `<br class="br-narrow">` with a
+   `<span class="sep-wide">…</span>` separator to gracefully swap a "·"-style
+   inline divider for a hard line break on narrow viewports.
+
+   Example:
+     A<span class="sep-wide"> · </span><br class="br-narrow" />B
+   → "A · B" on wide, "A\nB" on narrow. */
+.br-narrow {
+  display: none;
+}
+
+.sep-wide {
+  display: inline;
+}
+
+@media (max-width: 820px) {
+  .br-narrow {
+    display: initial;
+  }
+  .sep-wide {
+    display: none;
+  }
 }
 
 .eyebrow,
@@ -1011,12 +1056,16 @@ p {
   padding: 1.5rem;
   background: #111827;
   text-align: center;
+  container-type: inline-size;
 }
 
 .site-footer p {
   margin: 0;
   color: #6b7280;
-  font-size: 0.8125rem;
+  /* Container-driven so the footer scales smoothly between desktop and
+     narrow widths without an abrupt breakpoint. */
+  font-size: clamp(0.72rem, 1.4cqi, 0.875rem);
+  line-height: 1.85;
 }
 
 .site-footer a {
@@ -1221,52 +1270,55 @@ p {
     z-index: 1;
   }
 
-  .site-nav,
-  .header-actions {
-    display: none;
-  }
-
-  .site-header.menu-open {
-    /* Grow in normal flow; body scrolls if menu exceeds viewport. */
-    flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: space-between;
-  }
-
-  .site-header.menu-open .site-nav,
-  .site-header.menu-open .header-actions {
+  /* Mobile menu becomes an animated dropdown panel anchored below the top bar.
+     The top bar itself stays at --header-height regardless of open/closed
+     state. Page scroll underneath is unblocked (see body rule above). */
+  .site-nav-panel {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
     display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.75rem 1rem 1.1rem;
+    background: var(--header-bg);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--header-border);
+    box-shadow: 0 16px 32px -16px rgba(15, 23, 42, 0.18);
+
+    /* Closed state — invisible and inert. */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px) scaleY(0.97);
+    transform-origin: top center;
+    transition: opacity 0.22s ease, transform 0.26s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear 0.26s;
+  }
+
+  .site-header.menu-open .site-nav-panel {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scaleY(1);
+    transition: opacity 0.22s ease, transform 0.26s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear 0s;
+  }
+
+  .site-nav-panel .site-nav,
+  .site-nav-panel .header-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
     width: 100%;
   }
 
-  /* Keep the brand visually centered in the original top-bar zone even after
-     the header expands downward to host the menu — the toggle is anchored
-     top-right (absolute), so the brand needs to hold the top-bar's height. */
-  .site-header.menu-open .brand {
-    min-height: var(--header-height);
-  }
-
-  .site-header.menu-open .site-nav,
-  .site-header.menu-open .header-actions {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .site-header.menu-open .site-nav a,
-  .site-header.menu-open .header-actions .button {
+  .site-nav-panel .site-nav a,
+  .site-nav-panel .header-actions .button {
     justify-content: center;
     width: 100%;
     min-height: 3.35rem;
   }
 
-  .site-header.menu-open .site-nav {
-    order: 3;
-    padding-top: 0.75rem;
-  }
-
-  .site-header.menu-open .header-actions {
-    order: 4;
-    padding-top: 0.25rem;
+  .site-nav-panel .header-controls {
+    width: 100%;
   }
 
   .hero-metrics,
@@ -1537,17 +1589,14 @@ html[data-theme="dark"] .contact-card .button-ghost {
 }
 
 @media (max-width: 820px) {
+  /* On mobile the controls live inside the .site-nav-panel dropdown; the
+     panel's open/close animation drives their visibility, so they don't
+     need their own display toggle here. */
   .header-controls {
-    display: none;
     width: 100%;
     flex-direction: column;
     align-items: stretch;
-  }
-
-  .site-header.menu-open .header-controls {
-    display: flex;
-    order: 5;
-    padding-top: 0.25rem;
+    padding-top: 0.4rem;
   }
 
   .theme-toggle,
@@ -1903,26 +1952,25 @@ html[data-theme="dark"] .contact-card .button-ghost {
   gap: 1.25rem;
 }
 
-/* Tab bar */
+/* Tab bar — pill row that wraps to multiple rows when there isn't horizontal
+   room. We deliberately avoid horizontal overflow scroll: centered overflow
+   left-clips on touchpad-less desktops (scrollLeft can't go negative) and is
+   poor a11y. Wrapping to two rows is the elegant fallback. */
 .media-tabs-wrap {
-  overflow-x: auto;
-  scrollbar-width: none;
   display: flex;
   justify-content: center;
 }
 
-.media-tabs-wrap::-webkit-scrollbar {
-  display: none;
-}
-
 .media-tabs {
-  display: inline-flex;
-  gap: 0.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.35rem 0.25rem;
   padding: 0.3rem;
   border: 1px solid var(--surface-border);
-  border-radius: 999px;
+  border-radius: 1.4rem;
   background: var(--surface);
-  white-space: nowrap;
+  max-width: 100%;
 }
 
 .media-tab {
@@ -2048,10 +2096,14 @@ html[data-theme="dark"] .contact-card .button-ghost {
 .company-about-body {
   display: grid;
   gap: 1.35rem;
+  /* Container query: all paragraphs in this body shrink together based on
+     the body's own width, not the viewport's. Keeps the group's typography
+     visually consistent at every width. */
+  container-type: inline-size;
 }
 
 .company-about-body p {
-  font-size: 1.2rem;
+  font-size: clamp(0.95rem, 3.2cqi, 1.2rem);
   line-height: 1.85;
   color: var(--text-soft);
   max-width: 60ch;
@@ -2680,14 +2732,14 @@ body:has(.pricing-page) {
 
 .plan-popular-badge {
   position: absolute;
-  top: -14px;
+  top: -16px;
   left: 50%;
   transform: translateX(-50%);
-  padding: 4px 16px;
+  padding: 6px 18px;
   border-radius: 999px;
   background: var(--plan-popular-badge-bg);
   color: #fff;
-  font-size: 0.72rem;
+  font-size: 0.92rem;
   font-weight: 700;
   white-space: nowrap;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
@@ -2726,6 +2778,13 @@ body:has(.pricing-page) {
 }
 
 .plan-price-row {
+  /* Column so the "was" line (animated) sits above the "now" line. */
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.plan-price-now {
   display: flex;
   align-items: baseline;
   gap: 3px;
@@ -2747,6 +2806,10 @@ body:has(.pricing-page) {
   letter-spacing: -0.05em;
   line-height: 1;
   color: var(--text);
+  /* Smooth visual swap when the amount text content changes (toggling
+     monthly ↔ yearly). The text replacement itself is instant, but the
+     color/letter-spacing transition softens the change. */
+  transition: color 0.25s ease;
 }
 
 .plan-card-popular .plan-amount {
@@ -2760,6 +2823,46 @@ body:has(.pricing-page) {
 
 .plan-card-popular .plan-period {
   color: rgba(255, 255, 255, 0.65);
+}
+
+/* "Was" price (strikethrough, only visible in yearly mode). Collapsed by
+   default; expands and fades in when the plans section's
+   data-pricing-mode flips to "yearly". */
+.plan-price-was {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+  color: var(--text-faint);
+  text-decoration: line-through;
+  font-weight: 600;
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(6px);
+  overflow: hidden;
+  transition: max-height 0.32s ease, opacity 0.26s ease, transform 0.32s ease;
+}
+
+.plan-price-was .plan-currency-was {
+  font-size: 0.85rem;
+}
+
+.plan-price-was .plan-amount-was {
+  font-size: 1.1rem;
+  letter-spacing: -0.02em;
+}
+
+.plan-price-was .plan-period-was {
+  font-size: 0.75rem;
+}
+
+[data-pricing-mode="yearly"] .plan-price-was {
+  max-height: 1.6em;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.plan-card-popular .plan-price-was {
+  color: rgba(255, 255, 255, 0.55);
 }
 
 .plan-annual-note {
@@ -3037,20 +3140,27 @@ body:has(.pricing-page) {
   color: #64748B;
 }
 
-/* Credit notes */
+/* Credit notes — container-queried so every note shrinks together as the
+   block narrows. Hanging indent keeps the `※` as a marker; wrapped lines
+   align with the start of the text body, not back to the `※`. */
 .credit-notes {
   padding: 2.25rem 2.5rem;
   border-radius: var(--radius-lg);
   background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
   border: 1px solid #FDE68A;
   margin-block: 0 5rem;
+  container-type: inline-size;
 }
 
 .credit-notes p {
-  font-size: 0.8rem;
+  /* clamp() with cqi (container-inline) units = the group's own width drives
+     the size, so all three notes scale uniformly when the panel narrows. */
+  font-size: clamp(0.7rem, 2.2cqi, 0.875rem);
   color: #92400E;
   margin: 0;
   line-height: 1.7;
+  padding-left: 1.1em;
+  text-indent: -1.1em;
 }
 
 /* FAQ */
