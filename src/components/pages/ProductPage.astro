@@ -1,8 +1,9 @@
 ---
+import ContactBanner from "@/components/ContactBanner.astro";
 import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
 import type { Locale, SiteDictionary } from "@/i18n/schema";
-import { localizedPath } from "@/utils/i18n";
+import { getLanguageOptions, localizedPath } from "@/utils/i18n";
 
 interface Props {
   locale: Locale;
@@ -11,22 +12,11 @@ interface Props {
 
 const { locale, dictionary } = Astro.props;
 const homePath = localizedPath(locale);
-const languageOptions = [
-  { label: "EN", href: localizedPath("en", "product"), active: locale === "en" },
-  { label: "KO", href: localizedPath("ko", "product"), active: locale === "ko" }
-];
+const languageOptions = getLanguageOptions(locale, "product");
 const gallery = dictionary.productPage.gallery;
 ---
 
-<Header
-  locale={locale}
-  dictionary={dictionary}
-  languageOptions={languageOptions}
-  actions={[
-    { label: dictionary.nav.home, href: homePath, ghost: true },
-    { label: dictionary.nav.bookDemo, href: "mailto:hello@logk.ai" }
-  ]}
-/>
+<Header locale={locale} dictionary={dictionary} languageOptions={languageOptions} />
 
 <main>
   <section class="product-hero section">
@@ -109,18 +99,15 @@ const gallery = dictionary.productPage.gallery;
   </section>
 
   <section class="section contact-section" data-reveal>
-    <div class="contact-card">
-      <div class="contact-copy">
-        <p class="eyebrow">{dictionary.productPage.nextEyebrow}</p>
-        <h2>{dictionary.productPage.nextTitle}</h2>
-        <p>{dictionary.productPage.nextBody}</p>
-      </div>
-
-      <div class="contact-actions">
-        <a class="button" href="mailto:hello@logk.ai">{dictionary.productPage.primaryCta}</a>
-        <a class="button button-ghost" href={homePath}>{dictionary.productPage.secondaryCta}</a>
-      </div>
-    </div>
+    <ContactBanner
+      eyebrow={dictionary.productPage.nextEyebrow}
+      title={dictionary.productPage.nextTitle}
+      body={dictionary.productPage.nextBody}
+      primaryLabel={dictionary.productPage.primaryCta}
+      primaryHref="mailto:adm@logk.co.kr"
+      secondaryLabel={dictionary.productPage.secondaryCta}
+      secondaryHref={homePath}
+    />
   </section>
 </main>
 

@@ -1,52 +1,66 @@
 ---
 import ClientInit from "@/components/ClientInit.astro";
+import { THEME } from "@/config/theme";
 import "@/styles/global.css";
-import { ClientRouter } from "astro:transitions";
 import type { Locale } from "@/i18n/schema";
 
 interface Props {
   locale: Locale;
   title: string;
   description: string;
+  /** Filename inside /public (e.g. "og-home.png"). Resolved to absolute URL automatically. */
+  ogImageFile?: string;
 }
 
-const { locale, title, description } = Astro.props;
+const { locale, title, description, ogImageFile = "og.png" } = Astro.props;
 const site = Astro.site;
 const hasCanonicalSite = site && site.hostname !== "example.com";
 const canonicalUrl = hasCanonicalSite ? new URL(Astro.url.pathname, site).toString() : undefined;
+const ogImage = hasCanonicalSite ? new URL(ogImageFile, site).href : `/${ogImageFile}`;
+const ogLocale = locale === "ko" ? "ko_KR" : "en_US";
+const ogLocaleAlt = locale === "ko" ? "en_US" : "ko_KR";
 ---
 
 <!DOCTYPE html>
-<html lang={locale} data-theme="light">
+<html lang={locale} class={`theme-${THEME}`} data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="color-scheme" content="light dark" />
+    <meta name="color-scheme" content="light" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap"
       rel="stylesheet"
     />
+    {THEME === "blue" && (
+      <link
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css"
+        rel="stylesheet"
+      />
+    )}
     {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
-    <ClientRouter />
-    <script is:inline>
-      // Must match STORAGE_KEY in ClientInit.astro.
-      const storageKey = "logk-theme";
-      const storedTheme = localStorage.getItem(storageKey);
-      const resolvedTheme =
-        storedTheme === "light" || storedTheme === "dark"
-          ? storedTheme
-          : window.matchMedia("(prefers-color-scheme: dark)").matches
-            ? "dark"
-            : "light";
-      document.documentElement.dataset.theme = resolvedTheme;
-    </script>
+    <!-- OpenGraph -->
+    <meta property="og:type"              content="website" />
+    <meta property="og:site_name"         content="LogK" />
+    <meta property="og:title"             content={title} />
+    <meta property="og:description"       content={description} />
+    <meta property="og:image"             content={ogImage} />
+    <meta property="og:image:width"       content="1200" />
+    <meta property="og:image:height"      content="630" />
+    {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+    <meta property="og:locale"            content={ogLocale} />
+    <meta property="og:locale:alternate"  content={ogLocaleAlt} />
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card"             content="summary_large_image" />
+    <meta name="twitter:title"            content={title} />
+    <meta name="twitter:description"      content={description} />
+    <meta name="twitter:image"            content={ogImage} />
+    <slot name="head" />
   </head>
   <body>
-    <div class="scroll-progress" aria-hidden="true"></div>
     <div class="page-glow page-glow-left" aria-hidden="true"></div>
     <div class="page-glow page-glow-right" aria-hidden="true"></div>
     <slot />

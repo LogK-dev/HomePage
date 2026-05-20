@@ -1,24 +1,51 @@
 ---
+// Root redirect — always sends visitors to /ko/ since EN is disabled.
+// OG meta is kept here so link-preview crawlers get meaningful data.
 import { localizedPath } from "@/utils/i18n";
 
-const fallbackPath = localizedPath("en");
-const basePath = import.meta.env.BASE_URL;
+const koPath = localizedPath("ko");
+
+const site             = Astro.site;
+const hasCanonicalSite = site && site.hostname !== "example.com";
+const canonicalUrl     = hasCanonicalSite ? new URL("/", site).href : undefined;
+const ogImage          = hasCanonicalSite ? new URL("og-home.png", site).href : "/og-home.png";
+
+const title       = "LogK — 기업용 멀티 AI 플랫폼";
+const description =
+  "25개 이상의 AI를 한 번에 위임하고, 개인정보를 자동 비식별화하며, 조직 단위로 관리합니다. 원화 결제 지원.";
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Redirecting…</title>
-    <meta http-equiv="refresh" content={`0;url=${fallbackPath}`} />
-    <script is:inline define:vars={{ basePath }}>
-      const base = basePath;
-      const fallback = `${base}en/`.replace(/\/{2,}/g, "/");
-      const language = navigator.language.toLowerCase();
-      const nextPath = language.startsWith("ko") ? `${base}ko/` : fallback;
-      window.location.replace(nextPath.replace(/\/{2,}/g, "/"));
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+    <!-- Fallback redirect for crawlers that execute <meta refresh> -->
+    <meta http-equiv="refresh" content={`0;url=${koPath}`} />
+    <!-- OpenGraph -->
+    <meta property="og:type"        content="website" />
+    <meta property="og:site_name"   content="LogK" />
+    <meta property="og:title"       content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image"       content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+    <meta property="og:locale"      content="ko_KR" />
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image"       content={ogImage} />
+    <!-- JS redirect (faster than meta refresh) -->
+    <script is:inline define:vars={{ koPath }}>
+      window.location.replace(koPath);
     </script>
   </head>
-  <body></body>
+  <body>
+    <a href={koPath}>LogK로 이동 중…</a>
+  </body>
 </html>

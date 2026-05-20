@@ -20,6 +20,8 @@ export type SiteDictionary = {
     productDescription: string;
     pricingTitle: string;
     pricingDescription: string;
+    mockupsTitle: string;
+    mockupsDescription: string;
   };
   nav: {
     items: NavItem[];
@@ -99,12 +101,7 @@ export type SiteDictionary = {
   };
   company: {
     eyebrow: string;
-    title: string;
-    description: string;
-    cards: Array<
-      | { index: string; title: string; body: string; wide?: boolean }
-      | { index: string; principles: Array<{ title: string; body: string }>; wide?: boolean }
-    >;
+    body: string[];
   };
   contact: {
     eyebrow: string;
@@ -139,6 +136,24 @@ export type SiteDictionary = {
       pricingAlt: string;
     };
   };
+  features: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    rows: Array<{
+      eyebrow: string;
+      title: string;
+      body: string;
+      bullets?: string[];
+    }>;
+    adminSection: {
+      eyebrow: string;
+      title: string;
+      description: string;
+      corp: { title: string; body: string; alt: string };
+      user: { title: string; body: string; alt: string };
+    };
+  };
   mockupsPage: {
     eyebrow: string;
     title: string;
@@ -151,27 +166,54 @@ export type SiteDictionary = {
   };
   pricingPage: {
     eyebrow: string;
+    badge: string;
     title: string;
+    titleEmphasis?: string; // wrapped in <em> and coloured accent
     description: string;
-    allPlans: {
-      label: string;
-      features: string[];
+    toggle: {
+      monthly: string;
+      yearly: string;
+      discount: string;
+      annualNote: string;
     };
+    creditLabel: string;
     plans: Array<{
-      key: "starter" | "pro" | "business";
-      badge?: string;
+      key: string;
       name: string;
-      price: string;
-      period?: string;
-      description: string;
+      tagline: string;
+      currency: string;
+      monthlyPrice: string;
+      yearlyPrice: string;
+      credits: string;
+      bonusCredits?: string;
+      badge?: string;
       ctaLabel: string;
       ctaHref: string;
       highlight?: boolean;
-      features: string[];
+      features: Array<{
+        text: string;
+        sub?: string;
+        icon?: "shield";
+      }>;
     }>;
-    nextTitle: string;
-    nextBody: string;
-    primaryCta: string;
-    secondaryCta: string;
+    enterprise: {
+      title: string;
+      description: string;
+      tags: string[];
+      ctaLabel: string;
+      ctaHref: string;
+      note: string;
+    };
+    creditNotes: string[];
+    faq: {
+      title: string;
+      items: Array<{ question: string; answer: string }>;
+    };
+    trialBanner: {
+      title: string;
+      body: string;
+      ctaLabel: string;
+      ctaHref: string;
+    };
   };
 };

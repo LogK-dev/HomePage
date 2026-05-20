@@ -16,8 +16,8 @@ export const en: SiteDictionary = {
       { key: "company", label: "Company", href: "#company" },
       { key: "solution", label: "Solution", href: "#solution" },
       { key: "technology", label: "Technology", href: "#technology" },
-      { key: "pricing", label: "Pricing", href: "pricing" },
-      { key: "contact", label: "Contact", href: "#contact" }
+      { key: "contact", label: "Contact", href: "#contact" },
+      { key: "pricing", label: "Pricing", href: "pricing" }
     ],
     product: "Product",
     pricing: "Pricing",
@@ -83,7 +83,7 @@ export const en: SiteDictionary = {
     previewFallback: {
       title: "Loading product preview…",
       body: "Enable JavaScript to see the interactive demo."
-    },
+    }
   },
   trust: [
     "Built for ChatGPT, Claude, Gemini, and more",
@@ -200,30 +200,11 @@ export const en: SiteDictionary = {
   },
   company: {
     eyebrow: "Company",
-    title: "Building the delegation layer for the AI model ecosystem.",
-    description:
-      "LogK exists because the model landscape keeps expanding while user workflows stay fragmented. We want interacting with many AI services to feel coherent, economic, and trustworthy.",
-    cards: [
-      {
-        index: "Mission",
-        title: "Make model choice a product feature, not a burden.",
-        body: "Users should not need seven tabs and manual copy-paste to get the best answer from the current AI landscape."
-      },
-      {
-        index: "Approach",
-        title: "Above the models, close to the user.",
-        body:
-          "The market already has developer gateways and observability tools. LogK is focused on the user-facing layer: model selection, delegation UX, answer comparison, and trust."
-      },
-      {
-        index: "Operating principles",
-        wide: true,
-        principles: [
-          { title: "Visible economics", body: "Cost should be legible before a request runs, not discovered afterwards." },
-          { title: "Private by default", body: "Sensitive information should be blocked, redacted, or routed intentionally." },
-          { title: "Trust through comparison", body: "Better answers come from structured disagreement and verification, not blind single-model trust." }
-        ]
-      }
+    body: [
+      "LogK is a company that strives to create efficient services using security and artificial intelligence (AI) as its core focus.",
+      "SelecAI, LogK's flagship solution, is an online platform that lets you compare, select, and use various generative AI services built on LLMs.",
+      "We have taken the shortcomings of existing AI products and repackaged them into SelecAI as a more efficient service.",
+      "At LogK, we actively prioritize customer feedback above all else to deliver the best service possible. Feel free to reach out anytime."
     ]
   },
   contact: {
@@ -231,7 +212,7 @@ export const en: SiteDictionary = {
     title: "Bring LogK into your AI workflow.",
     body:
       "LogK is designed for teams and advanced users who want to delegate across models with clear pricing, privacy controls, and stronger trust in the final answer.",
-    primaryCta: "hello@logk.ai",
+    primaryCta: "adm@logk.co.kr",
     secondaryCta: "Explore product details"
   },
   productPage: {
@@ -350,72 +331,143 @@ export const en: SiteDictionary = {
   },
   pricingPage: {
     eyebrow: "Pricing",
-    title: "Delegate across AI.\nPay only for what runs.",
-    description: "Simple, usage-based plans designed around the actual workflow: choose models, preview cost, delegate, verify.",
-    allPlans: {
-      label: "Every plan includes",
-      features: [
-        "Model router",
-        "Pre-dispatch cost estimate",
-        "Answer comparison view",
-        "Verification loop",
-        "Privacy-aware routing"
-      ]
+    badge: "Start today · KRW billing available",
+    title: "Choose the plan that fits\nyour AI workflow",
+    description: "Every plan includes multi-LLM comparison. Higher tiers unlock more credits and advanced features.",
+    toggle: {
+      monthly: "Monthly",
+      yearly: "Yearly",
+      discount: "Save 20%",
+      annualNote: "20% discount on annual subscription"
     },
+    creditLabel: "Monthly credits",
     plans: [
       {
-        key: "starter",
-        name: "Starter",
-        price: "Free",
-        description: "For individuals exploring multi-model delegation. No credit card required.",
-        ctaLabel: "Start for free",
-        ctaHref: "mailto:hello@logk.ai",
+        key: "lite",
+        name: "Lite",
+        tagline: "Start light with AI",
+        currency: "₩",
+        monthlyPrice: "10,000",
+        yearlyPrice: "8,000",
+        credits: "10,000",
+        ctaLabel: "Get started →",
+        ctaHref: "mailto:adm@logk.co.kr",
         features: [
-          "500 delegations / month",
-          "Up to 3 models per request",
-          "7-day request history",
-          "Community support"
+          { text: "Multi-LLM simultaneous use", sub: "ChatGPT · Claude · Gemini included" },
+          { text: "Response comparison" },
+          { text: "Conversation history" }
+        ]
+      },
+      {
+        key: "standard",
+        name: "Standard",
+        tagline: "Optimised for real work",
+        currency: "₩",
+        monthlyPrice: "30,000",
+        yearlyPrice: "24,000",
+        credits: "33,000",
+        bonusCredits: "+3,000",
+        ctaLabel: "Get started →",
+        ctaHref: "mailto:adm@logk.co.kr",
+        features: [
+          { text: "Multi-LLM simultaneous use", sub: "ChatGPT · Claude · Gemini included" },
+          { text: "Response comparison" },
+          { text: "File attachment analysis (PDF · images)" },
+          { text: "Conversation history" }
         ]
       },
       {
         key: "pro",
-        badge: "Most popular",
         name: "Pro",
-        price: "$29",
-        period: "/ month",
-        description: "For power users and small teams who want privacy controls, synthesis, and full audit history.",
-        ctaLabel: "Get started",
-        ctaHref: "mailto:hello@logk.ai",
+        tagline: "Advanced use · security features",
+        currency: "₩",
+        monthlyPrice: "50,000",
+        yearlyPrice: "40,000",
+        credits: "60,000",
+        bonusCredits: "+10,000",
+        badge: "🔥 Most popular plan",
         highlight: true,
+        ctaLabel: "Start now →",
+        ctaHref: "mailto:adm@logk.co.kr",
         features: [
-          "10,000 delegations / month",
-          "All available models",
-          "Privacy gate — PII blocking before dispatch",
-          "Answer synthesis across models",
-          "30-day audit log",
-          "Email support"
+          { text: "Multi-LLM simultaneous use", sub: "ChatGPT · Claude · Gemini included" },
+          { text: "Response comparison & optimisation" },
+          { text: "File attachment analysis (PDF · images)" },
+          { text: "PII de-identification (basic)", icon: "shield" },
+          { text: "Conversation history" },
+          { text: "Priority support" }
         ]
       },
       {
         key: "business",
         name: "Business",
-        price: "Custom",
-        description: "For teams with high volume, compliance needs, or custom model integrations.",
-        ctaLabel: "Talk to us",
-        ctaHref: "mailto:hello@logk.ai",
+        tagline: "Full-spec plan for teams",
+        currency: "₩",
+        monthlyPrice: "100,000",
+        yearlyPrice: "80,000",
+        credits: "140,000",
+        bonusCredits: "+40,000",
+        ctaLabel: "Get started →",
+        ctaHref: "mailto:adm@logk.co.kr",
         features: [
-          "Unlimited delegations",
-          "Custom privacy rules & redaction policies",
-          "90-day audit log + data export",
-          "SSO / SAML",
-          "Custom model integrations",
-          "Dedicated onboarding + SLA"
+          { text: "Multi-LLM simultaneous use", sub: "ChatGPT · Claude · Gemini included" },
+          { text: "Response comparison & optimisation" },
+          { text: "File attachment + OCR analysis" },
+          { text: "PII de-identification (full)", icon: "shield" },
+          { text: "Internal document RAG", icon: "shield" },
+          { text: "Org security policy integration", icon: "shield" },
+          { text: "Conversation history" },
+          { text: "Dedicated support manager" }
         ]
       }
     ],
-    nextTitle: "Not sure which plan fits?",
-    nextBody: "Talk to us — we can walk through your workflow and suggest the right starting point.",
-    primaryCta: "hello@logk.ai",
-    secondaryCta: "See the product"
+    enterprise: {
+      title: "🏢 Enterprise — On-premise custom",
+      description: "On-premise deployment optimised for high-security environments: public sector, finance, healthcare, and large enterprises. Supports KRW billing and organisation-specific security configuration.",
+      tags: ["On-premise", "Air-gapped support", "KRW billing", "Full PII de-identification", "Internal document RAG", "SLA guarantee"],
+      ctaLabel: "Contact sales →",
+      ctaHref: "mailto:adm@logk.co.kr",
+      note: "Response within 3 business days"
+    },
+    creditNotes: [
+      "Credit consumption varies by model, prompt length, and file size.",
+      "Multi-LLM simultaneous dispatch consumes credits per model selected.",
+      "Monthly credits reset on the 1st of each month; unused credits do not carry over."
+    ],
+    faq: {
+      title: "Frequently asked questions",
+      items: [
+        {
+          question: "How are credits consumed?",
+          answer: "Credits are consumed when sending a prompt to an LLM and receiving a response. The amount varies by model type, prompt length, and file size. When sending to multiple LLMs simultaneously, credits are consumed separately for each model selected."
+        },
+        {
+          question: "Do unused credits roll over to the next month?",
+          answer: "Monthly credits reset on the 1st of each month and unused credits do not carry over by default. Business plan users will be able to roll over up to one month of credits in a future update."
+        },
+        {
+          question: "Can public institutions and educational organizations use the service?",
+          answer: "Yes. We provide a KRW billing system so organisations with foreign currency restrictions can pay easily by domestic card or bank transfer. Contact us for public procurement options."
+        },
+        {
+          question: "How does PII de-identification work?",
+          answer: "Before sending prompts to external LLM servers, we automatically detect and de-identify personal and sensitive information using NER + regex + proprietary sLLM. Names, emails, phone numbers, and other PII are replaced with placeholders (e.g. '김철수' → '[이름_1]') while preserving document structure."
+        },
+        {
+          question: "Can I upgrade or change my plan mid-cycle?",
+          answer: "You can upgrade at any time. Remaining credits are preserved and the new plan's features and credits apply from the change date. Downgrades take effect at the start of the next billing cycle."
+        },
+        {
+          question: "Which LLM models are available?",
+          answer: "We currently support 25+ models including ChatGPT, Claude, Gemini, Grok, DeepSeek, and Perplexity. The model list is continuously expanded as the AI industry evolves."
+        }
+      ]
+    },
+    trialBanner: {
+      title: "Experience LogK today",
+      body: "Try the free demo to see multi-LLM comparison and privacy features in action.",
+      ctaLabel: "Request a free demo",
+      ctaHref: "mailto:adm@logk.co.kr"
+    }
   }
 };

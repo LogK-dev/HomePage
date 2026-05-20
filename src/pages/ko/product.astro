@@ -7,6 +7,6 @@ const locale = "ko";
 const dictionary = getDictionary(locale);
 ---
 
-<BaseLayout locale={locale} title={dictionary.meta.productTitle} description={dictionary.meta.productDescription}>
+<BaseLayout locale={locale} title={dictionary.meta.productTitle} description={dictionary.meta.productDescription} ogImageFile="og-product.png">
   <ProductPage locale={locale} dictionary={dictionary} />
 </BaseLayout>
