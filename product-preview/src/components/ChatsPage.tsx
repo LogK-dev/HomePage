@@ -2,8 +2,7 @@ import { useMemo, useState } from "react";
 import { PanelLeft, Plus, Search, X } from "lucide-react";
 import { CHATS } from "../data";
 import { formatRelativeTime } from "../i18n";
-import type { Chat } from "../types";
-import type { Locale } from "../types";
+import type { Chat, Locale } from "../types";
 import type { Copy } from "../i18n";
 
 interface Props {
@@ -192,7 +191,7 @@ export default function ChatsPage({ copy, locale, productUrl, sidebarOpen, onSid
             />
           </div>
           <div className="lpv-composer-footer">
-            <small className="lpv-faint" style={{ color: "var(--lpv-faint)", fontSize: "11px" }}>
+            <small className="lpv-cost-estimate">
               {copy.composer.estimatedCost.replace("{cost}", totalCost)}
             </small>
             <button

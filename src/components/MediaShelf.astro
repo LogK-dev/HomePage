@@ -1,0 +1,83 @@
+---
+interface Segment {
+  label: string;
+  src: string;
+  type: "image" | "video";
+}
+
+interface Props {
+  segments: Segment[];
+}
+
+const { segments } = Astro.props;
+---
+
+<div class="media-shelf" data-media-shelf>
+  <!-- Segmented tab bar -->
+  <div class="media-tabs-wrap">
+    <div class="media-tabs" role="tablist" data-media-tabs>
+      {segments.map((seg, i) => (
+        <button
+          type="button"
+          role="tab"
+          class:list={["media-tab", { "is-active": i === 0 }]}
+          data-media-tab={i}
+          aria-selected={i === 0 ? "true" : "false"}
+        >
+          {seg.label}
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <!-- Content shelf — peek both sides via 85% slide width + center snap -->
+  <div class="media-shelf-track" data-media-track>
+    {segments.map((seg, i) => (
+      <div class="media-shelf-slide" data-media-slide={i}>
+        {seg.type === "video" ? (
+          <video src={seg.src} autoplay muted loop playsinline />
+        ) : (
+          <img src={seg.src} alt={seg.label} loading={i === 0 ? "eager" : "lazy"} />
+        )}
+      </div>
+    ))}
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-media-shelf]").forEach((shelf) => {
+    const track = shelf.querySelector<HTMLElement>("[data-media-track]")!;
+    const tabs = shelf.querySelectorAll<HTMLButtonElement>("[data-media-tab]");
+
+    function syncTabs(index: number) {
+      tabs.forEach((tab, i) => {
+        tab.classList.toggle("is-active", i === index);
+        tab.setAttribute("aria-selected", i === index ? "true" : "false");
+      });
+    }
+
+    function goTo(index: number) {
+      const slide = track.querySelector<HTMLElement>(`[data-media-slide="${index}"]`);
+      slide?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+      syncTabs(index);
+    }
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => goTo(Number(tab.dataset.mediaTab)));
+    });
+
+    // Sync tabs when user swipes/scrolls
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            syncTabs(Number((entry.target as HTMLElement).dataset.mediaSlide));
+          }
+        });
+      },
+      { root: track, threshold: 0.6 },
+    );
+
+    track.querySelectorAll("[data-media-slide]").forEach((slide) => observer.observe(slide));
+  });
+</script>

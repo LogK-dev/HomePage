@@ -8,7 +8,7 @@ const koPath = localizedPath("ko");
 const site             = Astro.site;
 const hasCanonicalSite = site && site.hostname !== "example.com";
 const canonicalUrl     = hasCanonicalSite ? new URL("/", site).href : undefined;
-const ogImage          = hasCanonicalSite ? new URL("og-home.svg", site).href : "/og-home.svg";
+const ogImage          = hasCanonicalSite ? new URL("og-home.png", site).href : "/og-home.png";
 
 const title       = "LogK — 기업용 멀티 AI 플랫폼";
 const description =

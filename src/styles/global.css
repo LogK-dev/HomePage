@@ -273,6 +273,7 @@ textarea {
 
 .hero-copy h1 {
   max-width: 14ch;
+  white-space: pre-line;
 }
 
 .eyebrow,
@@ -1695,6 +1696,324 @@ html[data-theme="dark"] .contact-card .button-ghost {
 @media (max-width: 640px) {
   .admin-pair {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ── Shared section lede — larger descriptive paragraphs ───────────────── */
+.section-lede {
+  font-size: 1.2rem;
+  line-height: 1.72;
+  color: var(--text-soft);
+  max-width: 60ch;
+}
+
+/* ── Feature shelf (legacy, kept for possible reuse) ───────────────────── */
+.features-lede {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--text-soft);
+  max-width: 58ch;
+  margin-bottom: 2.5rem;
+}
+
+.feature-shelf {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.feature-shelf-track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--surface-border);
+  background: var(--surface);
+  box-shadow: var(--shadow-lg);
+}
+
+.feature-shelf-track::-webkit-scrollbar {
+  display: none;
+}
+
+.feature-shelf-slide {
+  flex: 0 0 100%;
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  scroll-snap-align: start;
+  min-height: 500px;
+  align-items: stretch;
+}
+
+.feature-shelf-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  justify-content: center;
+  padding: 2.5rem 3rem;
+}
+
+.feature-shelf-copy h3 {
+  font-size: clamp(1.35rem, 2.5vw, 1.9rem);
+  font-family: "Sora", sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+  color: var(--text);
+}
+
+.feature-shelf-copy p {
+  font-size: 1rem;
+  line-height: 1.75;
+  max-width: 42ch;
+}
+
+.feature-shelf-visual {
+  display: flex;
+  overflow: hidden;
+  border-left: 1px solid var(--surface-border);
+  border-radius: 0 var(--radius-xl) var(--radius-xl) 0;
+}
+
+.feature-shelf-visual img,
+.feature-shelf-visual video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top left;
+  display: block;
+}
+
+.feature-shelf-footer {
+  display: flex;
+  justify-content: center;
+  padding-top: 0.5rem;
+}
+
+.feature-shelf-dots {
+  display: flex;
+  gap: 0.55rem;
+  align-items: center;
+}
+
+.shelf-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  padding: 0;
+  border-radius: 999px;
+  border: none;
+  background: var(--surface-border);
+  cursor: pointer;
+  transition: background var(--transition), width var(--transition);
+}
+
+.shelf-dot.is-active {
+  width: 1.5rem;
+  background: var(--accent);
+}
+
+@media (max-width: 820px) {
+  .feature-shelf-slide {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .feature-shelf-visual {
+    border-left: none;
+    border-top: 1px solid var(--surface-border);
+    border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+    max-height: 300px;
+  }
+
+  .feature-shelf-copy {
+    padding: 1.75rem;
+  }
+
+  .feature-shelf-copy p {
+    max-width: 100%;
+  }
+}
+
+/* ── Media shelf ────────────────────────────────────────────────────────── */
+.media-shelf-section {
+  padding-top: 3rem;
+}
+
+.media-shelf-intro {
+  display: grid;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+  text-align: center;
+  justify-items: center;
+}
+
+.media-shelf {
+  display: grid;
+  gap: 1.25rem;
+}
+
+/* Tab bar */
+.media-tabs-wrap {
+  overflow-x: auto;
+  scrollbar-width: none;
+  display: flex;
+  justify-content: center;
+}
+
+.media-tabs-wrap::-webkit-scrollbar {
+  display: none;
+}
+
+.media-tabs {
+  display: inline-flex;
+  gap: 0.25rem;
+  padding: 0.3rem;
+  border: 1px solid var(--surface-border);
+  border-radius: 999px;
+  background: var(--surface);
+  white-space: nowrap;
+}
+
+.media-tab {
+  flex-shrink: 0;
+  padding: 0.5rem 1.2rem;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  color: var(--text-faint);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+}
+
+.media-tab:hover {
+  color: var(--text);
+}
+
+.media-tab.is-active {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* Content shelf — peek layout */
+.media-shelf-track {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  /* Padding creates side space so adjacent slides peek in */
+  padding-inline: 7%;
+  scroll-padding-inline: 7%;
+}
+
+.media-shelf-track::-webkit-scrollbar {
+  display: none;
+}
+
+.media-shelf-slide {
+  /* 86% width + 7% padding each side = adjacent slides peek ~7% */
+  flex: 0 0 86%;
+  scroll-snap-align: center;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid var(--surface-border);
+  box-shadow: var(--shadow-lg);
+  background: var(--surface);
+}
+
+.media-shelf-slide img,
+.media-shelf-slide video {
+  width: 100%;
+  display: block;
+  vertical-align: top;
+}
+
+@media (max-width: 820px) {
+  .media-shelf-track {
+    padding-inline: 4%;
+    scroll-padding-inline: 4%;
+  }
+
+  .media-shelf-slide {
+    flex: 0 0 92%;
+  }
+}
+
+/* ── Contact banner (shared across pages) ──────────────────────────────── */
+.trial-eyebrow {
+  color: rgba(255, 255, 255, 0.72);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.trial-banner-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 0.25rem;
+}
+
+.trial-cta-secondary {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: #fff;
+  background-image: none;
+  box-shadow: none;
+}
+
+.trial-cta-secondary:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+/* ── Service section heading — enforced line breaks + centred ──────────── */
+.service-title {
+  white-space: pre-line;
+  text-align: center;
+}
+
+.home-service-section .section-head {
+  text-align: center;
+  margin-inline: auto;
+}
+
+/* ── Company about section ─────────────────────────────────────────────── */
+.company-about-section {
+  display: grid;
+  grid-template-columns: 14rem 1fr;
+  gap: 4rem;
+  align-items: start;
+  padding-block: 5rem;
+  border-top: 1px solid var(--surface-border);
+}
+
+.company-about-body {
+  display: grid;
+  gap: 1.35rem;
+}
+
+.company-about-body p {
+  font-size: 1.2rem;
+  line-height: 1.85;
+  color: var(--text-soft);
+  max-width: 60ch;
+  margin: 0;
+}
+
+@media (max-width: 820px) {
+  .company-about-section {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .company-about-body p {
+    max-width: 100%;
   }
 }
 

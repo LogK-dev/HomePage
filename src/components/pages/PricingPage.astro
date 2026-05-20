@@ -2,7 +2,7 @@
 import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
 import type { Locale, SiteDictionary } from "@/i18n/schema";
-import { getLanguageOptions } from "@/utils/i18n";
+import { getLanguageOptions, localizedPath } from "@/utils/i18n";
 
 interface Props {
   locale: Locale;
@@ -11,11 +11,12 @@ interface Props {
 
 const { locale, dictionary } = Astro.props;
 const p = dictionary.pricingPage;
+const homePath = localizedPath(locale);
 ---
 
 <Header locale={locale} dictionary={dictionary} languageOptions={getLanguageOptions(locale, "pricing")} />
 
-<main class="pricing-page">
+<main>
 
   <!-- ── Hero ─────────────────────────────────────────────────────────────── -->
   <section class="pricing-hero">
@@ -31,8 +32,8 @@ const p = dictionary.pricingPage;
       <p class="pricing-lede">{p.description}</p>
 
       <div class="pricing-toggle-wrap" data-pricing-toggle>
-        <button class="ptoggle-btn is-active" type="button" data-mode="monthly" aria-pressed="true">{p.toggle.monthly}</button>
-        <button class="ptoggle-btn" type="button" data-mode="yearly" aria-pressed="false">
+        <button class="ptoggle-btn is-active" data-mode="monthly">{p.toggle.monthly}</button>
+        <button class="ptoggle-btn" data-mode="yearly">
           {p.toggle.yearly}
           <span class="ptoggle-discount">{p.toggle.discount}</span>
         </button>
@@ -163,6 +164,29 @@ const p = dictionary.pricingPage;
 <Footer locale={locale} dictionary={dictionary} />
 
 <script>
+  /* ── Monthly / Yearly toggle ─────────────────────────────────────────────── */
+  const toggle = document.querySelector("[data-pricing-toggle]");
+  if (toggle) {
+    const buttons = [...toggle.querySelectorAll<HTMLButtonElement>(".ptoggle-btn")];
+
+    const setMode = (mode: string) => {
+      buttons.forEach(b => b.classList.toggle("is-active", b.dataset.mode === mode));
+      const isYearly = mode === "yearly";
+
+      document.querySelectorAll<HTMLElement>(".plan-amount").forEach(el => {
+        el.textContent = isYearly ? (el.dataset.yearly ?? "") : (el.dataset.monthly ?? "");
+      });
+
+      document.querySelectorAll<HTMLElement>(".plan-annual-note").forEach(el => {
+        el.textContent = isYearly ? (el.dataset.annualPrice ?? "") : "";
+      });
+    };
+
+    buttons.forEach(btn => {
+      btn.addEventListener("click", () => setMode(btn.dataset.mode ?? "monthly"));
+    });
+  }
+
   /* ── FAQ accordion ───────────────────────────────────────────────────────── */
   document.querySelectorAll<HTMLElement>("[data-faq]").forEach(item => {
     const btn = item.querySelector<HTMLButtonElement>(".faq-question");

@@ -1,4 +1,4 @@
-import { Component, type ReactNode, useState, useEffect } from "react";
+import { Component, type ReactNode, useState, useEffect, useCallback } from "react";
 import ChromeBar from "./components/ChromeBar";
 import ChatsPage from "./components/ChatsPage";
 import PlaceholderPage from "./components/PlaceholderPage";
@@ -47,7 +47,7 @@ export default function App({ locale: initialLocale, feature, productUrl }: Prop
   }, []);
 
   const copy = COPY[locale];
-  const toggleSidebar = () => setSidebarOpen((v) => !v);
+  const toggleSidebar = useCallback(() => setSidebarOpen((v) => !v), []);
 
   const page = (() => {
     switch (tab) {

@@ -1,0 +1,92 @@
+---
+import type { SiteDictionary } from "@/i18n/schema";
+
+type Row = SiteDictionary["features"]["rows"][number];
+
+interface Asset {
+  src: string;
+  type: "image" | "video";
+}
+
+interface Props {
+  rows: Row[];
+  assets: Asset[];
+}
+
+const { rows, assets } = Astro.props;
+---
+
+<div class="feature-shelf" data-shelf>
+  <div class="feature-shelf-track" data-shelf-track>
+    {rows.map((row, i) => {
+      const asset = assets[i];
+      return (
+        <div class="feature-shelf-slide" data-shelf-slide={i}>
+          <div class="feature-shelf-copy">
+            <p class="eyebrow">{row.eyebrow}</p>
+            <h3>{row.title}</h3>
+            <p>{row.body}</p>
+            {row.bullets && (
+              <ul class="feature-bullets">
+                {row.bullets.map((b) => <li>{b}</li>)}
+              </ul>
+            )}
+          </div>
+          <div class="feature-shelf-visual">
+            {asset.type === "video" ? (
+              <video src={asset.src} autoplay muted loop playsinline />
+            ) : (
+              <img src={asset.src} alt={row.title} loading={i === 0 ? "eager" : "lazy"} />
+            )}
+          </div>
+        </div>
+      );
+    })}
+  </div>
+
+  <div class="feature-shelf-footer">
+    <div class="feature-shelf-dots" data-shelf-dots>
+      {rows.map((_, i) => (
+        <button
+          type="button"
+          class:list={["shelf-dot", { "is-active": i === 0 }]}
+          data-shelf-goto={i}
+          aria-label={`Slide ${i + 1}`}
+        />
+      ))}
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-shelf]").forEach((shelf) => {
+    const track = shelf.querySelector<HTMLElement>("[data-shelf-track]")!;
+    const dots = shelf.querySelectorAll<HTMLButtonElement>("[data-shelf-goto]");
+
+    function syncDots(index: number) {
+      dots.forEach((dot, i) => dot.classList.toggle("is-active", i === index));
+    }
+
+    dots.forEach((dot) => {
+      dot.addEventListener("click", () => {
+        const i = Number(dot.dataset.shelfGoto);
+        track.scrollTo({ left: track.clientWidth * i, behavior: "smooth" });
+        syncDots(i);
+      });
+    });
+
+    // Sync dots on native scroll (touch swipe or keyboard)
+    const slideObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            syncDots(Number((entry.target as HTMLElement).dataset.shelfSlide));
+          }
+        });
+      },
+      { root: track, threshold: 0.55 },
+    );
+
+    shelf.querySelectorAll("[data-shelf-slide]").forEach((slide) => slideObserver.observe(slide));
+  });
+</script>

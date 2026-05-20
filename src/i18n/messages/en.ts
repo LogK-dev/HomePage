@@ -16,7 +16,10 @@ export const en: SiteDictionary = {
       { key: "solution", label: "Service", href: "#service" },
       { key: "pricing", label: "Pricing", href: "pricing" },
       { key: "company", label: "Company", href: "#company" },
-      { key: "contact", label: "Contact", href: "mailto:contact@logk.co.kr" }
+      { key: "solution", label: "Solution", href: "#solution" },
+      { key: "technology", label: "Technology", href: "#technology" },
+      { key: "contact", label: "Contact", href: "#contact" },
+      { key: "pricing", label: "Pricing", href: "pricing" }
     ],
     product: "Product",
     pricing: "Pricing",
@@ -199,30 +202,11 @@ export const en: SiteDictionary = {
   },
   company: {
     eyebrow: "Company",
-    title: "Building the delegation layer for the AI model ecosystem.",
-    description:
-      "LogK exists because the model landscape keeps expanding while user workflows stay fragmented. We want interacting with many AI services to feel coherent, economic, and trustworthy.",
-    cards: [
-      {
-        index: "Mission",
-        title: "Make model choice a product feature, not a burden.",
-        body: "Users should not need seven tabs and manual copy-paste to get the best answer from the current AI landscape."
-      },
-      {
-        index: "Approach",
-        title: "Above the models, close to the user.",
-        body:
-          "The market already has developer gateways and observability tools. LogK is focused on the user-facing layer: model selection, delegation UX, answer comparison, and trust."
-      },
-      {
-        index: "Operating principles",
-        wide: true,
-        principles: [
-          { title: "Visible economics", body: "Cost should be legible before a request runs, not discovered afterwards." },
-          { title: "Private by default", body: "Sensitive information should be blocked, redacted, or routed intentionally." },
-          { title: "Trust through comparison", body: "Better answers come from structured disagreement and verification, not blind single-model trust." }
-        ]
-      }
+    body: [
+      "LogK is a company that strives to create efficient services using security and artificial intelligence (AI) as its core focus.",
+      "SelecAI, LogK's flagship solution, is an online platform that lets you compare, select, and use various generative AI services built on LLMs.",
+      "We have taken the shortcomings of existing AI products and repackaged them into SelecAI as a more efficient service.",
+      "At LogK, we actively prioritize customer feedback above all else to deliver the best service possible. Feel free to reach out anytime."
     ]
   },
   contact: {
@@ -230,7 +214,7 @@ export const en: SiteDictionary = {
     title: "Bring LogK into your AI workflow.",
     body:
       "LogK is designed for teams and advanced users who want to delegate across models with clear pricing, privacy controls, and stronger trust in the final answer.",
-    primaryCta: "contact@logk.co.kr",
+    primaryCta: "adm@logk.co.kr",
     secondaryCta: "Explore product details"
   },
   productPage: {
@@ -369,7 +353,7 @@ export const en: SiteDictionary = {
         yearlyPrice: "8,000",
         credits: "10,000",
         ctaLabel: "Get started →",
-        ctaHref: "mailto:contact@logk.co.kr",
+        ctaHref: "mailto:adm@logk.co.kr",
         features: [
           { text: "Multi-LLM simultaneous use", sub: "ChatGPT · Claude · Gemini included" },
           { text: "Response comparison" },
@@ -386,7 +370,7 @@ export const en: SiteDictionary = {
         credits: "33,000",
         bonusCredits: "+3,000",
         ctaLabel: "Get started →",
-        ctaHref: "mailto:contact@logk.co.kr",
+        ctaHref: "mailto:adm@logk.co.kr",
         features: [
           { text: "Multi-LLM simultaneous use", sub: "ChatGPT · Claude · Gemini included" },
           { text: "Response comparison" },
@@ -406,7 +390,7 @@ export const en: SiteDictionary = {
         badge: "🔥 Most popular plan",
         highlight: true,
         ctaLabel: "Start now →",
-        ctaHref: "mailto:contact@logk.co.kr",
+        ctaHref: "mailto:adm@logk.co.kr",
         features: [
           { text: "Multi-LLM simultaneous use", sub: "ChatGPT · Claude · Gemini included" },
           { text: "Response comparison & optimisation" },
@@ -426,7 +410,7 @@ export const en: SiteDictionary = {
         credits: "140,000",
         bonusCredits: "+40,000",
         ctaLabel: "Get started →",
-        ctaHref: "mailto:contact@logk.co.kr",
+        ctaHref: "mailto:adm@logk.co.kr",
         features: [
           { text: "Multi-LLM simultaneous use", sub: "ChatGPT · Claude · Gemini included" },
           { text: "Response comparison & optimisation" },
@@ -444,7 +428,7 @@ export const en: SiteDictionary = {
       description: "On-premise deployment optimised for high-security environments: public sector, finance, healthcare, and large enterprises. Supports KRW billing and organisation-specific security configuration.",
       tags: ["On-premise", "Air-gapped support", "KRW billing", "Full PII de-identification", "Internal document RAG", "SLA guarantee"],
       ctaLabel: "Contact sales →",
-      ctaHref: "mailto:contact@logk.co.kr",
+      ctaHref: "mailto:adm@logk.co.kr",
       note: "Response within 3 business days"
     },
     creditNotes: [
@@ -485,7 +469,7 @@ export const en: SiteDictionary = {
       title: "Experience LogK today",
       body: "Try the free demo to see multi-LLM comparison and privacy features in action.",
       ctaLabel: "Request a free demo",
-      ctaHref: "mailto:contact@logk.co.kr"
+      ctaHref: "mailto:adm@logk.co.kr"
     }
   }
 };

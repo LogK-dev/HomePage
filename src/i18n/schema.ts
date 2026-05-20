@@ -101,12 +101,7 @@ export type SiteDictionary = {
   };
   company: {
     eyebrow: string;
-    title: string;
-    description: string;
-    cards: Array<
-      | { index: string; title: string; body: string; wide?: boolean }
-      | { index: string; principles: Array<{ title: string; body: string }>; wide?: boolean }
-    >;
+    body: string[];
   };
   contact: {
     eyebrow: string;

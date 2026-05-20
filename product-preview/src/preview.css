@@ -12,7 +12,7 @@
 .lpv-shell h5,
 .lpv-shell h6 {
   margin: 0;
-  font-family: Instrument Sans, sans-serif;
+  font-family: 'Instrument Sans', sans-serif;
   color: inherit;
 }
 
@@ -42,7 +42,7 @@
   background: var(--lpv-bg);
   box-shadow: var(--lpv-shadow);
   color: var(--lpv-ink);
-  font-family: Instrument Sans, sans-serif;
+  font-family: 'Instrument Sans', sans-serif;
 }
 
 .lpv-shell[data-preview-theme="light"] {
@@ -435,7 +435,7 @@
   color: var(--lpv-ink);
   font-size: 12px;
   outline: none;
-  font-family: Instrument Sans, sans-serif;
+  font-family: 'Instrument Sans', sans-serif;
 }
 
 .lpv-search-input::placeholder {
@@ -538,7 +538,7 @@
   border-radius: 999px;
   color: var(--lpv-faint);
   font-size: 10px;
-  font-family: IBM Plex Mono, monospace;
+  font-family: 'IBM Plex Mono', monospace;
   letter-spacing: 0.02em;
 }
 
@@ -586,7 +586,7 @@
 
 .lpv-thread-meta span {
   color: var(--lpv-faint);
-  font-family: IBM Plex Mono, monospace;
+  font-family: 'IBM Plex Mono', monospace;
   font-size: 10px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -684,7 +684,7 @@
   background: color-mix(in srgb, var(--lpv-purple) 10%, transparent);
   color: var(--lpv-purple);
   font-size: 10px;
-  font-family: IBM Plex Mono, monospace;
+  font-family: 'IBM Plex Mono', monospace;
   letter-spacing: 0.03em;
 }
 
@@ -702,7 +702,7 @@
 .lpv-synthesis-doc strong {
   color: var(--lpv-green);
   font-size: 10px;
-  font-family: IBM Plex Mono, monospace;
+  font-family: 'IBM Plex Mono', monospace;
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
@@ -768,7 +768,7 @@
   border: 0;
   resize: none;
   outline: none;
-  font-family: Instrument Sans, sans-serif;
+  font-family: 'Instrument Sans', sans-serif;
   width: 100%;
 }
 
@@ -789,7 +789,7 @@
   border-bottom: 0;
   resize: none;
   outline: none;
-  font-family: Instrument Sans, sans-serif;
+  font-family: 'Instrument Sans', sans-serif;
   width: 100%;
   background: transparent;
 }
@@ -805,6 +805,11 @@
   gap: 12px;
   padding: 10px 12px;
   border-top: 1px solid var(--lpv-line);
+}
+
+.lpv-cost-estimate {
+  color: var(--lpv-faint);
+  font-size: 11px;
 }
 
 .lpv-run-button {
@@ -867,7 +872,7 @@
 .lpv-status,
 .lpv-live {
   color: var(--lpv-faint);
-  font-family: IBM Plex Mono, monospace;
+  font-family: 'IBM Plex Mono', monospace;
   font-size: 11px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -892,7 +897,7 @@
 
 @media (max-width: 720px) {
   .lpv-shell {
-    height: 600px;
+    max-height: 600px;
   }
 
   .lpv-chrome-bar {

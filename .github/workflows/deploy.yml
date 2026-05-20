@@ -21,7 +21,7 @@ jobs:
       # Override these in GitHub repo Settings → Variables for custom deployments.
       # - Custom domain repo: SITE_URL=https://www.example.com, BASE_PATH=/
       # - Project Pages repo: leave unset; computed values are used automatically.
-      SITE_URL: ${{ vars.SITE_URL || format('https://{0}.github.io', github.repository_owner) }}
+      SITE_URL: ${{ vars.SITE_URL || format('https://{0}.github.io/{1}', github.repository_owner, github.event.repository.name) }}
       BASE_PATH: ${{ vars.BASE_PATH || format('/{0}', github.event.repository.name) }}
     steps:
       - name: Checkout
@@ -35,6 +35,21 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Install product-preview dependencies
+        run: npm install
+        working-directory: product-preview
+
+      - name: Type-check product-preview
+        run: npx tsc --noEmit
+        working-directory: product-preview
+
+      - name: Build product-preview
+        run: npm run build
+        working-directory: product-preview
+
+      - name: Type-check site
+        run: npx astro check
 
       - name: Build
         run: npm run build

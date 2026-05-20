@@ -475,7 +475,7 @@ This project is pushed to two GitHub repositories. Each repo has different GitHu
 No configuration needed — the workflow auto-computes values from the repository owner and name:
 
 ```
-SITE_URL  → https://<owner>.github.io
+SITE_URL  → https://<owner>.github.io/<repo>
 BASE_PATH → /<repo>
 ```
 
