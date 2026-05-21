@@ -480,7 +480,7 @@ No props. Renders a single dark strip:
     © {year} SelecAI (주)로그케이 ·
     <a href="#">이용약관</a> ·
     <a href="#">개인정보처리방침</a> ·
-    문의: <a href="mailto:contact@logk.co.kr">contact@logk.co.kr</a>
+    문의: <a href="mailto:adm@logk.co.kr">adm@logk.co.kr</a>
   </p>
 </footer>
 ```

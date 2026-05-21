@@ -22,7 +22,7 @@ export const ko: SiteDictionary = {
       { key: "solution", label: "서비스 소개", href: "#service" },
       { key: "company", label: "회사 소개", href: "#company" },
       { key: "pricing", label: "요금제", href: "pricing" },
-      { key: "contact", label: "문의하기", href: "mailto:contact@logk.co.kr" }
+      { key: "contact", label: "문의하기", href: "mailto:adm@logk.co.kr" }
     ],
     home: "홈",
     bookDemo: "무료 데모 신청",
