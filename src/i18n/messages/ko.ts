@@ -4,16 +4,16 @@ import { phrase } from "@/utils/text";
 export const ko: SiteDictionary = {
   meta: {
     siteName: "LogK",
-    homeTitle: "SelecAI — 기업용 멀티 AI 플랫폼",
+    homeTitle: "selecAI — 기업용 멀티 AI 플랫폼",
     homeDescription:
       "25개 이상의 AI를 한 번에 위임하고, 개인정보를 자동 비식별화하며, 조직 단위로 관리합니다. 원화 결제 지원.",
-    productTitle: "SelecAI 서비스 소개 — 멀티 AI 동시 활용부터 기업 관리까지",
+    productTitle: "selecAI 서비스 소개 — 멀티 AI 동시 활용부터 기업 관리까지",
     productDescription:
       "모델 선택, 실행 전 비용 확인, 개인정보 자동 비식별화, 결제 워크플로, 조직 관리까지 — 기업 AI 활용의 전체 흐름.",
-    pricingTitle: "SelecAI 요금제 — ₩10,000부터 시작하는 멀티 AI 구독",
+    pricingTitle: "selecAI 요금제 — ₩10,000부터 시작하는 멀티 AI 구독",
     pricingDescription:
-      "Lite ₩10,000 · Standard ₩30,000 · Pro ₩50,000 · Business ₩100,000. SelecAI 모든 플랜에 멀티 LLM 동시 활용 포함. 연간 구독 시 20% 할인.",
-    mockupsTitle: "SelecAI 제품 화면 — 실제 UI 목업 모음",
+      "Lite ₩10,000 · Standard ₩30,000 · Pro ₩50,000 · Business ₩100,000. selecAI 모든 플랜에 멀티 LLM 동시 활용 포함. 연간 구독 시 20% 할인.",
+    mockupsTitle: "selecAI 제품 화면 — 실제 UI 목업 모음",
     mockupsDescription:
       "모델 선택, 답변 비교, 개인정보 비식별화, 크레딧 과금의 실제 화면입니다."
   },
@@ -39,7 +39,7 @@ export const ko: SiteDictionary = {
     lede:
       phrase(
         "멀티 LLM 동시 활용, 개인정보 자동 비식별화, 조직 관리, 결제 워크플로까지",
-        " — AI 활용의 복잡함을 SelecAI 하나로 해결합니다."
+        " — AI 활용의 복잡함을 selecAI 하나로 해결합니다."
       ),
     primaryCta: "서비스 소개",
     secondaryCta: "요금제 보기"
@@ -62,11 +62,11 @@ export const ko: SiteDictionary = {
         "효율적인 서비스를 만들고자 노력하는 기업입니다."
       ),
       phrase(
-        "로그케이의 대표 솔루션인 SelecAI 는 LLM을 기반으로 한",
+        "로그케이의 대표 솔루션인 selecAI 는 LLM을 기반으로 한",
         "다양한 생성형AI를 비교하고 선택해서 사용할 수 있는 온라인 솔루션 입니다."
       ),
       phrase(
-        "기존 AI 제품들의 아쉬운 부분을 SelecAI에 담아",
+        "기존 AI 제품들의 아쉬운 부분을 selecAI에 담아",
         "효율적인 서비스로 재가공하였습니다."
       ),
       phrase(
@@ -79,7 +79,7 @@ export const ko: SiteDictionary = {
     eyebrow: "제품",
     title: "모델을 선택하고,\n비용을 확인하고,\n답변을 비교하세요.",
     description:
-      "SelecAI 는 여러 AI 서비스를 하나의 작업 화면으로 묶습니다.",
+      "selecAI 는 여러 AI 서비스를 하나의 작업 화면으로 묶습니다.",
     stages: [
       {
         label: "선택",
@@ -162,7 +162,7 @@ export const ko: SiteDictionary = {
   mediaShelfLede:
     phrase(
       "멀티 LLM 동시 활용부터 개인정보 보호, 조직 관리, 결제 워크플로까지",
-      "— SelecAI 하나로 해결합니다."
+      "— selecAI 하나로 해결합니다."
     ),
   customersEyebrow: "주요 고객사",
   customers: [
@@ -171,7 +171,7 @@ export const ko: SiteDictionary = {
   ],
   mockupsPage: {
     eyebrow: "제품 목업",
-    title: "SelecAI 제품 화면",
+    title: "selecAI 제품 화면",
     lede:
       "여러 AI 모델을 한 화면에서 고르고 비교하는 제품 목업입니다.",
     note:
@@ -206,7 +206,7 @@ export const ko: SiteDictionary = {
     badge: "지금 바로 시작 가능 · 원화 결제 지원",
     title: "업무에 적합한 플랜을 선택하고",
     titleEmphasis: "AI 활용을 시작하세요",
-    description: "SelecAI 모든 플랜에 멀티 LLM 동시 활용이 포함됩니다.\n상위 플랜일수록 더 많은 크레딧과 기능을 제공합니다.",
+    description: "selecAI 모든 플랜에 멀티 LLM 동시 활용이 포함됩니다.\n상위 플랜일수록 더 많은 크레딧과 기능을 제공합니다.",
     toggle: {
       monthly: "월간 구독",
       yearly: "연간 구독",
@@ -332,7 +332,7 @@ export const ko: SiteDictionary = {
       ]
     },
     trialBanner: {
-      title: "지금 바로 SelecAI를 경험해 보세요",
+      title: "지금 바로 selecAI를 경험해 보세요",
       body: phrase(
         "무료 데모를 통해 멀티 LLM ehdtl 활용과 보안 기능을",
         "직접 확인해 보실 수 있습니다."

@@ -1,6 +1,6 @@
-# SelecAI Marketing Site
+# selecAI Marketing Site
 
-Static Astro site for **SelecAI**, a multi-AI platform by **로그케이 (LogK)** that lets teams choose, delegate across, compare, and verify answers from multiple AI models.
+Static Astro site for **selecAI**, a multi-AI platform by **로그케이 (LogK)** that lets teams choose, delegate across, compare, and verify answers from multiple AI models.
 
 Live site: **https://www.logk.co.kr**
 
@@ -152,7 +152,7 @@ SITE_URL=https://username.github.io BASE_PATH=/PAGE_DEMO npm run build
 │   ├── styles/
 │   │   ├── global.css
 │   │   └── themes/
-│   │       ├── blue.css          # clean blue professional (SelecAI reference)
+│   │       ├── blue.css          # clean blue professional (selecAI reference)
 │   │       └── logk.css          # warm teal editorial (original LogK brand)
 │   └── content.config.ts         # empty; no content collections in use
 └── README.md
@@ -477,7 +477,7 @@ No props. Renders a single dark strip:
 ```html
 <footer class="site-footer">
   <p>
-    © {year} SelecAI (주)로그케이 ·
+    © {year} selecAI (주)로그케이 ·
     <a href="#">이용약관</a> ·
     <a href="#">개인정보처리방침</a> ·
     문의: <a href="mailto:adm@logk.co.kr">adm@logk.co.kr</a>
