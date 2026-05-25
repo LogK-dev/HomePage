@@ -5,10 +5,6 @@
       <stop offset="0%"   stop-color="#FFFFFF"/>
       <stop offset="100%" stop-color="#EFF6FF"/>
     </linearGradient>
-    <linearGradient id="brand-mark" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%"   stop-color="#1D4ED8"/>
-      <stop offset="100%" stop-color="#3B82F6"/>
-    </linearGradient>
     <linearGradient id="cta" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%"   stop-color="#1D4ED8"/>
       <stop offset="100%" stop-color="#2563EB"/>
@@ -20,13 +16,7 @@
   <circle cx="1080" cy="540" r="280" fill="#3B82F6" fill-opacity="0.05"/>
   <circle cx="920"  cy="180" r="200" fill="#22C55E" fill-opacity="0.03"/>
 
-  <rect x="72" y="60" width="52" height="52" rx="16" fill="url(#brand-mark)"/>
-  <text x="98" y="98" text-anchor="middle"
-        font-family="Pretendard,system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',Arial,sans-serif"
-        font-size="30" font-weight="800" fill="white">L</text>
-  <text x="140" y="96"
-        font-family="Pretendard,system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',Arial,sans-serif"
-        font-size="26" font-weight="700" fill="#111827">LogK</text>
+  <image href="assets/LogK_logo.png" x="48" y="36" width="120" height="120" preserveAspectRatio="xMidYMid meet"/>
 
   <text x="72" y="186"
         font-family="Pretendard,system-ui,-apple-system,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',Arial,sans-serif"

@@ -30,6 +30,10 @@ const ogLocale = "ko_KR";
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="color-scheme" content="light" />
+    <!-- Favicon — small for tabs, 256 for higher-DPI tabs / pinned sites. -->
+    <link rel="icon" type="image/png" sizes="32x32" href={`${import.meta.env.BASE_URL}favicon.png`} />
+    <link rel="icon" type="image/png" sizes="256x256" href={`${import.meta.env.BASE_URL}favicon-256.png`} />
+    <link rel="apple-touch-icon" href={`${import.meta.env.BASE_URL}favicon-256.png`} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
