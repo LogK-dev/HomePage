@@ -373,12 +373,17 @@ textarea {
   margin-bottom: 1rem;
 }
 
-/* Larger eyebrow for the home hero, the company section, and the
-   customer-logos section — same visual weight across the home page. */
+/* Larger, broader eyebrow for the home hero, the company section, and the
+   customer-logos section — Pretendard Variable instead of IBM Plex Mono
+   (which has no Korean glyphs anyway), heavier weight, and wider tracking
+   give these three section labels more brand presence. */
 .hero .eyebrow,
 .company-about-section .eyebrow,
 .customer-logos-section .eyebrow {
-  font-size: 1.05rem;
+  font-family: "Pretendard Variable", "Pretendard", -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
+  font-size: 1.7rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
 }
 
 h1,
