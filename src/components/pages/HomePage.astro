@@ -23,7 +23,8 @@ const mockupBase = `${base}assets/selecAI_mockup/`;
 const mediaSegments = dictionary.mediaShelf.map((entry) => ({
   label: entry.label,
   src: `${mockupBase}${entry.asset}`,
-  type: entry.type
+  type: entry.type,
+  poster: entry.poster ? `${mockupBase}${entry.poster}` : undefined
 }));
 ---
 
@@ -54,11 +55,12 @@ const mediaSegments = dictionary.mediaShelf.map((entry) => ({
 
     <div class="hero-visual" data-reveal aria-hidden="true">
       <video
-        src={`${mockupBase}selecAI_multi_delegate.mov`}
+        src={`${mockupBase}selecAI_multi_delegate.mp4`}
         autoplay
         muted
         loop
         playsinline
+        poster={`${mockupBase}selecAI_multi_delegate-poster.jpg`}
       ></video>
     </div>
   </section>

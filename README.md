@@ -93,17 +93,16 @@ SITE_URL=https://username.github.io BASE_PATH=/PAGE_DEMO npm run build
 ├── public/
 │   ├── assets/
 │   │   ├── selecAI_mockup/       # product screenshot assets (images + videos)
-│   │   │   ├── selecAI_multi_delegate.mov
-│   │   │   ├── selecAI_image_gen.mov
+│   │   │   ├── selecAI_multi_delegate.mp4
+│   │   │   ├── selecAI_multi_delegate-poster.jpg
+│   │   │   ├── selecAI_image_gen.mp4
+│   │   │   ├── selecAI_image_gen-poster.jpg
 │   │   │   ├── selecAI_private_masking.png
 │   │   │   ├── selecAI_corp_mgnt.png
 │   │   │   ├── selecAI_user_mgmt.png
-│   │   │   └── selecAI_prompt_pay.png
+│   │   │   └── selecAI_prompt_approval.png
 │   │   ├── workspace_screenshot.png
 │   │   ├── pricing_screenshot.png
-│   │   ├── tech-lattice.svg
-│   │   ├── hero-orbit.svg
-│   │   └── signal-grid.svg
 │   ├── og-home.png               # OG image for homepage (1200×630 px)
 │   ├── og-product.png
 │   ├── og-pricing.png
@@ -523,6 +522,7 @@ interface Props {
     label: string;
     src: string;
     type: "image" | "video";
+    poster?: string;
   }>;
 }
 ```
@@ -541,12 +541,33 @@ Current segments (in order):
 
 | Tab label | Asset file | Type |
 |-----------|-----------|------|
-| 멀티 위임 | `selecAI_multi_delegate.mov` | video |
-| 이미지 생성 | `selecAI_image_gen.mov` | video |
+| LLM 동시 활용 | `selecAI_multi_delegate.mp4` | video |
+| 이미지 생성 | `selecAI_image_gen.mp4` | video |
 | 개인정보 보호 | `selecAI_private_masking.png` | image |
 | 기업 관리 | `selecAI_corp_mgnt.png` | image |
 | 유저 관리 | `selecAI_user_mgmt.png` | image |
-| 결재 워크플로 | `selecAI_prompt_pay.png` | image |
+| 프롬프트 결재 | `selecAI_prompt_approval.png` | image |
+
+To refresh a recorded feature, capture the actual service interaction in a demo
+workspace with a consistent browser viewport and sample data. Record model
+selection, prompt entry, submission, and the resulting answer or image in order.
+Log click and scroll times so a cursor added in editing reaches the real control
+on the same frame as the action. Trim only idle generation waits; preserve the
+real UI transitions. Avoid cursor highlight effects and long idle motion. Review
+the first, middle, and last frames before replacing an asset. Keep raw captures
+outside `public/`.
+Prepare a silent, browser-friendly clip and its poster frame with:
+
+```bash
+bash scripts/prepare-selecai-video.sh /path/to/raw-recording.mov selecAI_multi_delegate
+```
+
+The script writes `selecAI_multi_delegate.mp4` and
+`selecAI_multi_delegate-poster.jpg` to `public/assets/selecAI_mockup/`.
+Update the filename and optional `poster` in `src/i18n/messages/ko.ts` when adding
+or renaming a media shelf entry. The hero video path is in
+`src/components/pages/HomePage.astro`. Run `npm run check && npm run build` before
+publishing. Never commit demo credentials or authentication state.
 
 ---
 
@@ -591,7 +612,7 @@ Inlined in `BaseLayout`. Runs on every page. Responsibilities:
 
 Sections in order:
 
-1. **Hero** — eyebrow, h1 (`title` + `titleAccent`), lede, two CTA buttons, hero video (`selecAI_multi_delegate.mov`). Product preview area exists but is `display:none`.
+1. **Hero** — eyebrow, h1 (`title` + `titleAccent`), lede, two CTA buttons, hero video (`selecAI_multi_delegate.mp4`). Product preview area exists but is `display:none`.
 2. **#service** — centered h2 from `dictionary.productPage.title` (supports `\n` line breaks)
 3. **Media shelf** — two `.section-lede` paragraphs (`productPage.description` + `features.description`), then `<MediaShelf segments={mediaSegments} />`
 4. **#company** — 2-col grid: eyebrow left, body paragraphs right (`dictionary.company.body`)

@@ -1008,13 +1008,6 @@ p {
   padding: 1.6rem;
 }
 
-.stage-art {
-  top: -10%;
-  right: -4%;
-  width: 34rem;
-  opacity: 0.9;
-}
-
 .stage-column {
   position: relative;
   display: grid;

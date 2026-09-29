@@ -9,7 +9,7 @@ export const ko: SiteDictionary = {
       "25개 이상의 AI를 한 번에 위임하고, 개인정보를 자동 비식별화하며, 조직 단위로 관리합니다. 원화 결제 지원.",
     productTitle: "selecAI 서비스 소개 — 멀티 AI 동시 활용부터 기업 관리까지",
     productDescription:
-      "모델 선택, 실행 전 비용 확인, 개인정보 자동 비식별화, 결제 워크플로, 조직 관리까지 — 기업 AI 활용의 전체 흐름.",
+      "모델 선택, 실행 전 비용 확인, 개인정보 자동 비식별화, 프롬프트 결재, 조직 관리까지 — 기업 AI 활용의 전체 흐름.",
     pricingTitle: "selecAI 요금제 — ₩10,000부터 시작하는 멀티 AI 구독",
     pricingDescription:
       "Lite ₩10,000 · Standard ₩30,000 · Pro ₩50,000 · Business ₩100,000. selecAI 모든 플랜에 멀티 LLM 동시 활용 포함. 연간 구독 시 20% 할인.",
@@ -38,19 +38,19 @@ export const ko: SiteDictionary = {
     titleAccent: "안전하게 쓰세요.",
     lede:
       phrase(
-        "멀티 LLM 동시 활용, 개인정보 자동 비식별화, 조직 관리, 결제 워크플로까지",
+        "멀티 LLM 동시 활용, 개인정보 자동 비식별화, 조직 관리, 프롬프트 결재까지",
         " — AI 활용의 복잡함을 selecAI 하나로 해결합니다."
       ),
     primaryCta: "서비스 소개",
     secondaryCta: "요금제 보기"
   },
   mediaShelf: [
-    { label: "LLM 동시 활용",     asset: "selecAI_multi_delegate.mov", type: "video" },
-    { label: "이미지 생성",   asset: "selecAI_image_gen.mov",       type: "video" },
+    { label: "LLM 동시 활용", asset: "selecAI_multi_delegate.mp4", type: "video", poster: "selecAI_multi_delegate-poster.jpg" },
+    { label: "이미지 생성", asset: "selecAI_image_gen.mp4", type: "video", poster: "selecAI_image_gen-poster.jpg" },
     { label: "개인정보 보호", asset: "selecAI_private_masking.png", type: "image" },
     { label: "기업 관리",     asset: "selecAI_corp_mgnt.png",       type: "image" },
     { label: "유저 관리",     asset: "selecAI_user_mgmt.png",       type: "image" },
-    { label: "결제 워크플로", asset: "selecAI_prompt_pay.png",      type: "image" }
+    { label: "프롬프트 결재", asset: "selecAI_prompt_approval.png", type: "image" }
   ],
   company: {
     eyebrow: "회사 소개",
@@ -151,17 +151,17 @@ export const ko: SiteDictionary = {
     gallery: {
       workspaceLabel: "워크스페이스",
       workspaceTitle: "실제 업무 흐름이 드러나는 워크스페이스",
-      workspaceBody: "모델 선택, 실행 제어, 개인정보 보호, 예상 비용이 하나의 제품 화면 안에서 자연스럽게 읽히도록 구성합니다.",
-      workspaceAlt: "LogK workspace dashboard screenshot",
-      pricingLabel: "요금",
+      workspaceBody: "Gemini, GPT, Claude 등 여러 모델을 한 대화에서 선택하고 답변을 비교합니다.",
+      workspaceAlt: "selecAI 대화 화면에서 여러 AI 모델을 선택한 모습",
+      pricingLabel: "사용량",
       pricingTitle: "사용량과 비용이 보이는 운영 화면",
-      pricingBody: "가격을 별도의 표로 분리하지 않고 실제 운영 화면처럼 보여주어 크레딧 기반 결제를 더 쉽게 이해하게 합니다.",
-      pricingAlt: "LogK pricing dashboard screenshot"
+      pricingBody: "기간별 요청 수, 토큰 사용량, 차감 금액을 운영 화면에서 확인합니다.",
+      pricingAlt: "selecAI 조직 사용량과 비용 대시보드"
     }
   },
   mediaShelfLede:
     phrase(
-      "멀티 LLM 동시 활용부터 개인정보 보호, 조직 관리, 결제 워크플로까지",
+      "멀티 LLM 동시 활용부터 개인정보 보호, 조직 관리, 프롬프트 결재까지",
       "— selecAI 하나로 해결합니다."
     ),
   customersEyebrow: "주요 고객사",

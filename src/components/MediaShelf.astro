@@ -3,6 +3,7 @@ interface Segment {
   label: string;
   src: string;
   type: "image" | "video";
+  poster?: string;
 }
 
 interface Props {
@@ -35,7 +36,7 @@ const { segments } = Astro.props;
     {segments.map((seg, i) => (
       <div class="media-shelf-slide" data-media-slide={i}>
         {seg.type === "video" ? (
-          <video src={seg.src} autoplay muted loop playsinline preload="auto" />
+          <video src={seg.src} poster={seg.poster} autoplay muted loop playsinline preload="metadata" />
         ) : (
           <img src={seg.src} alt={seg.label} loading={i === 0 ? "eager" : "lazy"} />
         )}
@@ -204,7 +205,7 @@ const { segments } = Astro.props;
 
     track.addEventListener("scroll", onTrackScroll, { passive: true });
 
-    /** Media (especially .mov videos) load asynchronously after first paint,
+    /** Media can load asynchronously after first paint,
      *  which changes the slide widths and shifts the closest-to-center
      *  answer. A ResizeObserver re-runs the sync whenever the track or any
      *  slide resizes — covering the load race, font swaps, viewport rotates,

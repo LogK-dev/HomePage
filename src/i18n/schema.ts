@@ -46,6 +46,7 @@ export type SiteDictionary = {
     label: string;
     asset: string;
     type: "image" | "video";
+    poster?: string;
   }>;
   company: {
     eyebrow: string;
