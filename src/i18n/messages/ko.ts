@@ -167,7 +167,8 @@ export const ko: SiteDictionary = {
   customersEyebrow: "주요 고객사",
   customers: [
     { name: "KAIST",  asset: "kaist.png",   href: "https://www.kaist.ac.kr/kr/" },
-    { name: "무니티", asset: "moonity.png", href: "https://moonity.net/?lang=ko" }
+    { name: "무니티", asset: "moonity.png", href: "https://moonity.net/?lang=ko" },
+    { name: "메타이노텍", asset: "metainnotech.png", href: "https://www.metainnotech.com/" }
   ],
   mockupsPage: {
     eyebrow: "제품 목업",
