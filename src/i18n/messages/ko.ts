@@ -168,7 +168,8 @@ export const ko: SiteDictionary = {
   customers: [
     { name: "KAIST",  asset: "kaist.png",   href: "https://www.kaist.ac.kr/kr/" },
     { name: "무니티", asset: "moonity.png", href: "https://moonity.net/?lang=ko" },
-    { name: "메타이노텍", asset: "metainnotech.png", href: "https://www.metainnotech.com/" }
+    { name: "메타이노텍", asset: "metainnotech.png", href: "https://www.metainnotech.com/" },
+    { name: "성보경영고등학교", asset: "seongbo-high-school.png", href: "https://seongbo-h.goesn.kr/seongbo-h/main.do" }
   ],
   mockupsPage: {
     eyebrow: "제품 목업",
